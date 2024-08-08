@@ -1,78 +1,40 @@
-#setwd("~/_mymods/ebswp/doc")
 rm(list=ls())
 .THEME=ggthemes::theme_few()
 .OVERLAY=TRUE
-#install.packages("ggridges")
-#source("R/prelims.R")
-#source("prelims.R")
 library(ebswp)
 library(tidyverse)
+theme_set(.THEME)
 thisyr    <<- 2023
 lastyr    <<- thisyr-1
 nextyr    <<- thisyr+1
-thismod   <<- 9
+thismod   <<- 1
 
-source(here("R","print_Tier3_tables.R"))
+source(here::here("R","print_Tier3_tables.R"))
 # The model specs
 
 #--Main models to presesnt in Sept   -----------
 # Read report file and create gmacs report object (a list):
 mod_names <- c("Last year",
-               "m1",
-               "m2 ",
-               "m3",
-               "m4",
-               "m5",
-               "m6",
-               "m7",
-               "m8")
-               #BTS age compositions included through 2023
-               #"Sept version",
-               #"2023 AVO point",
-               #"2022 ATS age updated",
-               #"added 2022 catch-age",
-               #"BTS to 2023",
-               #"BTS db Age")
-               #BTS age compositions included through 2023
-               #but with Hulsons BTS input sample sizes
-
-               #"Catch update",     #2
-               #"AVO new",     #3
-               #"AVO full",    #4
-               #"Tuned22",     #5
-               #"Ageing Error",#6
-               #"Diag cov BTS",#7
-               #"GenGam",      #8
-               ###"SSB=mean ",   #9
-               #"SSB Emp. wt-age", #10
-               #"SSB RE wt-age") #10
+               "Cond SRR 1.3 Mt",
+               "Cond SRR 1.3 Mt, full",
+               "Drop CPUE"
+               )
 mod_dir <- c(
-  "m0",
-  "m1",
-  "m2",
-  "m3",
-  "m4",
-  "m5",
-  "m6",
-  "m7",
-  "m8")
+  "lastyr",
+  "condSRR_sept",
+  "condSRR_sept2",
+  "dropCPUE_sept"
+  )
 # WARNING, commented out line will re-run all the models in the mod_dir directories within "runs"
 # Won't do tier 3 spm (proj) model in the subdirectory at the moment
 #---Read in the results for modelsl already run--------------
 #run_model(rundir="2023_runs")
 #run_proj(rundir="2023_runs")
-modlst<-get_results(rundir="~/_mymods/ebswp/2023_runs")
-#names(modlst)
+modlst<-get_results(rundir="~/_mymods/afsc-assessments/ebs_pollock_safe/2024/runs")
 M <<- modlst[[thismod]]
-.MODELDIR<<-paste0("~/_mymods/ebswp/2023_runs/",mod_dir,"/")
+.MODELDIR<<-paste0("~/_mymods/afsc-assessments/ebs_pollock_safe/2024/runs",
+									 mod_dir,"/")
 
-  #tab_fit(modlst, mod_scen = c(2:9)) |> gt::gt()
-  #tab_ref(modlst[c(2:9)]) |> gt::gt() |>  gt::fmt_markdown()
-  #names(modlst)
-  # Save result so it can be used by the document
-  #save(modlst,file="doc/novmod.rdata")
-#names(modlst)
-#plot_avo(modlst[3:5])
 
 #---Covariance diagonal extraction--------
 #---Mohno rho read-----
