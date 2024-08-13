@@ -17,13 +17,22 @@ source(here::here("R","print_Tier3_tables.R"))
 mod_names <- c("Last year",
                "Cond SRR 1.3 Mt",
                "Cond SRR 1.3 Mt, full",
-               "Drop CPUE"
+               "Drop CPUE",
+               "sigR 0.53",
+               "sigR 0.57",
+               "sigR 0.61",
+               "sigR 0.65",
+               "sigR 0.69",
+               "sigR 0.73",
+               "sigR 0.77",
+               "sigR 0.81"
                )
 mod_dir <- c(
   "lastyr",
   "condSRR_sept",
   "condSRR_sept2",
-  "dropCPUE_sept"
+  "dropCPUE_sept",
+  "sigr",
   )
 # WARNING, commented out line will re-run all the models in the mod_dir directories within "runs"
 # Won't do tier 3 spm (proj) model in the subdirectory at the moment
@@ -34,6 +43,21 @@ modlst<-get_results(rundir="~/_mymods/afsc-assessments/ebs_pollock_safe/2024/run
 M <<- modlst[[thismod]]
 .MODELDIR<<-paste0("~/_mymods/afsc-assessments/ebs_pollock_safe/2024/runs",
 									 mod_dir,"/")
+get_results
+sigR <- .67
+sigRsq <- .67^2
+R <- exp(rnorm(10000, 0,sigR))
+R
+getwd()
+write.table(R, "tt.dat")
+Rbart-mean(R)
+Rbar
+rbar<-mean(log(R))
+mean(log(R)-log(Rbar/exp(.5*sigRsq)))
+
+
+mean(R*exp(-.5*sigRsq))
+exp(mean(log(R)))
 
 
 #---Covariance diagonal extraction--------
