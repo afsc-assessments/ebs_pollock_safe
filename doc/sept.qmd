@@ -1,0 +1,370 @@
+---
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+
+```{r startup, echo=TRUE, warnings=FALSE, message=FALSE, eval=TRUE}
+library(ebswp)
+library(tidyverse)
+.OVERLAY=TRUE
+.THEME=ggthemes::theme_few()
+options(warn=-1)
+```
+
+# September evaluations
+
+## Drop the early CPUE data
+
+Given the SSC's request, we re-ran the selected 2023 model where these data are
+ignored. The results are shown in the table below.
+
+
+## Ecosystem function evaluation
+
+The SSC requested an evaluation of the ecosystem function as part of the SRR
+consideration and Tier 1 control rules within the FMP. Their comment was: **
+ "The SSC would prefer not to make a risk table adjustment based on the 
+ difference from Tier 1 to Tier 3 again during the 2024 assessment cycle. 
+ The SSC requests that the next stock assessment bring back a new approach 
+ that may include development of a constant buffer based on factors 
+ extrinsic to the stock assessment (ecosystem function), or a better 
+ representation of the uncertainty in the Tier 1 and control rule 
+ calculations such that a reduction from maximum ABC is not needed every year."*
+
+
+### Inverting the MSY value to show the stock-recruitment relationship (SRR)
+
+The ecosystem function is evaluated by comparing the current model with a model
+where the MSY value is set to 1.75 and 1.3 Mt (@fig-srrplot_cond). 
+When overplotted, the fit comparisons indicate somewhat more degradations for conditioning
+the curve such that MSY equals 1.75 and 1.3 Mt (@fig-srrplot_cond2). 
+
+As part of the SRR conditioning exercise, where the MSY value is a function of 
+the selectivity estimate, we also evaluated the family of SRR curves given the 
+past 20 years of selectivity estimates (the base result used the mean selectivity
+over the recent 2 years; specifically, the mean selectivity for 2021 and 2022 for the 2023 terminal year assessment).
+
+```{r srrplot_cond}
+#| echo: TRUE
+#| warnings: FALSE
+#| messages: FALSE
+#| label: fig-srrplot_cond
+#| fig.width: 7
+#| fig.height: 8
+#| fig.cap: 'SRR curves as estimated in the 2023 assessment (top) and conditioned on an alternative Fmsy assumptions (middle and bottom).'
+library(patchwork)
+ srlst <- list()
+ srlst[[1]] <- read_rep(here::here("2024", "runs", "lastyr", "pm.rep"))
+ srlst[[2]] <- read_rep(here::here("2024", "runs", "condSRR_sept", "MSY175.rep"))
+ srlst[[3]] <- read_rep(here::here("2024", "runs", "condSRR_sept", "MSY130.rep"))
+names(srlst) <- c("Last year", "MSY=1.75 Mt", "MSY=1.3 Mt")
+p1<- plot_srr(srlst[c(1)], alpha = .2, xlim = c(0, 6400), ylim = c(0, 85000), sizeout = 2, sizein = 4, yrsin = c(1977, 1979:2021)) + ggtitle("SRR as estimated in the 2023 assessment")
+p2<- plot_srr(srlst[c(2)], alpha = .2, xlim = c(0, 6400), ylim = c(0, 85000), sizeout = 2, sizein = 4, yrsin = c(1977, 1979:2021)) + ggtitle("SRR condition to have MSY=1.75 Mt")
+p3<- plot_srr(srlst[c(3)], alpha = .2, xlim = c(0, 6400), ylim = c(0, 85000), sizeout = 2, sizein = 4, yrsin = c(1977, 1979:2021)) + ggtitle("SRR condition to have MSY=1.3 Mt")
+p1/p2/p3 + plot_layout(axis_titles = "collect")
+
+
+```
+
+
+```{r srrplot_cond2}
+#| echo: TRUE
+#| warnings: FALSE
+#| messages: FALSE
+#| label: fig-srrplot_cond2
+#| fig.width: 7
+#| fig.height: 8
+#| fig.cap: 'SRR curves as estimated in the 2023 assessment (top) and conditioned on an alternative Fmsy assumptions (middle and bottom).'
+### How sensitive is the curve to the selectivity assumption
+
+  p1 <- plot_srr(srlst[c(1:3)], alpha = .2, xlim = c(0, 6400), ylim = c(0, 85000), 
+              sizeout = 2, sizein = 4, yrsin = c(1977, 1979:2021)) + ggtitle("SRR as estimated in the 2023 assessment")
+plotly::ggplotly(p1)
+```
+
+For this set of experiments, we evaluated the SRR curve given the past 20 years of selectivity estimates. 
+From this we get a set of SRR curves that are conditioned on the selectivity estimate AND the MSY value.
+The script to run this set involved reading in the control file and modifying
+the option for which years to include for the selectivity estimate (can be specific
+years or a range of years from which to use). 
+
+Initial results showed that conditioning the curve to make the MSY value 1.3 Mt
+was insensitive to the selectivity estimate (@fig-selsrrplot). 
+Presumably this was due to the scale parameter (i.e., R_0) being adjusted to get
+the MSY value to 1.3 Mt.
+
+We evaluated the ABC value for each of the 20 years of selectivity estimates both
+for the case where the SRR productivity was assumed to be 1.3 Mt and for the case 
+where this constraint was removed. This showed a high range of variability for ABC
+as a function of the selectivity assumption (@fig-selsrrplot).
+
+
+```{r selsrrplot}
+#| echo: TRUE
+#| warnings: FALSE
+#| message: FALSE
+#| eval: TRUE
+#| label: fig-selsrrplot
+#| fig.cap: 'SRR curves as estimated in the 2023 assessment (top) and conditioned on an alternative Fmsy assumptions (middle and bottom).'
+
+modlst <- list()
+for (i in 3:20) {
+  modlst[[i-2]] <- read_rep(here::here("2024", "runs", "condSRR_sept", paste0("sel_", i, ".rep")))
+}
+names(modlst) <- paste0("sel_", (3):20)
+#names(modlst)
+#.OVERLAY=TRUE
+plot_srr(modlst[c(1,4,12,18)], alpha = .2, xlim = c(0, 6400), ylim = c(0, 85000), sizeout = 2, sizein = 4, yrsin = c(1977, 1979:2021))
+
+```
+
+```{r selsrrABCplot, echo=TRUE, warnings=FALSE, message=FALSE, eval=TRUE}
+#| echo: TRUE
+#| warnings: FALSE
+#| message: FALSE
+#| eval: TRUE
+#| label: fig-selsrrABCplot
+#| fig.cap: 'SRR curves as estimated in the 2023 assessment (top) and conditioned on an alternative Fmsy assumptions (middle and bottom).'
+dftmp <- data.frame()
+for (i in 1:18) {
+  dftmp <- rbind(dftmp, data.frame(
+    sel_yr = 2023 - i-2,
+    ABC = modlst[[i]]$T1[1, 2],
+    NLL = modlst[[i]]$tot_like,
+    NLL_data = modlst[[i]]$dat_like,
+    NLL_rec = sum(modlst[[i]]$rec_like),
+    NLL_pri = sum(modlst[[i]]$Priors)
+  ))
+}
+# glimpse(dftmp)
+(dftmp) |> ggplot(aes(x = sel_yr, y = ABC, color = sel_yr)) +
+  geom_point() +
+  ggthemes::theme_few() + ylab("ABC, given MSY = 1.3 Mt") + xlab("Selectivity year") +
+  ggtitle("SRR conditioning on selectivity data") +
+  theme(legend.position = "none")
+``` 
+
+
+```{r sel_ABC_plot, echo=TRUE, warnings=FALSE, message=FALSE, eval=TRUE}
+#| echo: TRUE
+#| warnings: FALSE
+#| message: FALSE
+#| eval: TRUE
+#| label: fig-sel_ABC_plot
+#| fig.cap: 'SRR curves as estimated in the 2023 assessment (top) and conditioned on an alternative Fmsy assumptions (middle and bottom).'
+dftmp <- data.frame()
+modlst <- list()
+for (i in 3:20) {
+  modlst[[i-2]] <- read_rep(here::here("2024", "runs", "selsens_sept", paste0("sel_", i, ".rep")))
+}
+names(modlst) <- paste0("sel_", (3):20)
+#names(modlst)
+#.OVERLAY=TRUE
+#plot_srr(modlst[c(1,18)], alpha = .2, xlim = c(0, 6400), ylim = c(0, 85000), sizeout = 2, sizein = 4, yrsin = c(1977, 1979:2021))
+
+dftmp <- data.frame()
+for (i in 1:18) {
+  dftmp <- rbind(dftmp, data.frame(
+    sel_yr = 2023 - i-2,
+    ABC = modlst[[i]]$T1[1, 2],
+    NLL = modlst[[i]]$tot_like,
+    NLL_data = modlst[[i]]$dat_like,
+    NLL_rec = sum(modlst[[i]]$rec_like),
+    NLL_pri = sum(modlst[[i]]$Priors)
+  ))
+}
+M <- modlst[[1]]
+# glimpse(dftmp)
+(dftmp) |> ggplot(aes(x = sel_yr, y = ABC, color = sel_yr)) +
+  geom_point() +
+  ggthemes::theme_few() + ylab("ABC, unconstrained ") + xlab("Selectivity year") +
+  ggtitle("SRR conditioning on selectivity data") +
+  theme(legend.position = "none")
+
+``` 
+
+
+
+### Profiling and sensitivity of the variability specified about the SRR
+
+The SSC requested that the full time series be included for the SRR conditioning.
+
+Additionally, they requested that we ensure that the bias correction is applied.
+
+We confirm that in past assessments, for the period which the SRR curve was applied, the
+bias correction term was included. Specifically,
+
+$$ \hat{R}_t = f(B_{t-1}) e^{\epsilon_t-0.5 \sigma_R^2} $$
+
+where $\epsilon_t \sim N(0, \sigma_R^2)$. Here the production function (which generates
+age-1 recruitment) is a function of spawning biomass in the previous year ($f(B_{t-1})$).
+Since this function "generates" age-1 recruitment from a lognormal distribution, the
+basis for this must be scaled accordingly. Therefore the assessment model numbers-at-age one
+($\dot{R_t}=N_{1,t}$), must account for the bias based on the SRR. This leads to the recruitment
+component of the negative log-likelihood as
+
+$$ -ln(L_{rec}) = \sum_{t=1}^{T} \left[\frac{\left(\chi_t + \frac{\sigma^2_R}{2}\right)^2}{2\sigma^2_R} + ln(\sigma_R) \right] $$
+
+where $\chi_t = \log(\dot{R}_t) - \log(\hat{R}_t)$. Note that the bias correction term
+falls within the likelihood because the bias is a function of the model estimates.
+
+```{r sigmaRprofile2, eval=FALSE, echo=TRUE}
+#| echo: TRUE
+#| warnings: FALSE
+#| message: FALSE
+#| eval: FALSE
+
+ctl.orig <- read_dat(here::here("2024", "runs", "sigr", "control.dat"))
+ctl <- ctl.orig
+ctl$phase_sigr
+ctl$sigrprior
+setwd(here::here("2024", "runs", "sigr"))
+for (i in seq(.53, .83, 0.02)) {
+  ctl$sigrprior <- i
+  write_dat(output_file = "control.dat", ctl)
+  system("./pm -iprint 300 ")
+  file.copy(from = "pm.rep", to = paste0("sigr_", i, ".rep"))
+}
+
+```
+
+
+```{r sigmaRplot1, eval=TRUE, echo=TRUE, warnings=FALSE, message=FALSE}
+#| echo: TRUE
+#| warnings: FALSE
+#| message: FALSE
+#| eval: FALSE
+#| label: fig-sigmRplot1
+#| fig.cap: 'SRR curves as estimated in the 2023 assessment (top) and conditioned on an alternative Fmsy assumptions (middle and bottom).'
+
+#---Now read in results and plot-------------------------
+#modlst[[i]] <- read_rep(paste0("sigr_",i,".rep"))
+ii=seq(.53,1.05,0.02) 
+modlst <- list()
+for (i in  1:27 ) {
+  modlst[[i]] <- read_rep(here::here("2024","runs","sigr",paste0("sigr_",ii[i],".rep")))  
+}
+names(modlst) <- paste0("sigr_",ii)
+df_sig <- NULL
+for (i in  1:27 ) {
+  df_sig <- rbind(df_sig, data.frame( 
+    sigmaR=modlst[[i]]$sigr,
+    NLL_rec=sum(modlst[[i]]$rec_like),
+    NLL_pri=sum(modlst[[i]]$Priors),
+    NLL=modlst[[i]]$tot_like,
+    ABC=modlst[[i]]$T1[1,2],
+    NLL_data = modlst[[i]]$dat_like
+  )
+  )
+}
+# glimpse(df_sig)
+df_sig |> mutate(NLL = NLL - min(NLL), priors=NLL_pri-min(NLL_pri), 
+                 NLL_rec = NLL_rec - min(NLL_rec), NLL_data = NLL_data - min(NLL_data)) |> 
+  pivot_longer(cols = c("NLL","NLL_rec","priors", "NLL_data"), names_to = "type", values_to = "NLL") |>
+  ggplot(aes(x=sigmaR,y=NLL, color=type)) + geom_line(linewidth=1.4) + ggthemes::theme_few() +
+  coord_cartesian( ylim = c(0, 4))
+```
+
+```{r sigmaR_abc}
+#| echo: TRUE
+#| warnings: FALSE
+#| message: FALSE
+#| eval: FALSE
+#| label: fig-sigmR_abc
+#| fig.cap: 'Impact of $\sigma_R$ on the ABC value from the 2023 assessment.'
+
+df_sig |> 
+  ggplot(aes(x=sigmaR,y=ABC, color="red")) + geom_line(linewidth=1.4) + ggthemes::theme_few()
+
+#plot_sigr(modlst, alpha = .2, xlim = c(0,4200), ylim = c(0, 85000), sizeout = 2, sizein = 4, yrsin = c(1977, 1979:2021))  
+
+#setwd(here::here())
+plot_srr(modlst[c(1,11,21)], alpha = .2, xlim = c(0,4200),  ylim = c(0, 85000), sizeout = 2, sizein = 4, yrsin = c(1977, 1979:2021))
+```
+
+```{r sigrplot2, eval=TRUE, echo=TRUE, warnings=FALSE, message=FALSE}
+#| fig.width: 7
+#| fig.height: 4
+#| label: fig-sigrplot2
+#| fig.cap: "SRR curves as estimated in the 2023 assessment for different fixed values of sigmaR." 
+
+#plot_srr(modlst[c(1,6,11,16,21,26)], alpha = .2, xlim = c(0,4200), 
+#         ylim = c(0, 85000), sizeout = 2, sizein = 4, yrsin = c(1977, 1979:2021))
+```
+
+
+
+### Simulation testing an alternative management procedure
+ EBS pollock "maintain ecosystem function" catch-advice rule as requested by the SSC. I think I mentioned something about management that provides a forage base (say of 1-3 yr old pollock) and avoids low levels. Carey and I chatted earlier (added her to this group) and realize that the estimates of these groups are relatively unreliable (i.e., 1-3 yr olds for next year are typically poorly estimated).
+
+So I got to thinking, within the FMP we're talking about justification for catch 
+advice below the maximum permissible. So what about the following semi-empirical approach
+What if catch advice is adjusted up and down relative the historical mean biomass? 
+I.e., if the catch in the current year is say 1.2 million t, and the SSB next year 
+is 30% above the mean, then with a regulator to dampen change, next year’s 
+recommendation would be 
+$ 1.2 \times \sqrt{1.30} = 1.368$ 
+million t. Similarly, if the SSB next 
+year was only 75% of the mean value, the recommendation would be 
+$ 1.2 \times \sqrt{0.75} = 1.039$ 
+million t.
+If the SSB stayed at 75% of the mean, then the following year would be 
+$ 1.039 \times \sqrt{0.75} = 08998$  million t.
+
+Some rationale for this strategy might include
+    * The detrimental effects of fishing on the ecosystem appear to be mainly sustainable...are there assignable issues from fishing that affected the ecosystem function that we’ve measured with any degree of confidence?
+    * If there hadn’t been any pollock fishing ever, would we be able to note that the ecosystem would be in a better state?
+    * Tuning the adjustments based on historical catches and ecosystem outcomes would generally be deemed "acceptable"
+
+For the latter part of the above, we could use the historical data on diet composition in
+a mass-balance ecosystem model to evaluate the effects of the catch advice on the ecosystem. This was pursued in the next section.
+
+### Tests of future ecosystem states using EWE (Rpath) scenarios
+
+To develop a more empirically based management procedure for pollock we recognize
+that this species is a keystone component for the Bering Sea. We thus posed the
+question on, given available understanding of ecosystem linkages, what might things
+look like if the fishery intensified or if it was removed altogether and compare
+that with "status quo" fishing.
+
+
+
+
+
+
+## Evaluating alternative model platforms
+
+###
+Several developments using alternative model platforms are available and these
+have been tested (e.g., Li et al 2019?) for consistency. Several of these platforms
+have been tested against the pollock model but the differences and focus of 
+efforts to complete them have precluded presenting them.
+
+In an effort to do 
+
+A table comparing features of the following platforms including the pollock model
+(pm) are shown below:
+
+| Platform        | Detail            | WAA  |
+| ------------- |:-------------:| -----:|
+| AMAK      | right-aligned | $1600 |
+| SS3      | centered      |   $12 |
+| pm.tpl  | are neat      |    $1 |
+
+<!-- Platform    | Covariance    | RE WAA    | Period-specific SRR   | Dome-shaped sel.  | Non-param. sel.    -->
+
+
+### Tests of future ecosystem states using EWE (Rpath) scenarios
+
+To develop a more empirically based management procedure for pollock we recognize
+that this species is a keystone component for the Bering Sea. We thus posed the
+question on, given available understanding of ecosystem linkages, what might things
+look like if the fishery intensified or if it was removed altogether and compare
+that with "status quo" fishing.
+
+
+### Simulation testing an alternative management procedure
+
+
