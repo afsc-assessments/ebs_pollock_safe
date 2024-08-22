@@ -2,10 +2,14 @@
 output: html_document
 editor_options: 
   chunk_output_type: console
+editor: 
+  markdown: 
+    wrap: 90
 ---
 
-
 ```{r startup, echo=TRUE, warnings=FALSE, message=FALSE, eval=TRUE}
+knitr::opts_chunk$set(message = FALSE)
+knitr::opts_chunk$set(warning = FALSE)
 library(ebswp)
 library(tidyverse)
 .OVERLAY=TRUE
@@ -17,34 +21,59 @@ options(warn=-1)
 
 ## Drop the early CPUE data
 
-Given the SSC's request, we re-ran the selected 2023 model where these data are
-ignored. The results are shown in the table below.
+Given the SSC's request, we re-ran the selected 2023 model where these data are ignored.
+The results are shown in the table below.
+
+```{r dropCPUE}
+#| echo: TRUE
+#| warnings: FALSE
+#| messages: FALSE
+#| label: fig-dropCPUE
+#| fig.cap: 'SRR curves as estimated in the 2023 assessment (top) and conditioned on an alternative Fmsy assumptions (middle and bottom).'
+library(patchwork)
+modlst <- list()
+ modlst[[1]] <- read_rep(here::here("2024", "runs", "lastyr", "pm.rep"))
+ modlst[[2]] <- read_rep(here::here("2024", "runs", "dropCPUE_sept", "pm.rep"))
+ modlst[[3]] <- read_rep(here::here("2024", "runs", "srr_int_sept", "pm.rep"))
+ modlst[[4]] <- read_rep(here::here("2024", "runs", "SST", "pm.rep"))
+ modlst[[5]] <- read_rep(here::here("2024", "runs", "SSTshrt", "pm.rep"))
+ 
+p1<- plot_srr(modlst[c(1,2)], alpha = .2, xlim = c(0, 6400), ylim = c(0, 85000), sizeout = 2, sizein = 4, yrsin = c(1977, 1979:2021)) + ggtitle("SRR as estimated in the 2023 assessment")
+n
+
+```
+# Including temperature effects in the stock-recruitment relationship
 
 
-## Ecosystem function evaluation
+## Tier 1 and ecosystem function evaluation
 
-The SSC requested an evaluation of the ecosystem function as part of the SRR
-consideration and Tier 1 control rules within the FMP. Their comment was: **
- "The SSC would prefer not to make a risk table adjustment based on the 
- difference from Tier 1 to Tier 3 again during the 2024 assessment cycle. 
- The SSC requests that the next stock assessment bring back a new approach 
- that may include development of a constant buffer based on factors 
- extrinsic to the stock assessment (ecosystem function), or a better 
- representation of the uncertainty in the Tier 1 and control rule 
- calculations such that a reduction from maximum ABC is not needed every year."*
+The SSC requested an evaluation of the ecosystem function as part of the SRR consideration
+and Tier 1 control rules within the FMP. Their comment was:
 
+*"The SSC would prefer not to
+make a risk table adjustment based on the difference from Tier 1 to Tier 3 again during
+the 2024 assessment cycle. The SSC requests that the next stock assessment bring back a
+new approach that may include development of a constant buffer based on factors extrinsic
+to the stock assessment (ecosystem function), or a better representation of the
+uncertainty in the Tier 1 and control rule calculations such that a reduction from maximum
+ABC is not needed every year."*
+
+Our approach to this was to evaluate the ecosystem function by comparing the current model
+with a model where the MSY value is set to 1.75 and 1.3 Mt. The results are shown in the
+figure below.
 
 ### Inverting the MSY value to show the stock-recruitment relationship (SRR)
 
-The ecosystem function is evaluated by comparing the current model with a model
-where the MSY value is set to 1.75 and 1.3 Mt (@fig-srrplot_cond). 
-When overplotted, the fit comparisons indicate somewhat more degradations for conditioning
-the curve such that MSY equals 1.75 and 1.3 Mt (@fig-srrplot_cond2). 
+The ecosystem function is evaluated by comparing the current model with a model where the
+MSY value is set to 1.75 and 1.3 Mt (@fig-srrplot_cond). When overplotted, the fit
+comparisons indicate somewhat more degradations for conditioning the curve such that MSY
+equals 1.75 and 1.3 Mt (@fig-srrplot_cond2).
 
-As part of the SRR conditioning exercise, where the MSY value is a function of 
-the selectivity estimate, we also evaluated the family of SRR curves given the 
-past 20 years of selectivity estimates (the base result used the mean selectivity
-over the recent 2 years; specifically, the mean selectivity for 2021 and 2022 for the 2023 terminal year assessment).
+As part of the SRR conditioning exercise, where the MSY value is a function of the
+selectivity estimate, we also evaluated the family of SRR curves given the past 20 years
+of selectivity estimates (the base result used the mean selectivity over the recent 2
+years; specifically, the mean selectivity for 2021 and 2022 for the 2023 terminal year
+assessment).
 
 ```{r srrplot_cond}
 #| echo: TRUE
@@ -65,41 +94,36 @@ p2<- plot_srr(srlst[c(2)], alpha = .2, xlim = c(0, 6400), ylim = c(0, 85000), si
 p3<- plot_srr(srlst[c(3)], alpha = .2, xlim = c(0, 6400), ylim = c(0, 85000), sizeout = 2, sizein = 4, yrsin = c(1977, 1979:2021)) + ggtitle("SRR condition to have MSY=1.3 Mt")
 p1/p2/p3 + plot_layout(axis_titles = "collect")
 
-
 ```
-
 
 ```{r srrplot_cond2}
 #| echo: TRUE
 #| warnings: FALSE
 #| messages: FALSE
 #| label: fig-srrplot_cond2
-#| fig.width: 7
-#| fig.height: 8
 #| fig.cap: 'SRR curves as estimated in the 2023 assessment (top) and conditioned on an alternative Fmsy assumptions (middle and bottom).'
 ### How sensitive is the curve to the selectivity assumption
 
   p1 <- plot_srr(srlst[c(1:3)], alpha = .2, xlim = c(0, 6400), ylim = c(0, 85000), 
               sizeout = 2, sizein = 4, yrsin = c(1977, 1979:2021)) + ggtitle("SRR as estimated in the 2023 assessment")
-plotly::ggplotly(p1)
+p1
+#plotly::ggplotly(p1)
 ```
 
-For this set of experiments, we evaluated the SRR curve given the past 20 years of selectivity estimates. 
-From this we get a set of SRR curves that are conditioned on the selectivity estimate AND the MSY value.
-The script to run this set involved reading in the control file and modifying
-the option for which years to include for the selectivity estimate (can be specific
-years or a range of years from which to use). 
+For this set of experiments, we evaluated the SRR curve given the past 20 years of
+selectivity estimates. From this we get a set of SRR curves that are conditioned on the
+selectivity estimate AND the MSY value. The script to run this set involved reading in the
+control file and modifying the option for which years to include for the selectivity
+estimate (can be specific years or a range of years from which to use).
 
-Initial results showed that conditioning the curve to make the MSY value 1.3 Mt
-was insensitive to the selectivity estimate (@fig-selsrrplot). 
-Presumably this was due to the scale parameter (i.e., R_0) being adjusted to get
-the MSY value to 1.3 Mt.
+Initial results showed that conditioning the curve to make the MSY value 1.3 Mt was
+insensitive to the selectivity estimate (@fig-selsrrplot). Presumably this was due to the
+scale parameter (i.e., R_0) being adjusted to get the MSY value to 1.3 Mt.
 
-We evaluated the ABC value for each of the 20 years of selectivity estimates both
-for the case where the SRR productivity was assumed to be 1.3 Mt and for the case 
-where this constraint was removed. This showed a high range of variability for ABC
-as a function of the selectivity assumption (@fig-selsrrplot).
-
+We evaluated the ABC value for each of the 20 years of selectivity estimates both for the
+case where the SRR productivity was assumed to be 1.3 Mt and for the case where this
+constraint was removed. This showed a high range of variability for ABC as a function of
+the selectivity assumption (@fig-sel_ABC_plot).
 
 ```{r selsrrplot}
 #| echo: TRUE
@@ -119,32 +143,6 @@ names(modlst) <- paste0("sel_", (3):20)
 plot_srr(modlst[c(1,4,12,18)], alpha = .2, xlim = c(0, 6400), ylim = c(0, 85000), sizeout = 2, sizein = 4, yrsin = c(1977, 1979:2021))
 
 ```
-
-```{r selsrrABCplot, echo=TRUE, warnings=FALSE, message=FALSE, eval=TRUE}
-#| echo: TRUE
-#| warnings: FALSE
-#| message: FALSE
-#| eval: TRUE
-#| label: fig-selsrrABCplot
-#| fig.cap: 'SRR curves as estimated in the 2023 assessment (top) and conditioned on an alternative Fmsy assumptions (middle and bottom).'
-dftmp <- data.frame()
-for (i in 1:18) {
-  dftmp <- rbind(dftmp, data.frame(
-    sel_yr = 2023 - i-2,
-    ABC = modlst[[i]]$T1[1, 2],
-    NLL = modlst[[i]]$tot_like,
-    NLL_data = modlst[[i]]$dat_like,
-    NLL_rec = sum(modlst[[i]]$rec_like),
-    NLL_pri = sum(modlst[[i]]$Priors)
-  ))
-}
-# glimpse(dftmp)
-(dftmp) |> ggplot(aes(x = sel_yr, y = ABC, color = sel_yr)) +
-  geom_point() +
-  ggthemes::theme_few() + ylab("ABC, given MSY = 1.3 Mt") + xlab("Selectivity year") +
-  ggtitle("SRR conditioning on selectivity data") +
-  theme(legend.position = "none")
-``` 
 
 
 ```{r sel_ABC_plot, echo=TRUE, warnings=FALSE, message=FALSE, eval=TRUE}
@@ -183,11 +181,169 @@ M <- modlst[[1]]
   ggtitle("SRR conditioning on selectivity data") +
   theme(legend.position = "none")
 
-``` 
+```
+
+### Simulation testing an alternative management procedure
+
+EBS pollock "maintain ecosystem function" catch-advice rule as requested by the SSC. One
+idea would be to evaluate the role of pollock as a key part of the forage base (say of 1-3
+yr old pollock). A management goal with an explicit consideration of ecosystem function
+would be to avoid low levels. For example, if the forage base appeared to be close to say
+the lower 20th percentile from historical estimates, then a management procedure might
+include an adjustment that would occur then to avoid any further declines
+(@fig-quant_prey).
+
+Practical aspects of such a management procedure might be prohibitive since in a
+projection scenario, information on those age groups would be limited. Consequently, we
+evaluated the prey base compared to spawning biomass (@fig-ssb_prey). This figure shows
+that the relationship is poorly determined but that the forage component does tend to
+decline at lower spawning biomass levels. This suggests that by monitoring spawning
+biomass, there is potential linkages to downstream impacts of the main forage ages.
+
+The fisheries management plan (FMP) for the BSAI is subject to the categorization of the
+stock assessment to obtain the maximum permissible ABC and OFL. For pollock, this falls on
+the determination of the appropriateness of the $F_{MSY}$ and the probability distribution
+of that value (uncertainty). This relates directly to a number of key factors, including
+the selectivity, the SRR, and future weight-at-age ($F_{MSY}$ applies to numbers of fish,
+but ABC is in biomass). within the FMP, an ABC can be set below the maximum permissible
+value. Without making an explicit ammendment to the FMP, we propose an alternative
+semi-empirical approach. The first principle of this approach is to maintain the ecosystem
+function by contrasting from what's been observed over the last several decades. Going
+forwardd, the catch advice could be adjusted based on the spawning biomass relative to the
+historical mean. This would be a simple rule that would adjust the catch advice based on
+the spawning biomass relative to the historical mean. I.e., if the catch in the current
+year is say 1.2 million t, and the SSB next year is 30% above the mean, then with a
+regulator to dampen change, next year’s recommendation would be
+$1.2 \times \sqrt{1.30} = 1.368$ million t. Similarly, if the SSB next year was only 75%
+of the mean value, the recommendation would be $1.2 \times \sqrt{0.75} = 1.039$ million t.
+If the SSB stayed at 75% of the mean, then the following year would be
+$1.039 \times \sqrt{0.75} = 08998$ million t.
+
+Some rationale for this strategy might include
+
+-   The detrimental effects of fishing on the ecosystem appear to be mainly
+    sustainable...are there assignable issues from fishing that affected the ecosystem
+    function that we’ve measured with any degree of confidence?
+
+-   If there hadn’t been any pollock fishing ever, would we be able to note that the
+    ecosystem would be in a better state?
+
+-   Tuning the adjustments based on historical catches and ecosystem outcomes would
+    generally be deemed "acceptable"
+
+For the latter part of the above, we could use the historical data on diet composition in
+a mass-balance ecosystem model to evaluate the effects of the catch advice on the
+ecosystem. This was pursued in the next section.
+
+```{r quant_prey}
+#| label: fig-quant_prey
+#| fig.cap: "Historical age-1 to age-3 pollock abundance as estimated from the assessment model."
+#| warnings: FALSE
+#| message: FALSE
+#| 
+M <- read_rep(here::here("2024","runs","test","pm.rep"))
+df <- data.frame(Year = 1964:2023, forage = rowSums(M$N), SSB = M$SSB[, 2]) |> mutate(rel_forage = forage / mean(forage), rel_SSB = SSB / mean(SSB))
+qfor <- quantile(df$forage, c(0.05, .2))
+df |> ggplot(aes(x = Year, y = forage)) +
+  geom_line() +
+  labs(title = "Total pollock forage (age 1-3)", x = "Year", y = "Abundance (thousands)") +
+  ggthemes::theme_few() +
+  xlim(c(1980, 2024)) +
+  geom_hline(yintercept = qfor[1], color = "red") +
+  geom_hline(yintercept = qfor[2], color = "blue", type = 2)
+```
+
+```{r ssb_prey}
+#| warnings: FALSE
+#| message: FALSE
+#| label: fig-ssb_prey
+#| fig.cap: "Historical spawning biomass and 'prey' abundance for pollock as estimated from the assessment model."
+df |>
+  pivot_longer(cols = 4:5, names_to = "var", values_to = "value") |> filter(var=="rel_forage") |> 
+  ggplot(aes(x = log(SSB), y = log(forage) )) + geom_point() +
+  geom_smooth() +
+  labs(title = "EBS Pollock ", x = "SSB", y = "Forage (ages 1 to 3 abundance)") +
+  ggthemes::theme_few() #+
+  #xlim(c(1980, 2024))
+
+```
+
+```{r ssb_hist}
+#| warnings: FALSE
+#| message: FALSE
+#| label: fig-ssb_hist
+#| fig.cap: "Historical spawning biomass relative to the mean for pollock as estimated 
+#| from the assessment model. Red horizontal line is the mean value."
+df |> ggplot(aes(x = Year, y = SSB)) +
+  geom_line() +
+  labs(title = "Spawning biomass of pollock ", x = "Year", y = "Biomass (t) ") +
+  ggthemes::theme_few() +
+  xlim(c(1980, 2024)) +
+  geom_hline(yintercept = 2257, color = "red")
+
+```
+
+```{r mp_hist}
+#| warnings: FALSE
+#| message: FALSE
+#| label: fig-mp_hist
+#| fig.cap: "Different levels of proposed ABCs given spawning biomass running means (ssb_mn) along
+#| with projected spawning biomass (ssb_next) and actual historical catches (Current_catch). 
+#| The panels represent alternative values of responsiveness ($/lambda$)."
+#| 
+
+df1 <- NULL
+for (resp in c(0.05,0.5,0.95)){
+  for (i in 2000:2022) {
+    # get values from the time series
+    lastidx <- i - 1977 + 14
+    cat_mn <- mean(M$obs_catch[14:lastidx])
+    cat_this <- M$obs_catch[lastidx]
+    ssb_mn <- mean(M$SSB[14:lastidx, 2])
+    ssb_this <- (M$SSB[lastidx, 2])
+    ssb_next <- (M$SSB[lastidx + 1, 2])
+    # cat_next   <- (ssb_next/ssb_this)^0.5 * cat_this
+    cat_next <- (ssb_next / ssb_mn)^resp * cat_this
+    df1 <- data.frame(Year = i, Mean_catch = cat_mn, Current_catch = cat_this, ABC = cat_next, ssb_mn = ssb_mn, ssb_this = ssb_this, ssb_next = ssb_next, resp=resp) |> rbind(df1)
+  }
+}
+
+df1 |>
+  pivot_longer(cols = c(3:5, 7), names_to = "var", values_to = "value") |>
+  mutate(Year = ifelse(var == "ABC", Year + 1, Year)) |>
+  ggplot(aes(x = Year, y = value, shape = var, color = var)) +
+  geom_point() +
+  geom_line() +
+  labs(title = "EBS Pollock ", x = "Year", y = "relative to mean") +
+  theme_bw() + facet_grid(resp~.) +
+  xlim(c(2000, 2024))
+```
+
+Such a management procedure would need to be tested using a full feedback loop system.
+Consequently, we updated the simulation feature of the assessment model to behave as an
+operating model. This required some simplifications on how the bottom-trawl survey
+covariance structure was applied, in addition to a couple of other issues (e.g., the
+random-effects derived estimates of weight-at-age).
+
+### Tests of future ecosystem states using EWE (Rpath) scenarios
+
+To develop a more empirically based management procedure for pollock we recognize that
+this species is a keystone component for the Bering Sea. We thus posed the question on,
+given available understanding of ecosystem linkages, what might things look like if the
+fishery intensified or if it was removed altogether and compare that with "status quo"
+fishing.
+
+The EBS pollock model has contained code to serve as an operating model for simulating
+datasets and be used as a self testing platform. Several modifications that have
+occurred since this was first implemented, including the addition of a new biomass index, 
+required some code updates. 
+
+The model was run for 100 years under three scenarios: status
 
 
 
-### Profiling and sensitivity of the variability specified about the SRR
+
+## Profiling and sensitivity of the variability specified about the SRR
 
 The SSC requested that the full time series be included for the SRR conditioning.
 
@@ -200,10 +356,10 @@ $$ \hat{R}_t = f(B_{t-1}) e^{\epsilon_t-0.5 \sigma_R^2} $$
 
 where $\epsilon_t \sim N(0, \sigma_R^2)$. Here the production function (which generates
 age-1 recruitment) is a function of spawning biomass in the previous year ($f(B_{t-1})$).
-Since this function "generates" age-1 recruitment from a lognormal distribution, the
-basis for this must be scaled accordingly. Therefore the assessment model numbers-at-age one
-($\dot{R_t}=N_{1,t}$), must account for the bias based on the SRR. This leads to the recruitment
-component of the negative log-likelihood as
+Since this function "generates" age-1 recruitment from a lognormal distribution, the basis
+for this must be scaled accordingly. Therefore the assessment model numbers-at-age one
+($\dot{R_t}=N_{1,t}$), must account for the bias based on the SRR. This leads to the
+recruitment component of the negative log-likelihood as
 
 $$ -ln(L_{rec}) = \sum_{t=1}^{T} \left[\frac{\left(\chi_t + \frac{\sigma^2_R}{2}\right)^2}{2\sigma^2_R} + ln(\sigma_R) \right] $$
 
@@ -230,12 +386,11 @@ for (i in seq(.53, .83, 0.02)) {
 
 ```
 
-
-```{r sigmaRplot1, eval=TRUE, echo=TRUE, warnings=FALSE, message=FALSE}
+```{r sigmaRplot1}
 #| echo: TRUE
 #| warnings: FALSE
 #| message: FALSE
-#| eval: FALSE
+#| eval: TRUE
 #| label: fig-sigmRplot1
 #| fig.cap: 'SRR curves as estimated in the 2023 assessment (top) and conditioned on an alternative Fmsy assumptions (middle and bottom).'
 
@@ -269,9 +424,9 @@ df_sig |> mutate(NLL = NLL - min(NLL), priors=NLL_pri-min(NLL_pri),
 
 ```{r sigmaR_abc}
 #| echo: TRUE
+#| eval: TRUE
 #| warnings: FALSE
 #| message: FALSE
-#| eval: FALSE
 #| label: fig-sigmR_abc
 #| fig.cap: 'Impact of $\sigma_R$ on the ABC value from the 2023 assessment.'
 
@@ -284,87 +439,14 @@ df_sig |>
 plot_srr(modlst[c(1,11,21)], alpha = .2, xlim = c(0,4200),  ylim = c(0, 85000), sizeout = 2, sizein = 4, yrsin = c(1977, 1979:2021))
 ```
 
-```{r sigrplot2, eval=TRUE, echo=TRUE, warnings=FALSE, message=FALSE}
-#| fig.width: 7
-#| fig.height: 4
+```{r sigrplot2}
+#| echo: TRUE
+#| eval: TRUE
+#| warnings: FALSE
+#| message: FALSE
 #| label: fig-sigrplot2
 #| fig.cap: "SRR curves as estimated in the 2023 assessment for different fixed values of sigmaR." 
 
-#plot_srr(modlst[c(1,6,11,16,21,26)], alpha = .2, xlim = c(0,4200), 
-#         ylim = c(0, 85000), sizeout = 2, sizein = 4, yrsin = c(1977, 1979:2021))
+plot_srr(modlst[c(1,6,11,16,21,26)], alpha = .2, xlim = c(0,4200), 
+         ylim = c(0, 85000), sizeout = 2, sizein = 4, yrsin = c(1977, 1979:2021))
 ```
-
-
-
-### Simulation testing an alternative management procedure
- EBS pollock "maintain ecosystem function" catch-advice rule as requested by the SSC. I think I mentioned something about management that provides a forage base (say of 1-3 yr old pollock) and avoids low levels. Carey and I chatted earlier (added her to this group) and realize that the estimates of these groups are relatively unreliable (i.e., 1-3 yr olds for next year are typically poorly estimated).
-
-So I got to thinking, within the FMP we're talking about justification for catch 
-advice below the maximum permissible. So what about the following semi-empirical approach
-What if catch advice is adjusted up and down relative the historical mean biomass? 
-I.e., if the catch in the current year is say 1.2 million t, and the SSB next year 
-is 30% above the mean, then with a regulator to dampen change, next year’s 
-recommendation would be 
-$ 1.2 \times \sqrt{1.30} = 1.368$ 
-million t. Similarly, if the SSB next 
-year was only 75% of the mean value, the recommendation would be 
-$ 1.2 \times \sqrt{0.75} = 1.039$ 
-million t.
-If the SSB stayed at 75% of the mean, then the following year would be 
-$ 1.039 \times \sqrt{0.75} = 08998$  million t.
-
-Some rationale for this strategy might include
-    * The detrimental effects of fishing on the ecosystem appear to be mainly sustainable...are there assignable issues from fishing that affected the ecosystem function that we’ve measured with any degree of confidence?
-    * If there hadn’t been any pollock fishing ever, would we be able to note that the ecosystem would be in a better state?
-    * Tuning the adjustments based on historical catches and ecosystem outcomes would generally be deemed "acceptable"
-
-For the latter part of the above, we could use the historical data on diet composition in
-a mass-balance ecosystem model to evaluate the effects of the catch advice on the ecosystem. This was pursued in the next section.
-
-### Tests of future ecosystem states using EWE (Rpath) scenarios
-
-To develop a more empirically based management procedure for pollock we recognize
-that this species is a keystone component for the Bering Sea. We thus posed the
-question on, given available understanding of ecosystem linkages, what might things
-look like if the fishery intensified or if it was removed altogether and compare
-that with "status quo" fishing.
-
-
-
-
-
-
-## Evaluating alternative model platforms
-
-###
-Several developments using alternative model platforms are available and these
-have been tested (e.g., Li et al 2019?) for consistency. Several of these platforms
-have been tested against the pollock model but the differences and focus of 
-efforts to complete them have precluded presenting them.
-
-In an effort to do 
-
-A table comparing features of the following platforms including the pollock model
-(pm) are shown below:
-
-| Platform        | Detail            | WAA  |
-| ------------- |:-------------:| -----:|
-| AMAK      | right-aligned | $1600 |
-| SS3      | centered      |   $12 |
-| pm.tpl  | are neat      |    $1 |
-
-<!-- Platform    | Covariance    | RE WAA    | Period-specific SRR   | Dome-shaped sel.  | Non-param. sel.    -->
-
-
-### Tests of future ecosystem states using EWE (Rpath) scenarios
-
-To develop a more empirically based management procedure for pollock we recognize
-that this species is a keystone component for the Bering Sea. We thus posed the
-question on, given available understanding of ecosystem linkages, what might things
-look like if the fishery intensified or if it was removed altogether and compare
-that with "status quo" fishing.
-
-
-### Simulation testing an alternative management procedure
-
-

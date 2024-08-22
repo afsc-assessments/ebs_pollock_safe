@@ -3,7 +3,7 @@ library(ebswp)
 ctl.orig <- read_dat(here::here("2024","runs","selsens_sept","control.dat"))
 ctl <- ctl.orig
 setwd(here::here("2024","runs","selsens_sept"))
-i=3
+getwd()
 for (i in 3:20) {
   ctl$nyrs_sel_avg <- -i
   write_dat(output_file="control.dat",ctl)
