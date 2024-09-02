@@ -14,7 +14,7 @@ model and summarizing the results.
 ## Getting started
 
 ``` r
-git clone https://github.com/afsc-assessments/ebs_pollock
+git clone https://github.com/afsc-assessments/ebswp
 ```
 
 Presently, the assessment has both the 2023 version (ebswp.qmd) which
