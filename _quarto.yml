@@ -1,0 +1,85 @@
+project: 
+  type: website
+  render: 
+    - "doc/sept.qmd"
+    - "!doc/DoubleLogistic.Rmd"
+    - "!doc/fishery.qmd"
+    - "!doc/modeleq.qmd"
+    - "!doc/model.qmd"
+    - "!doc/SSC_Minutes.qmd"
+
+output-dir: doc
+
+
+website: 
+  page-navigation: true
+  title: "Eastern Bering Sea walleye pollock stock assessment" 
+  site-url: "https://nmfs-opensci.github.io/NOAA-quarto-simple" 
+  repo-url: "https://github.com/afsc-assessments/ebs_pollock_safe"
+  repo-actions: [edit, source, issue]
+  favicon: images/favicon.ico
+  
+  page-footer:
+    right: "This page is built with [Quarto](https://quarto.org/)."
+    left: "&copy; CC-1.0"
+  
+  sidebar:
+    logo: "https://afsc-assessments.github.io/ebswp/logo.png"
+    favicon: images/favicon.ico
+    pinned: true
+    align: center
+    tools: 
+      - icon: globe
+        href: https://nmfs-opensci.github.io
+        text: "NMFS Open Science"
+      - icon: github
+        href: https://github.com/afsc-assessments/ebs_pollock_safe
+        text: "EBS Pollock assessment"
+
+    style: "docked"
+    search: true
+    collapse-level: 0
+    
+    contents:
+      - href: index.qmd
+        text: Preface
+      #- href: doc/SSC_Minutes.qmd
+        #text: SSC minutes
+      - href: doc/sept.qmd
+        text: EBS pollock assessment, September 2024
+      #- href: doc/platforms.Rmd
+        #text: Alternative software platforms
+      #- href: doc/fishery.qmd
+        #text: Fishery characteristics
+      #- href: doc/model.qmd
+        #text: Model 
+      #- href: doc/acknowledgements.qmd
+        #text: Acknowledgements
+      #- href: doc/modeleq.qmd
+        #text: Appendix 1, Model equations
+lightbox: true
+format:
+  html:
+    theme:
+      light: [cosmo, theme.scss] 
+      dark: [cosmo, theme-dark.scss]
+    code-copy: true
+    code-overflow: wrap
+    toc: true
+    toc-title: 'Contents'
+    embed-resources: true
+    number-sections: true
+    code-summary: "Show the code"
+    code-fold: true
+  #typst:
+    #documentclass: scrreprt
+  #docx:
+    #reference-docx: "template.docx"
+
+bibliography: doc/references.bib
+
+filters:
+  - include-files.lua
+  - quarto
+
+  

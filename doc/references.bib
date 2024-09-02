@@ -447,6 +447,20 @@ abstract = {We describe and illustrate a spatio-temporal modelling approach for 
 	url = {https://academic.oup.com/icesjms/advance-article/doi/10.1093/icesjms/fsab085/6278035}
 }
 
+@article{monnahan2023,
+title = {Toward good practices for Bayesian data-rich fisheries stock assessments using a modern statistical workflow},
+journal = {Fisheries Research},
+volume = {275},
+pages = {107024},
+year = {2024},
+issn = {0165-7836},
+doi = {https://doi.org/10.1016/j.fishres.2024.107024},
+url = {https://www.sciencedirect.com/science/article/pii/S0165783624000882},
+author = {Cole C. Monnahan},
+keywords = {No-U-turn sampler (NUTS), Bayesian integration, Prior predictive checks, Posterior predictive checks, Cross validation},
+abstract = {Bayesian inference has long been recognized as useful for fisheries stock assessments but it is less common than maximum likelihood approaches due to long run times and a lack of good practices. Recent computational advances leave developing good practices and user-friendly interfaces as the most important hurdles to wider use of this powerful statistical paradigm. Here, I argue that the modern Bayesian workflow proposed by Gelman et al. (2020) should form the basis for proposed good practices in fisheries sciences. Their workflow is a conceptual roadmap for iterative model building which includes the philosophical role of priors and how to apply statistical tools to construct them, how to validate and compare models, and how to overcome computational problems. Adapted for stock assessment, this leads to the following good practices for analysts. Diagnostics from multiple no-U-turn sampler (NUTS) chains (the recommended MCMC algorithm) should pass and be reported, specifically that the potential scale reduction Rˆ is <1.01 and the effective sample size is >400 for all parameters, and there are no NUTS divergences. When direct a priori information is unavailable on parameters, use prior predictive checking to build, assess, and adjust priors to enforce desired constraints on complexity, or to conform to a priori expectations or physical/biological limitations on derived quantities. Use posterior predictive checks to validate models by confirming simulated data and summaries (e.g., variance of compositional data) are similar to the observed counterparts. Process error variances can be estimated jointly with random effects and other parameters when desired, and should be for important model components. An approximate cross-validation technique called PSIS-LOO is the most practical tool for model selection, but can also provide important insights into model deficiencies. I also recommended that model developers build and parameterize models to have minimal parameter correlations and marginal variances close to one, have options for diverse (multivariate) priors, do predictive modeling, and ensure that the tools comprising a workflow are accessible and straightforward for routine use. I review, adapt, and illustrate a Bayesian workflow on AD Model Builder and Stock Synthesis models, but these good practices apply to models from any software platform, including Template Model Builder and Stan. Finally, I argue that the Bayesian and frequentist paradigms complement each other, with both helping analysts better understand different aspects of their models and data. Wider adoption of Bayesian methods using the good practices proposed here would therefore lead to improved scientific advice used to manage fisheries.}
+}
+
 @article{anderson2014,
 	title = {ss3sim: An R Package for Fisheries Stock Assessment Simulation with Stock Synthesis},
 	author = {Anderson, Sean C. and Monnahan, Cole C. and Johnson, Kelli F. and Ono, Kotaro and Valero, Juan L.},

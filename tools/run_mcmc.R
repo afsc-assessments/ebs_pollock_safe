@@ -40,8 +40,8 @@ chains=8
 
 inits <- NULL ## start chains from MLE
 fit.mle <- sample_nuts(model=m, path=d, iter=iter, warmup=iter/4,
-                   chains=chains, cores=chains, control=list(control=list(max_treedepth=14,
-                    metric='mle')))
+                   chains=chains, cores=chains, control=list(max_treedepth=14,
+                    metric='mle'))
 
 summary(fit.mle)
 plot_uncertainties(fit.mle)
@@ -71,9 +71,9 @@ launch_shinyadmb(fit.mle)
 mass <- fit.mle$covar.est # note this is in unbounded parameter space
 inits <- get.inits(fit.mle, reps) ## use inits from pilot run
 reps
-fit.mle2 <- sample_nuts(model=m, path=d, iter=2000, warmup=iter/4,
-                   chains=chains, cores=chains, control=list(control=list(max_treedepth=14,
-                    metric=mass,adapt_delta=0.95)))
+fit.mle2 <- sample_nuts(model=m, path=d, iter=1000, warmup=iter/4,
+                   chains=chains, cores=chains, control=list(max_treedepth=14,
+                    metric=mass,adapt_delta=0.95))
 plot_sampler_params(fit.mle2)
 launch_shinyadmb(fit.mle)
 launch_shinyadmb(fit.mle2)

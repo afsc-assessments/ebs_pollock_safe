@@ -19,6 +19,7 @@ library(ggridges)
 .THEME <- ggthemes::theme_few()
 options(warn = -1)
 do_sigmaR_profile=0
+do_anim=0
 do_abc_sel=0
 do_yearloop=0
 
@@ -42,9 +43,6 @@ Plot_Sel <- function(sel = all_sel, fage = 1, lage = 13, nages = 15, styr = 1964
   return(p1)
 }
 ```
-
-# Assessment of the EBS pollock stock assessment, September 2024
-
 # Executive Summary
 ## Summary of Changes in Assessment Inputs
 List of changes (if any) in the input data, including estimated catches assumed for the current year and projected catches for current year + 1 and current year + 2.
@@ -74,181 +72,85 @@ observations that are distant from the origin.
 
 -  The SSC would prefer not to make a risk table adjustment based on the difference from Tier 1 to Tier 3 again during the 2024 assessment cycle. The SSC requests that the next stock assessment bring back a new approach that may include development of a constant buffer based on factors extrinsic to the stock assessment (ecosystem function), or a better representation of the uncertainty in the Tier 1 and control rule calculations such that a reduction from maximum ABC is not needed every year.
   
-    -  *Will approach this with a discussion of alternative HCRs for pollock that consider ecosystem function.  Re-examine what was done in 2011, consider a proper alternative feedback approach, noting that the early work including climate change.*
-    
-  
+    -  *We approached  this by first examining the stock recruitment relationship (SRR) and 
+    review the assumptions that the SSC has used to classify this stock in Tier 1 of the 
+    BSAI FMP. This is covered under a separate request by the SSC detailed below. We also
+    attempted to consider factors that explicitly acknowledge the importance of 
+    pollock to the EBS ecosystem. 
+    We propose a management procedure that provides stability in the ABC advice
+    each year and tracks historical adjustments as needed during periods of 
+    spawning biomass declines below target (where here we propose using a target
+    geared towards 40+ years of experience managing this fishery).*
 
 -  Use posterior distributions from the MCMC to determine probabilities in the risk table and expand the columns in the risk table to include the recommended ABC (and potentially higher values).
   
-      - *Just requires some code modifications to do the computations off of the posteriors*
-
+      - *We interpret this request to refer to the decision table included in the assessment 
+      and not the risk-table that is standardly produced for all groundfish assessments.
+      Using the posterior distributions to compute probabilities requires
+      some simple code modifications. Since previous results indicated that 
+      asymptotic approximations performed similarly near the mode, we had used
+      them as a shortcut method to make the decision table.*
 
 -  Identify where MLE estimates are being used and where MCMC estimates are being used. Also see the SSC’s General Stock Assessment Comments to include convergence diagnostics any time Bayesian results are reported. If MCMC diagnostics continue to appear adequate, reference points could be calculated using the posterior distribution used, rather than an analytical calculation.
   
-     -   *MLE is used and asymptotic approximations are used everywhere for advice, MCMC has been used as a comparison only and to show inter-relationships. Just requires some code modifications to do the computations off of the posteriors*
+     -   *MLE and asymptotic approximations have always been used are used for advice. 
+     Results from sampling the posterior distribution have been used as a comparison 
+     and to show inter-relationships. Just requires some code modifications 
+     to do the computations off of the posteriors*
 
 
 -  The SSC recommends that consideration be given to removal of the Japanese fishery CPUE index (1965-76) from the assessment, because this data set no longer seems to contribute to the assessment. A sensitivity test should be done to evaluate the effects of data removal on the assessment.
 
-    - *Will investigate. In 1964 data suggests all young small fish from the north, these data are handed down, issues about catching being not represenative of population, doesn't impact much, makes it hard to get different assessment models running so may make sense to remove*
-
+    - *We investigated this and report on it here.  *
 
 -  Catch-at-age data provided by foreign fishing agencies in the pre-Magnuson era were not produced using the same aging criteria as the AFSC age-and-growth program. Consideration should be given to removal of these data from the assessment. A sensitivity test should be done to evaluate the effects of data removal on the assessment.
 
-    - *Will investigate, age-determination methods from historical records and/or Russian scientists.*
-
+    - *We also investigated that in this report*
 
 - Document the method used for determining the selectivity to use in the forward projections and continue to evaluate projection variability due to selectivity. The SSC appreciates the selectivity retrospective comparison and suggests that it might be helpful to limit the comparison to the projection used in each year against only the most recent (best) estimate of selectivity for that year.
 
-    - *Better document selectivity assumptions for projections. Look at Cole's approach for plotting out performance. Consider historical uncertainty and variability.*
+    - *We have been clear about projection assumptions used for selectivity and will 
+    provide an updated retrospective presentation for this year's assessment. 
+    In this report, we evaluated the sensitivity of Tier 1 ABC given different
+    selectivity estimtates from historical annual values. *
 
+- The SSC supports the use of posterior predictive distributions, an underutilized
+tool in fisheries science, but common in other fields. To fully implement this 
+approach to Bayesian model checking the SSC recommends plotting a histogram for 
+each data source of the percentile of the predictive distribution in which each 
+data point lies, noting that in a highly consistent model this histogram would 
+be uniform.
 
-- The SSC supports the use of posterior predictive distributions, an underutilized tool in fisheries science, but common in other fields. To fully implement this approach to Bayesian model checking the SSC recommends plotting a histogram for each data source of the percentile of the predictive distribution in which each data point lies, noting that in a highly consistent model this histogram would be uniform.
-
-    - *This conclusion might be incorrect. Likely to write that this will evolve into better approaches to include in the future*
-
-
+    - *In Bayesian statistics, evaluating the performance of a model using the
+    percentile of the posterior predictive distribution is a common approach. 
+    This process involves comparing observed data to predictions made by the model
+    and we understand the calculations that would be needed but have yet to 
+    implement the necessary code. We highlight the approach in a section discussing
+    Bayesian diagnostics in this report.* 
+    
 -  There is an apparent shift towards older ages in fisheries and trawl survey selectivity that should be investigated further.
  
-     - *Will investigate, focused around changes in availabilty.*
+     - *This is illustrated in the selectivity plots presented in last year's report.
+     Relative to historical estimates, the shift seems consistent with past years.*
      
 -  The SSC agrees with the BSAI GPT’s proposal in their presentation to move the multi-species model out of the pollock stock assessment, where it has been included as an appendix since it was first developed. Instead, they suggested it would be a separate chapter listed in parallel with the ESR, as it applies to multiple stocks and informs the ESRs.
 
-    - *Technically it's presented as part of the BSAI assessment. Agree that it should be highlighted on its own.*
+    - *Technically it's presented as part of the BSAI assessment. Agree that it 
+    should be highlighted on its own. In this report we included the age and year 
+    specific estimates of natural mortality from CEATTLE.*
 
 -  The SSC suggests revisiting the treatment of the stock-recruit relationship in the assessment model using recent improvements in modeling approaches and a longer time series that encompasses the recent warm period in the EBS. Recruitment deviates should be from the stock-recruit relationship and should model variability among annual recruitment estimates based on information in the data and residual variability. The estimation process should ensure that log-normally distributed recruitments are mean unbiased, resulting in unbiased biomass estimates. If an informative prior is used for steepness, it should be based on a meta-analysis of related species and reflect the uncertainty of that meta-analysis. Further consideration of time periods (as in previous analyses) and the influence of temperature on the stock-recruit relationship may be helpful. The SSC recognizes that there were significant recent analyses in 2016, 2018 and 2020 and is not requesting a repeat of those but a review of previous work would be helpful.
 
     - *We examine a model where the SRR applies over all age classes along with
-    a reevaluation of a number of factors that affect the SRR and the $F_{MSY}$ values. We include a few model results where temperature is in the condition of the SRR. We also note that an evaluation of different 'regimes' or periods of low or higher recruitment is presented as part of the standard assessment presention. *
-
-## Incorporating natural mortality age arising from CEATTLE
-In past assessments we have mentioned that a commonly adopted approach for stocks
-that are also included in multispecies trophic interaction models (reference ICES)
-it is considered best practice to include the estimates of natural mortality-at-age
-over time within the assessment model. We developed an option to include the 2023
-CEATTLE estimates of natural mortality. This resulted slightly higher recruitment
-but lower spawning biomass in the near term (@fig-Mmatrix). This is due to the 
-higher natural mortality for most ages and years compared to the base 2023 model.
-
-## Pollock movement issues
-
-Will include review of the publication and the plan for evaluating scenarios of alternative fishing mortality in the Russian zone
-
-```{r Mmatrix}
-#| echo: false
-#| warnings: FALSE
-#| messages: FALSE
-#| label: fig-Mmatrix
-#| fig.cap: "Model results comparing last year's selected model with one where the
-#| natural mortality matrix estimated from CEATTLE is used."
-modlst <- list()
-modlst[[1]] <- read_rep(here::here("2024", "runs", "lastyr", "pm.rep"))
-modlst[[2]] <- read_rep(here::here("2024", "runs", "dropCPUE_sept", "pm.rep"))
-modlst[[3]] <- read_rep(here::here("2024", "runs", "srr_int_sept", "pm.rep"))
-modlst[[4]] <- read_rep(here::here("2024", "runs", "SST", "pm.rep"))
-modlst[[5]] <- read_rep(here::here("2024", "runs", "SSTshrt", "pm.rep"))
-modlst[[6]] <- read_rep(here::here("2024", "runs", "noearly", "pm.rep"))
-modlst[[7]] <- read_rep(here::here("2024", "runs", "natmort", "pm.rep"))
-modlst[[8]] <- read_rep(here::here("2024", "runs", "Mmatrix", "pm.rep"))
-names(modlst) <- c(
-  "Last year", "Drop CPUE", "Use all years for SRR",
-  "Include SST covariate (all yrs)",
-  "Include SST covariate (post 1977)", "Drop CPUE, early age comps",
-  "Est M",
-  "M CEATTLE"
-)
-p1 <- plot_recruitment(modlst[c(1, 8)], xlim = c(1990.5, 2022.5)) +
-  scale_x_continuous(limits=c(1990, 2022), breaks=seq(1990, 2022, by = 4))
-p2 <- plot_ssb(modlst[c(1, 8)], xlim = c(1990.5, 2024.5), breaks = seq(1964, 2024, by = 4), alpha = .2)
-p1/p2+ plot_layout(guides = "collect")
-```
-```{r Mmatrix_srr}
-#| echo: false
-#| warnings: FALSE
-#| messages: FALSE
-#| label: fig-Mmatrix_srr
-#| fig.cap: "Model results comparing last year's selected model with one where the
-#| natural mortality matrix estimated from CEATTLE is used."
-plot_srr(modlst[c(1, 8)])
-```
-
-## Ommitting early CPUE data and foreign fishery data
-
-The SSC requested a model run where the early CPUE data were excluded.
-This was done and showed that the model was insensitive to the early CPUE data
-(@fig-dropCPUE). 
-
-```{r dropCPUE}
-#| echo: false
-#| warnings: FALSE
-#| messages: FALSE
-#| label: fig-dropCPUE
-#| fig.cap: "Model results comparing last year's selected model with one where the
-#| early CPUE data are excluded."
-
-# p1<- plot_srr(modlst[c(1,2)], alpha = .2, xlim = c(0, 6400), ylim = c(0, 85000), sizeout = 2, sizein = 4, yrsin = c(1977, 1979:2021)) + ggtitle("SRR as estimated in the 2023 assessment")
-# p1
-p2 <- plot_ssb(modlst[c(1, 2)], xlim = c(1963.5, 2024.5), breaks = seq(1964, 2024, by = 4), alpha = .2)
-p2
-```
-
-The SSC also noted 
-    *"Catch-at-age data provided by foreign fishing agencies in the pre-Magnuson 
-    era were not produced using the same aging criteria as the AFSC age-and-growth 
-    program. Consideration should be given to removal of these data from the assessment. 
-    A sensitivity test should be done to evaluate the effects of data removal on the assessment."*
-
-While these data are already downweighted by the effective sample size, we ran
-the model with the foreign catch-at-age data removed by setting the sample size to 
-1. Results showed 
-that the model was sensitive to the removal of the foreign catch-at-age data for the
-early period but had little impact on near-term trends (@fig-dropForeign).
-Interestingly, the stock-recruit relationship was sensitive to the removal of the
-early period, presumably because of the data included in the fitting the the SRR
-between 1978 and 1991 being downweighted (@fig-dropForeign_srr).
-
-```{r dropForeign}
-#| echo: FALSE
-#| warnings: FALSE
-#| messages: FALSE
-#| label: fig-dropForeign
-#| fig.cap: "Model results comparing last year's selected model with one where the
-#| early CPUE data and the early age compositions are downweighted (effectively removed)."
-p1 <- plot_recruitment(modlst[c(1, 6)], xlim = c(1963.5, 1990.5))
-p2 <- plot_ssb(modlst[c(1, 6)], xlim = c(1963.5, 2024.5), breaks = seq(1964, 2024, by = 4), alpha = .2)
-p1 / p2 + plot_layout(guides = "collect")
-```
-
-```{r dropForeign_srr}
-#| echo: FALSE
-#| warnings: FALSE
-#| messages: FALSE
-#| label: fig-dropForeign_srr
-#| fig.cap: "Model results of the stock-recruit relationships
-#|  comparing last year's selected model with one where the
-#| early CPUE data and the early age compositions are downweighted (effectively removed)."
-plot_srr(modlst[c(1, 7)])
-```
-
+    a reevaluation of a number of factors that affect the SRR and the $F_{MSY}$ 
+    values. We include a few model results where temperature is in the condition 
+    of the SRR. We also note that an evaluation of different 'regimes' or periods 
+    of low or higher recruitment is presented as part of the standard assessment presention. *
 
 # Stock-recruit relationship sensitivities
 
-A main SSC comment was:
-
-  -  *The SSC suggests revisiting the treatment of the stock-recruit relationship in the 
-    assessment model using recent improvements in modeling approaches and a longer time 
-    series that encompasses the recent warm period in the EBS. Recruitment deviates 
-    should be from the stock-recruit relationship and should model variability among 
-    annual recruitment estimates based on information in the data and residual variability. 
-    The estimation process should ensure that log-normally distributed recruitments are 
-    mean unbiased, resulting in unbiased biomass estimates. If an informative prior is 
-    used for steepness, it should be based on a meta-analysis of related species and 
-    reflect the uncertainty of that meta-analysis. Further consideration of time 
-    periods (as in previous analyses) and the influence of temperature on the stock-recruit
-    relationship may be helpful. The SSC recognizes that there were significant recent 
-    analyses in 2016, 2018 and 2020 and is not requesting a repeat of those but 
-    a review of previous work would be helpful.*
-
+As noted, in the previous section, the SSC asked for a more detailed review of how
+the SRR was implemented. This included a review of the assumptions about the SRR.:
 We attempt to address this in the subsequent sections. For backgound, the FMP specifies 
 that the SSC's criterion for Tiers 1 and 2 ABC/OFL estimates depend on having 
 reliable estimates of $F_{MSY}$.
@@ -265,6 +167,7 @@ The following aspects of the SRR were evaluated and reviewed this year
   - $\sigma_R$
   
 ## Evaluating the impact of selectivity assumptions
+on stock recruitment relationships (SRR)
 
 To examine the assumptions about fishery selectivity variability 
 we ran alternative model configurations where selectivity variability was 
@@ -288,7 +191,9 @@ selectivity estimates was to simply apply each of the annual selectivity estimat
 from the past 20 years.  We note that 
 the base result used the mean selectivity over the recent 2
 years; specifically, the mean selectivity for 2021 and 2022 for the 2023 terminal year
-assessment. Results show that ...xxx
+assessment. 
+
+Results show that ...xxx
 
 ```{r selex}
 #| echo: false
@@ -379,10 +284,6 @@ with higher steepness (@fig-srr_time). This was due to the inclusion of age-1 re
 from the early years. The inclusion of sea-surface temperature as a covariate
 to the full time series moderated this increase slightly (@fig-srr_time_temp).
 
-Additionally, the SSC requested that the impact of the prior distribution be re-evaluated.
-For this case we evaluated the impact of the $\sigma_R$ prior on the ABC estimates. 
-The xxx
-
 
 ```{r srr_time}
 #| echo: false
@@ -427,7 +328,7 @@ the constraint that out $F_{35\%}$ = $F_{MSY}$."
 #| label: fig-F35
 #| fig.cap: "Model results comparing last year's selected model (SRR 1978-2021)
 #| with one where the
-#| SRR was conditioned such that $F_{MSY}$ was equal the the SPR rate of $F_{35%}$.
+#| SRR was conditioned such that $F_{MSY}$ was equal the the SPR rate of $F_{35}$.
 #| The vertical bars represent the 95% confidence intervals for the age-1 recruitment."
 plot_srr(srrlst[c(1, 10)], alpha = .2, xlim = c(0, 4200), ylim = c(0, 85000), sizeout = 1, sizein = 3, yrsin = c(1978:2021), ebar = TRUE)
 ```
@@ -439,6 +340,8 @@ show how sensitive the
 curve is to the years included in the analysis. We expect that it should revert
 to the prior as fewer years are included in the conditioning of the SRR curve.
 
+
+Non-stationarity XXX xxx
 
 ## Including temperature effects in the stock-recruitment relationship
 ```{r srr_time_temp}
@@ -488,10 +391,11 @@ plot_srr(srrlst[c( 1,7,8)], alpha = .2, xlim = c(0, 4200), ylim = c(0, 85000), s
 plot_srr(srrlst[c( 7:9)], alpha = .2, xlim = c(0, 4200), ylim = c(0, 85000), sizeout = 3, sizein = 3, yrsin = c(1964:2021), ebar = TRUE)
 ```
 
-## Profiling and sensitivity of the variability specified about the SRR
+## Specified variability about the SRR
 
-The SSC requested that we ensure that the bias correction is applied in the applicaiton
-of fitting the SRR. We confirm that in past assessments, for the period which 
+The SSC requested that we ensure that the bias correction is applied in 
+the application of fitting the SRR. We confirm that in past assessments, 
+for the period which 
 the SRR curve was applied, the bias correction term was included. Specifically,
 
 $$ \hat{R}_t = f(B_{t-1}) e^{\epsilon_t-0.5 \sigma_R^2} $$
@@ -507,6 +411,10 @@ $$ -ln(L_{rec}) = \sum_{t=1}^{T} \left[\frac{\left(\chi_t + \frac{\sigma^2_R}{2}
 
 where $\chi_t = \log(\dot{R}_t) - \log(\hat{R}_t)$. Note that the bias correction term
 falls within the likelihood because the bias is a function of the model estimates.
+
+
+For this case we evaluated the impact of the $\sigma_R$ prior on the ABC estimates. 
+xxx
 
 ```{r sigmaRprofile2}
 #| echo: false
@@ -701,6 +609,8 @@ p1 <- plot_srr(M,
 # x1 <- 2 y1 <- 3 x2 <- 8 y2 <- 9
 # plotly::ggplotly(p1)
 # yrsin = c(1977, 1979:2021))
+if (do_anim){
+  
 p1 <- plot_srr(srrlst[c(1:30)],
   alpha = .1, xlim = c(0, 7700), ebar = TRUE,
   ylim = c(0, 105000), sizeout = 1.0, sizein = 1.0,
@@ -710,7 +620,10 @@ p1 <- plot_srr(srrlst[c(1:30)],
   labs(title = "Terminal year in SRR estimation: 1978-{closest_state} ") +
   ease_aes("linear")
 p1
-
+anim_save("sel_anim.gif",p1, path=here::here("doc","figs"))
+}else{
+  knitr::include_graphics("../doc/figs/sel_anim.gif")
+}
 # anim <- animate(p1, nframes = 50, fps = 10)
 # p1
 # anim
@@ -727,16 +640,17 @@ selectivity estimate AND the MSY value. The script to run this set involved read
 control file and modifying the option for which years to include for the selectivity
 estimate (can be specific years or a range of years from which to use).
 
-Initial results showed that  the SRR curve was sensitive 
-to the selectivity estimate (@fig-selsrrplot). This was due to the fact that the selectivity
+Initial results showed that  while the SRR curve was insensitive 
+to the selectivity estimate (@fig-selsrrplot), there could be large and 
+variable impacts on the ABC estimates (@fig-sel_ABC_plot).
+This was due to the fact that the selectivity
 changes can shift to younger or older ages in some years. This also 
-showed variability in the ABC estimates as a function of the selectivity assumption (@fig-sel_ABC_plot).
 
 ```{r selsrrplot}
 #| echo: false
 #| warnings: FALSE
 #| message: FALSE
-#| eval: TRUE
+#| eval: 
 #| label: fig-selsrrplot
 #| fig.cap: 'SRR curves as estimated in the 2023 assessment (top) and conditioned on an alternative Fmsy assumptions (middle and bottom).'
 
@@ -827,6 +741,120 @@ may be inappropriate given this apparent potential for bias.
 #knitr::include_graphics(here::here("doc","figs","srr_sim.png"))
 knitr::include_graphics("../doc/figs/srr_sim.png")
 ``` 
+
+
+# Incorporating natural mortality age arising from CEATTLE
+In past assessments we have mentioned that a commonly adopted approach for stocks
+that are also included in multispecies trophic interaction models (reference ICES)
+it is considered best practice to include the estimates of natural mortality-at-age
+over time within the assessment model. We developed an option to include the 2023
+CEATTLE estimates of natural mortality. This resulted slightly higher recruitment
+but lower spawning biomass in the near term (@fig-Mmatrix). This is due to the 
+higher natural mortality for most ages and years compared to the base 2023 model.
+
+```{r Mmatrix}
+#| echo: false
+#| warnings: FALSE
+#| messages: FALSE
+#| label: fig-Mmatrix
+#| fig.cap: "Model results comparing last year's selected model with one where the
+#| natural mortality matrix estimated from CEATTLE is used."
+modlst <- list()
+modlst[[1]] <- read_rep(here::here("2024", "runs", "lastyr", "pm.rep"))
+modlst[[2]] <- read_rep(here::here("2024", "runs", "dropCPUE_sept", "pm.rep"))
+modlst[[3]] <- read_rep(here::here("2024", "runs", "srr_int_sept", "pm.rep"))
+modlst[[4]] <- read_rep(here::here("2024", "runs", "SST", "pm.rep"))
+modlst[[5]] <- read_rep(here::here("2024", "runs", "SSTshrt", "pm.rep"))
+modlst[[6]] <- read_rep(here::here("2024", "runs", "noearly", "pm.rep"))
+modlst[[7]] <- read_rep(here::here("2024", "runs", "natmort", "pm.rep"))
+modlst[[8]] <- read_rep(here::here("2024", "runs", "Mmatrix", "pm.rep"))
+names(modlst) <- c(
+  "Last year", "Drop CPUE", "Use all years for SRR",
+  "Include SST covariate (all yrs)",
+  "Include SST covariate (post 1977)", "Drop CPUE, early age comps",
+  "Est M",
+  "M CEATTLE"
+)
+p1 <- plot_recruitment(modlst[c(1, 8)], xlim = c(1990.5, 2022.5)) +
+  scale_x_continuous(limits=c(1990, 2022), breaks=seq(1990, 2022, by = 4))
+p2 <- plot_ssb(modlst[c(1, 8)], xlim = c(1990.5, 2024.5), breaks = seq(1964, 2024, by = 4), alpha = .2)
+p1/p2+ plot_layout(guides = "collect")
+```
+```{r Mmatrix_srr}
+#| echo: false
+#| warnings: FALSE
+#| messages: FALSE
+#| label: fig-Mmatrix_srr
+#| fig.cap: "Model results comparing last year's selected model with one where the
+#| natural mortality matrix estimated from CEATTLE is used."
+plot_srr(modlst[c(1, 8)])
+```
+
+# Pollock movement issues
+
+Will include review of the publication and the plan for evaluating scenarios 
+of alternative fishing mortality in the Russian zone. A research model evaluation
+may be presented in the 2024 assessment, depending on progress.
+
+# Ommitting early CPUE data and foreign fishery data
+
+The SSC requested a model run where the early CPUE data were excluded.
+This was done and showed that the model was insensitive to the early CPUE data
+(@fig-dropCPUE). 
+
+```{r dropCPUE}
+#| echo: false
+#| warnings: FALSE
+#| messages: FALSE
+#| label: fig-dropCPUE
+#| fig.cap: "Model results comparing last year's selected model with one where the
+#| early CPUE data are excluded."
+
+# p1<- plot_srr(modlst[c(1,2)], alpha = .2, xlim = c(0, 6400), ylim = c(0, 85000), sizeout = 2, sizein = 4, yrsin = c(1977, 1979:2021)) + ggtitle("SRR as estimated in the 2023 assessment")
+# p1
+p2 <- plot_ssb(modlst[c(1, 2)], xlim = c(1963.5, 2024.5), breaks = seq(1964, 2024, by = 4), alpha = .2)
+p2
+```
+
+The SSC also noted 
+    *"Catch-at-age data provided by foreign fishing agencies in the pre-Magnuson 
+    era were not produced using the same aging criteria as the AFSC age-and-growth 
+    program. Consideration should be given to removal of these data from the assessment. 
+    A sensitivity test should be done to evaluate the effects of data removal on the assessment."*
+
+While these data are already downweighted by the effective sample size, we ran
+the model with the foreign catch-at-age data removed by setting the sample size to 
+1. Results showed 
+that the model was sensitive to the removal of the foreign catch-at-age data for the
+early period but had little impact on near-term trends (@fig-dropForeign).
+Interestingly, the stock-recruit relationship was sensitive to the removal of the
+early period, presumably because of the data included in the fitting the the SRR
+between 1978 and 1991 being downweighted (@fig-dropForeign_srr).
+
+```{r dropForeign}
+#| echo: FALSE
+#| warnings: FALSE
+#| messages: FALSE
+#| label: fig-dropForeign
+#| fig.cap: "Model results comparing last year's selected model with one where the
+#| early CPUE data and the early age compositions are downweighted (effectively removed)."
+p1 <- plot_recruitment(modlst[c(1, 6)], xlim = c(1963.5, 1990.5))
+p2 <- plot_ssb(modlst[c(1, 6)], xlim = c(1963.5, 2024.5), breaks = seq(1964, 2024, by = 4), alpha = .2)
+p1 / p2 + plot_layout(guides = "collect")
+```
+
+```{r dropForeign_srr}
+#| echo: FALSE
+#| warnings: FALSE
+#| messages: FALSE
+#| label: fig-dropForeign_srr
+#| fig.cap: "Model results of the stock-recruit relationships
+#|  comparing last year's selected model with one where the
+#| early CPUE data and the early age compositions are downweighted (effectively removed)."
+plot_srr(modlst[c(1, 7)])
+```
+
+
 
 # Tier 1 and ecosystem function evaluation
 
@@ -949,11 +977,13 @@ the determination of the appropriateness of the $F_{MSY}$ and the probability di
 of that value (uncertainty). This relates directly to a number of key factors, including
 the selectivity, the SRR, and future weight-at-age ($F_{MSY}$ applies to numbers of fish,
 but ABC is in biomass). within the FMP, an ABC can be set below the maximum permissible
-value. Without making an explicit ammendment to the FMP, we propose an alternative
+value. Without making an explicit amendment to the FMP, we propose an alternative
 semi-empirical approach. The first principle of this approach is to maintain the ecosystem
 function by contrasting from what's been observed over the last several decades. Going
-forwardd, the catch advice could be adjusted based on the spawning biomass relative to the
-historical mean. This would be a simple rule that would adjust the catch advice based on
+forward, the catch advice could be adjusted based on the spawning biomass relative to the
+historical mean. 
+
+This would be a simple rule that would adjust the catch advice based on
 the spawning biomass relative to the historical mean. I.e., if the catch in the current
 year is say 1.2 million t, and the SSB next year is 30% above the mean, then with a
 regulator to dampen change, next year’s recommendation would be
@@ -962,21 +992,13 @@ of the mean value, the recommendation would be $1.2 \times \sqrt{0.75} = 1.039$ 
 If the SSB stayed at 75% of the mean, then the following year would be
 $1.039 \times \sqrt{0.75} = 08998$ million t.
 
-Some rationale for this strategy might include
-
--   The detrimental effects of fishing on the ecosystem appear to be mainly
-    sustainable...are there assignable issues from fishing that affected the ecosystem
-    function that we’ve measured with any degree of confidence?
-
--   If there hadn’t been any pollock fishing ever, would we be able to note that the
-    ecosystem would be in a better state?
-
--   Tuning the adjustments based on historical catches and ecosystem outcomes would
-    generally be deemed "acceptable"
-
-For the latter part of the above, we could use the historical data on diet composition in
-a mass-balance ecosystem model to evaluate the effects of the catch advice on the
-ecosystem. This was pursued in the next section.
+In fact, the 2-million t overarching CAP on groundfish is often flagged as an
+having an ecosystem sustainability rationale.
+Bringing a similar rationale into focus for the pollock fishery such a management 
+procedure would explicitly account for the ecosystem function and role of pollock.
+One way to evaluate such a procedure would be to use the available data on diet 
+composition in a mass-balance ecosystem model. Here this could be set to compare
+models where pollock fishing is increased, decreased, and held near status quo.
 
 ```{r quant_prey}
 #| label: fig-quant_prey
@@ -1063,6 +1085,8 @@ df1 |>
   xlim(c(2000, 2024))
 ```
 
+Additionally, considering that humans are part of the ecosystem xxx
+
 Such a management procedure would need to be tested using a full feedback loop system.
 Consequently, we updated the simulation feature of the assessment model to behave as an
 operating model. This required some simplifications on how the bottom-trawl survey
@@ -1085,7 +1109,7 @@ required some code updates.
 The model was run for 100 years under three scenarios: status
 
 # Bayesian diagnostics
-Following the advice of @monnahand2023 we performed multiple
+Following the advice of @monnahan2023 we performed multiple
 no-U-turn sampler (NUTS) chains and note that  
 that the potential scale reduction $̂\hat{R}$ 
 was <1.01 and the effective sample sizes were >400 for all parameters. For the sampling
@@ -1099,15 +1123,268 @@ We also attempted the Pareto-smoothed importance sampling
 leave-one-out cross-validation
 (PSIS-LOO) method to assess model fit and found that the
 
-More from Monnahan:
-[An approximate cross-validation technique
-called PSIS-LOO is the most practical tool for model selection, but can also 
-provide important insights into model
-deficiencies. 
+## Steps for judging model performance based on the posterior predictive distributions
 
-I also recommended that model developers build and parameterize models to have minimal
-parameter correlations and marginal variances close to one, have options for diverse (multivariate) priors, do
-predictive modeling, and ensure that the tools comprising a workflow are accessible and straightforward for
-routine use. I review, adapt, and illustrate a Bayesian workflow on AD Model Builder and Stock Synthesis models,
-but these good practices apply to models from any software platform, including Template Model Builder and
-Stan. ]
+After obtaining posterior samples, let’s denote these samples as 
+	$\theta_1$, $\theta_2$, $\ldots$, $\theta_N$,  where N is the number of posterior samples.
+Next is to generate predictive samples. For each posterior sample $\theta_i$, 
+generate a predictive sample $y_i^{\text{pred}}$ from the likelihood 
+function $p(y \mid \theta_i)$. These predictive samples form the posterior predictive 
+distribution. This step is repeated for each posterior sample, resulting 
+in a collection of predicted values.
+
+To judge model performance, compare the observed data $y_{\text{obs}}$ with the 
+posterior predictive distribution. A common approach is to use the percentile 
+(or quantile) of the observed data in the posterior predictive distribution.
+
+For each observed data point $y_{\text{obs}}$, calculate its percentile in the 
+corresponding posterior predictive distribution. This is done by determining the 
+proportion of predictive samples that are less than or equal to the observed value.
+
+Given M predictive samples $y_1^{\text{pred}}$, $y_2^{\text{pred}}$, $\ldots$, 
+$y_M^{\text{pred}}$. The percentile p of the observed value $y_{\text{obs}}$ 
+can be computed as:
+
+$p = \frac{\sum_{j=1}^M \mathbb{I}(y_j^{\text{pred}} \leq y_{\text{obs}})}{M}$
+
+Here, $\mathbb{I}(\cdot)$ is an indicator function that returns 1 if the 
+condition inside is true, and 0 otherwise. This gives the count 
+the predictive samples are less than or equal to the observed value divided 
+by the total number of samples.
+
+Under a well-calibrated model, the observed data should fall uniformly across the
+range of the posterior predictive distribution. This implies that the percentiles 
+should be roughly uniformly distributed between 0 and 1.  A histogram of these 
+percentiles can be evaluated relative to a uniform distribution. 
+Significant deviations from uniformity may indicate model misspecification.
+
+Posterior predictive checks can also be facilitated by visualizing the posterior 
+predictive distribution. This can includes comparing the observed data’s summary 
+statistics (e.g., mean, variance) relative to those of the posterior predictive distribution.
+
+<!-- More from Monnahan: -->
+<!-- [An approximate cross-validation technique -->
+<!-- called PSIS-LOO is the most practical tool for model selection, but can also  -->
+<!-- provide important insights into model -->
+<!-- deficiencies.  -->
+
+<!-- I also recommended that model developers build and parameterize models to have minimal -->
+<!-- parameter correlations and marginal variances close to one, have options for diverse (multivariate) priors, do -->
+<!-- predictive modeling, and ensure that the tools comprising a workflow are accessible and straightforward for -->
+<!-- routine use. I review, adapt, and illustrate a Bayesian workflow on AD Model Builder and Stock Synthesis models, -->
+<!-- but these good practices apply to models from any software platform, including Template Model Builder and -->
+<!-- Stan. ] -->
+
+
+
+```{r setup, include=FALSE}
+library(plotly)
+library(r4ss)
+library(ggridges)
+
+loadup<-FALSE
+#loadup<-TRUE
+if (loadup){
+  source(here::here("GetResults.R"))
+  
+  r1 <- ss_run<-SS_obj()
+  ra <- SS_obj(SS_output(dir = here("ss","noramp"),verbose=FALSE),src="noramp") 
+  r2 <- SS_obj(SS_output(dir = here("ss","mod")),src="mod")  
+  r3 <- SS_obj(SS_output(dir = here("ss","mix")),src="mix")  
+  r4 <- SS_obj(SS_output(dir = here("ss","high")),src="high")  
+  #r5 <- SS_obj(SS_output(dir = here("ss","autocor")),src="autocor")  
+  ss_sel <- rbind(r1$sel,r2$sel,r3$sel,r4$sel)#,r5$sel)
+  #compute_matrix_summary(sel[,2:16])
+  gp_run<-gp_obj()
+  pm_run<-pm_obj()
+  pm_run2<-pm_obj(pm2, src="Pollock_model VPA-like")
+  load(here("SAM","poll23","run","model2.RData"))
+  sam_run <- SAM_obj()
+  am_run<-AMAK_obj(run_dir=here("amak2","runs", "base"))
+  am_run2<-AMAK_obj(run_dir=here("amak2","runs", "3par"),src="AMAK-3par-logistic")
+  am_run3<-AMAK_obj(run_dir=here("amak2","runs", "cpue"),src="AMAK w CPUE", nind=6)
+  all_sel <- rbind(sam_run$sel,pm_run$sel,am_run$sel,ss_run$sel,gp_run$sel)
+  all_ts <- rbind( sam_run$ts,pm_run$ts,am_run$ts,ss_run$ts,gp_run$ts)
+  save.image(file=here::here("compares.Rdata"))
+} else {
+  load(here::here("compares.Rdata"))
+}
+
+```
+
+
+Alternative software platforms
+=======================================================================
+There is continued interest in using alternative software platforms for this
+assessment. A repository was developed for these alternatives
+[here](https://github.com/afsc-assessments/ebs_pollock_mod_alts).
+The main reason for this is to provide options for upgrading the base software
+and providing some of the trade-offs between tailored assessments and general 
+packages.
+In addition to the current model used for EBS pollock, alternaive platforms considered were:
+
+  - **Stock Synthesis 3**: A very popular software platform 
+  
+  - **GOA pollock model**: A customized program convertible between ADMB and TMB
+  
+  - **SAM**: A state-space model for age-structured assessments
+  
+  - **AMAK**: A general model assessment model developed to have flexible number of fisheries, indices etc.
+  
+  - **WHAM**: The Woods Hole Assessment Model (written in TMB...withdrawn from this
+  presentation due to limits on time)
+
+Each platform was intended to include as much of the configuration
+and baseline data from the pollock model as possible. Very little effort was made to
+do fine-scale bridging.
+
+In subsequent sections we compare how the selectivity estimates compare, along with
+spawning biomass and recruitment.
+  
+
+### Selectivity
+
+```{r}
+p<-Plot_Sel() + ggthemes::theme_few(base_size=9)
+p
+```
+
+
+### Selectivity by age
+
+```{r}
+p <- Plot_Sel_age()
+ggplotly(p)
+```
+
+### SSB
+
+```{r}
+
+p<- Plot_SSB()
+ggplotly(p)
+
+```
+
+### Stock recruitment relationship
+
+```{r}
+
+p<- Plot_SRR()
+ggplotly(p)
+
+```
+
+Additional AMAK runs
+=======================================================================
+
+### Run description
+
+Runs with different selectivity assumptions where:     
+
+  - **base**: selectivity at age allowed to vary (sigma penalty=0.7)     
+  
+  - **cpue**: As base but with the early CPUE data included
+  
+  - **dbl_logistic**: selectivity at age with TV selectivity parameters (3-parameter logistic)
+
+```{r like_table, echo=FALSE}
+# Convert list of lists to tibble
+df<-  cbind(am_run$lst[grep("Like_Comp",names(am_run$lst))[2]] ,
+       as_tibble(am_run$lst[grep("Like_Comp",names(am_run$lst))[1]]),
+       as_tibble(am_run2$lst[grep("Like_Comp",names(am_run2$lst))[1]]),
+       as_tibble(am_run3$lst[grep("Like_Comp",names(am_run3$lst))[1]])
+       )
+names(df) <- c("NLL Component", "base","dbl_logistic","cpue")
+df <- df |> rowwise() |> mutate(across(2:4, ~ . - min(c_across(2:4))))
+
+gt::gt(df) |> gt::fmt_number( columns = 2:4, decimals = 1)
+```
+
+### Selectivity
+
+```{r echo=FALSE}
+# am_run<-AMAK_obj()
+  #source(here::here("GetResults.R"))
+#am_run2<-AMAK_obj(run_dir=here("amak2","runs", "3par"))
+ # am_run<-AMAK_obj(run_dir=here("amak2","runs", "base"))
+ # am_run2<-AMAK_obj(run_dir=here("amak2","runs", "3par"))
+  #am_run3<-AMAK_obj(run_dir=here("amak2","runs", "cpue"),src="AMAK w CPUE", nind=6)
+   am_sel <- rbind(pm_run$sel, pm_run2$sel, am_run$sel,am_run2$sel, am_run3$sel)
+   am_ts <- rbind(pm_run$ts, pm_run2$ts, am_run$ts,am_run2$ts,am_run3$ts)
+   am_fit<- rbind(am_run$fit, am_run2$fit, am_run3$fit)
+p1 <- Plot_Sel(am_sel)
+p1 + ggthemes::theme_few(base_size=9)
+```
+
+### Selectivity at age
+```{r echo=FALSE}
+p1  <- Plot_Sel_age(am_sel)
+ggplotly(p1)
+```
+
+### SSB and recruitment
+
+```{r echo=FALSE}
+p1 <- Plot_SSB(am_ts)
+ggplotly(p1)
+```
+
+### AMAK fit to indices
+
+#### All 
+```{r echo=FALSE}
+p1 <- Plot_index(df=am_fit, idx=c(1,2,5)) + ggthemes::theme_few(base_size=9)
+ggplotly(p1)
+```
+
+#### With CPUE 
+```{r idxe2, echo=FALSE}
+#glimpse(am_run3$fit)
+Plot_index(df=am_run3$fit, idx=c(1,2,5,6)) + ggthemes::theme_few(base_size=9)
+```
+
+### Stock recruitment relationship
+
+```{r}
+p<- Plot_SRR(df=am_ts)
+ggplotly(p)
+
+```
+
+Additional SS3 runs
+=======================================================================
+
+### Run description
+
+Runs with different selectivity assumptions where:     
+  - **base**: selectivity at age allowed to vary (sigma penalty=0.7)     
+  - **high**: selectivity at age constrained (sigma penalty=0.05)     
+  - **mod**: selectivity at age moderately constrained (sigma penalty=0.4)     
+  - **mix**: selectivity at age moderately constrained for middle ages, high for older ages, loose for younger ages      
+
+### Selectivity
+
+```{r echo=FALSE}
+ss_sel <- rbind(r1$sel,r2$sel,r3$sel,r4$sel)#,r5$sel)
+p1 <- Plot_Sel(ss_sel)
+p1
+```
+
+
+### Selectivity at age
+```{r echo=FALSE}
+p1  <- Plot_Sel_age(ss_sel)
+ggplotly(p1)
+```
+
+### SSB and recruitment
+
+```{r echo=FALSE}
+ss_ts  <- rbind(r1$ts,r2$ts,r3$ts,r4$ts)#,r5$sel)
+p1 <- Plot_SSB(ss_ts)
+ggplotly(p1)
+```
+
+
+
