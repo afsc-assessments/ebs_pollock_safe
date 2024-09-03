@@ -68,16 +68,28 @@ launch_shinyadmb(fit.mle)
 
 ## If good, run again for inference using updated mass matrix. Increase
 ## adapt_delta toward 1 if you have divergences (runs will take longer).
-mass <- fit.mle$covar.est # note this is in unbounded parameter space
-inits <- get.inits(fit.mle, reps) ## use inits from pilot run
+rm(fit.mle2.rds)
+fit.mle2<-readRDS(file='fit.mle2.RDS')
+mass <- fit.mle2$covar.est # note this is in unbounded parameter space
+inits <- get.inits(fit.mle2, reps) ## use inits from pilot run
 reps
-fit.mle2 <- sample_nuts(model=m, path=d, iter=1000, warmup=iter/4,
+fit.mle2 <- sample_nuts(model=m, path=d, iter=1000, warmup=iter/10,
                    chains=chains, cores=chains, control=list(max_treedepth=14,
-                    metric=mass,adapt_delta=0.95))
+                    metric=mass,adapt_delta=0.98))
+?sample_nuts()
+# Get the mcmc samples
+sample_nuts(model=m, path=d, mceval=TRUE)
+
 plot_sampler_params(fit.mle2)
+summary(fit.mle2)
+pairs_admb(fit.mle2, pars=1:6, order='slow')
+pairs_admb(fit.mle2, pars=1:6, order='fast')
+pairs_admb(fit.mle2, pars=1:6, order='mismatch')
+pairs_admb(fit.mle2, pars=c(2:9), order='orig')
+pairs_admb(fit.mle2, pars=c(2,9:16), order='orig')
+?pairs_admb
 launch_shinyadmb(fit.mle)
 launch_shinyadmb(fit.mle2)
-pairs_admb(fit.mle2, pars=1:6, order='slow')
 summary(fit.mle)
 summary(fit.mle2)
 saveRDS(fit.mle, file='fit.mle.RDS')

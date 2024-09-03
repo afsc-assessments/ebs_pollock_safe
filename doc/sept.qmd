@@ -856,7 +856,7 @@ plot_srr(modlst[c(1, 7)])
 
 
 
-# Tier 1 and ecosystem function evaluation
+# Further considerations of pollock and ecosystem role
 
 As noted, above, the SSC requested an evaluation of the ecosystem function as part of the SRR consideration
 and Tier 1 control rules within the FMP. Their comment was:
@@ -903,19 +903,25 @@ Over the past 4 decades, the actual EBS pollock
 catches have averaged about 1.3 million t. 
 
 As a point of curiosity, we considered inverting the SRR productivity estimate by
-posing the question "what SRR would give a long-term expected MSY of 1.3 million t.? 
-Do our estimates of uncertainty in the SRR curve overlap substantially?
+posing the question "what SRR would give a long-term expected MSY of 1.3 million t?"
+Additionally, would our estimates of uncertainty in the SRR curve overlap in a 
+manner that would provide context for the management advice.
 
 We thus added a feature of the model where one can provide a condition that the
 SRR be consistent with a specified MSY value.  
-As an experiment, we conditioned the SRR curve to have the MSY value set to 1.75 and
-1.3 million t.
+As an experiment, we conditioned the SRR curve to have the MSY value set to 
+1.75 and 1.3 million t.
 We then compared those curves with the 2023 model specificaitons (@fig-srrplot_cond). 
 When overplotted, the fit comparisons indicate somewhat worse fit to the available
 years of data (post 1977; @fig-srrplot_cond2) but reasonable within the estimates
 of uncertainty. Here we conclude that the management advice (under Tier 1) is
-quite  sensitive to relatively small apparent perturbations in the shape of the 
-stock-recruitment curves.
+sensitive to relatively small apparent perturbations in the shape of the 
+stock-recruitment curves. Such sensitivity is expected given the sections above.
+Furthermore, we know that non-stationarity in the SRR is likely, especially given
+the uncertainties of climate change. 
+An alternative ABC-setting rule may be preferred that stabilizes the advice while
+adhering to the NS1 guidelines.
+
 
 
 ```{r srrplot_cond}
