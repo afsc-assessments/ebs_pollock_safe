@@ -51,7 +51,12 @@ List of changes (if any) in the assessment methodology. This is one of the most 
 ## Summary of Results
 This presentation lacks any new data and mainly focusses on issues raised by the SSC
 and includes some model development changes. In particular, we enhanced the capability
-of the full-feedback loop by modifying the code to work as an operating model. 
+of the code to deal with some alternative hypotheses of factors that affect the 
+stock recruitment relationship.
+We stepped through a number of sensitivity analyses to evaluate the stock-recruitment
+relationship (SRR) and the steepness of the SRR. We also evaluated the impact of
+including the natural mortality-at-age estimates from CEATTLE model.
+
 We then linked this to a test comparing a management procedure that has some merit
 given a critique on the nature of the stock-recruitment relationship (SRR) conforming
 to the available data. We note that some new research has indicated
@@ -64,6 +69,11 @@ linked to the Tier 1 fishing mortality recommendation in two ways: 1) by the ass
 about $\sigma_R$ (smaller values increase the "precision" of $F_{MSY}$) and 2) by 
 having most of the data far from the origin and hence having steepness affected 
 observations that are distant from the origin.
+
+The model code was updated to work as an operating model so that a
+full-feedback simulation loop could be used to test different management procedures.
+We attempt to provide a backdrop of the ecosystem role that pollock plays in providing
+a moderate role in guiding more stable catch advice.
 
 
 ## Responses to SSC and Plan Team Comments
@@ -166,115 +176,7 @@ The following aspects of the SRR were evaluated and reviewed this year
   - Form (e.g., Ricker versus Beverton-Holt)
   - $\sigma_R$
   
-## Evaluating the impact of selectivity assumptions
-on stock recruitment relationships (SRR)
 
-To examine the assumptions about fishery selectivity variability 
-we ran alternative model configurations where selectivity variability was 
-contrasted. In one configuration it was
-constrained such that the fishing mortality was considered completely separable with
-respect to age and one where there was limited constraint on the selectivity. This 
-later model is similar in nature to traditional VPA models where the catch at age
-is assumed known precisely. The resulting selectivity patterns are shown in 
-@fig-selex. Results showed that very little difference between a freely
-specified selectivity model (@fig-separable_ssb_r_vpa)
-Results comparing the constrained selectivity differed substantially from last year's
-configuration  (@fig-separable_ssb_r).
-
-The large differences due to assuming separability also impacts the estimates of the
-stock recruitment relationship (@fig-separable_srr). This figure also dipicts the
-different magnitude of the recent recruitment and an increased uncertainty. In 
-particular, the 2018 year class is estimated to be much larger in the separable model.
-
-Another form of evaluating the 
-selectivity estimates was to simply apply each of the annual selectivity estimates (or partial Fs) 
-from the past 20 years.  We note that 
-the base result used the mean selectivity over the recent 2
-years; specifically, the mean selectivity for 2021 and 2022 for the 2023 terminal year
-assessment. 
-
-Results show that ...xxx
-
-```{r selex}
-#| echo: false
-#| warnings: FALSE
-#| messages: FALSE
-#| label: fig-selex
-#| fig.cap: "
-#| Selectivity-at-age patterns for three models: last-year's, separable, and VPA. "
-#| fig.width: 8
-#| fig.height: 10
-sellst <- list()
-sellst[[1]] <- read_rep(here::here("2024", "runs", "lastyr", "pm.rep"))
-sellst[[2]] <- read_rep(here::here("2024", "runs", "separable", "pm.rep"))
-sellst[[3]] <- read_rep(here::here("2024", "runs", "vpa", "pm.rep"))
-names(sellst) <- c("Last year", "Separable", "VPA")
-all_sel <- NULL
-for (i in 1:length(sellst)) {
-  sel_pm <- as_tibble(sellst[[i]]$sel_fsh) |>
-    rowwise() |>
-    mutate(across(everything(), ~ . / max(c_across(everything())))) |>
-    ungroup()
-  sel_pm <- cbind(1964:2023, sel_pm)
-  names(sel_pm) <- c("Year", 1:15)
-  sel_pm <- sel_pm |> mutate(source = names(sellst)[i])
-  all_sel <- rbind(all_sel, sel_pm)
-}
-Plot_Sel() + ggthemes::theme_few(base_size = 9)
-```
-
-
-```{r separable_ssb_r_vpa}
-#| echo: false
-#| warnings: FALSE
-#| messages: FALSE
-#| label: fig-separable_ssb_r_vpa
-#| fig.cap: "Model results comparing last year's selected model with one where the
-#| selectivity is more highly variable over time (VPA). Recruitment is shown in the top panel and
-#| spawning biomass in the lower."
-#| fig.width: 8
-#| fig.height: 10
-
-
-p1 <- plot_recruitment(sellst[c(1, 3)], xlim = c(2000.5, 2022.5))
-# p1
-p2 <- plot_ssb(sellst[c(1, 3)], xlim = c(1963.5, 2024.5), breaks = seq(1964, 2024, by = 4), alpha = .2)
-# p2
-p1 / p2
-```
-
-```{r separable_ssb_r}
-#| echo: false
-#| warnings: FALSE
-#| messages: FALSE
-#| label: fig-separable_ssb_r
-#| fig.cap: "Model results comparing last year's selected model with one where the
-#| selectivity is constant over time (separable). Recruitment is shown in the top panel and
-#| spawning biomass in the lower."
-#| fig.width: 8
-#| fig.height: 10
-
-p1 <- plot_recruitment(sellst[c(1, 2)], xlim = c(2000.5, 2022.5))
-# p1
-p2 <- plot_ssb(sellst[c(1, 2)], xlim = c(1963.5, 2024.5), breaks = seq(1964, 2024, by = 4), alpha = .2)
-# p2
-p1 / p2
-```
-
-
-
-```{r separable_srr}
-#| echo: false
-#| warnings: FALSE
-#| messages: FALSE
-#| label: fig-separable_srr
-#| fig.cap: "Model results comparing last year's selected model with one where the
-#| selectivity is fixed over time (separable) for the estimated stock-recruitment
-#| relationship. Note that the vertical bars represent the 95% confidence intervals
-#| for the age-1 recruitment."
-
-plot_srr(sellst[c(1, 2)], alpha = .2, xlim = c(0, 6400), ylim = c(0, 115000), sizeout = 2, sizein = 3, yrsin = c(1977, 1979:2021), ebar = TRUE)
-```
 
 ## Time series length for the stock-recruitment relationship conditioning
 
@@ -319,7 +221,15 @@ plot_srr(srrlst[c(1, 2)], alpha = .2, xlim = c(0, 4200), ylim = c(0, 85000), siz
 As another consideration for Tier 1 and Tier 3, we recognized that the SPR rate for the 
 2023 assessment that corresponded to a value of about $F_{32\%}$. For contrast we
 used a similar SRR curve condition approach asking the question "what SRR satisfies 
-the constraint that out $F_{35\%}$ = $F_{MSY}$."
+the constraint that out $F_{35\%}$ = $F_{MSY}$." Results from this run shows that the
+curves are quite similar (@fig-F35). This suggests that at least given the current
+model from 2023, the $F_{35\%}$ is a reasonable proxy for $F_{MSY}$. 
+
+An alternative SRR conditioning exercise was conducted where the year range for the 
+conditioning of the curve was dropped in successive years. This was intended to 
+show how sensitive the 
+curve is to the years included in the analysis. We expect that it should revert
+to the prior as fewer years are included in the conditioning of the SRR curve.
 
 ```{r F35}
 #| echo: false
@@ -332,16 +242,6 @@ the constraint that out $F_{35\%}$ = $F_{MSY}$."
 #| The vertical bars represent the 95% confidence intervals for the age-1 recruitment."
 plot_srr(srrlst[c(1, 10)], alpha = .2, xlim = c(0, 4200), ylim = c(0, 85000), sizeout = 1, sizein = 3, yrsin = c(1978:2021), ebar = TRUE)
 ```
-
-
-An alternative SRR conditioning exercise was conducted where the year range for the 
-conditioning of the curve was dropped in successive years. This was intended to 
-show how sensitive the 
-curve is to the years included in the analysis. We expect that it should revert
-to the prior as fewer years are included in the conditioning of the SRR curve.
-
-
-Non-stationarity XXX xxx
 
 ## Including temperature effects in the stock-recruitment relationship
 ```{r srr_time_temp}
@@ -610,8 +510,7 @@ p1 <- plot_srr(M,
 # plotly::ggplotly(p1)
 # yrsin = c(1977, 1979:2021))
 if (do_anim){
-  
-p1 <- plot_srr(srrlst[c(1:30)],
+  p1 <- plot_srr(srrlst[c(1:30)],
   alpha = .1, xlim = c(0, 7700), ebar = TRUE,
   ylim = c(0, 105000), sizeout = 1.0, sizein = 1.0,
   yrsin = c(1964:2021)
@@ -620,9 +519,20 @@ p1 <- plot_srr(srrlst[c(1:30)],
   labs(title = "Terminal year in SRR estimation: 1978-{closest_state} ") +
   ease_aes("linear")
 p1
+  p2 <- plot_srr(srrlst[c(1:30)],
+  alpha = .1, xlim = c(0, 7700), ebar = TRUE,
+  ylim = c(0, 105000), sizeout = 1.0, sizein = 1.0,
+  yrsin = c(1964:2021)
+) + theme(legend.position = "none") 
+  p2
+ggsave("sel_notanim.png",p2, path=here::here("doc","figs"))
 anim_save("sel_anim.gif",p1, path=here::here("doc","figs"))
 }else{
-  knitr::include_graphics("../doc/figs/sel_anim.gif")
+  if (knitr:::is_latex_output()) {
+    knitr::include_graphics("../doc/figs/sel_notanim.png")
+  } else {
+    knitr::include_graphics("../doc/figs/sel_anim.gif")
+  }
 }
 # anim <- animate(p1, nframes = 50, fps = 10)
 # p1
@@ -632,9 +542,114 @@ anim_save("sel_anim.gif",p1, path=here::here("doc","figs"))
 ```
 
 
-## Sensitivity of the selectivity estimate on the SRR
+## Evaluating the impact of selectivity assumptions on stock recruitment relationships (SRR)
 
-For this set of experiments, we evaluated the SRR curve given the past 20 years of
+To examine the assumptions about fishery selectivity variability 
+we ran alternative model configurations where selectivity variability was 
+contrasted. In one configuration it was
+constrained such that the fishing mortality was considered completely separable with
+respect to age and one where there was limited constraint on the selectivity. This 
+later model is similar in nature to traditional VPA models where the catch at age
+is assumed known precisely. The resulting selectivity patterns are shown in 
+@fig-selex. Results showed that very little difference between a freely
+specified selectivity model (@fig-separable_ssb_r_vpa)
+Results comparing the constrained selectivity differed substantially from last year's
+configuration  (@fig-separable_ssb_r).
+
+The large differences due to assuming separability also impacts the estimates of the
+stock recruitment relationship (@fig-separable_srr). This figure also dipicts the
+different magnitude of the recent recruitment and an increased uncertainty. In 
+particular, the 2018 year class is estimated to be much larger in the separable model.
+
+Another form of evaluating the 
+selectivity estimates was to simply apply each of the annual selectivity estimates (or partial Fs) 
+from the past 20 years.  We note that 
+the base result used the mean selectivity over the recent 2
+years; specifically, the mean selectivity for 2021 and 2022 for the 2023 terminal year
+assessment. 
+
+Results show that the srr 
+
+```{r selex}
+#| echo: false
+#| warnings: FALSE
+#| messages: FALSE
+#| label: fig-selex
+#| fig.cap: "Selectivity-at-age patterns for three models: last-year's, separable, and VPA. "
+#| fig.width: 8
+#| fig.height: 10
+sellst <- list()
+sellst[[1]] <- read_rep(here::here("2024", "runs", "lastyr", "pm.rep"))
+sellst[[2]] <- read_rep(here::here("2024", "runs", "separable", "pm.rep"))
+sellst[[3]] <- read_rep(here::here("2024", "runs", "vpa", "pm.rep"))
+names(sellst) <- c("Last year", "Separable", "VPA")
+all_sel <- NULL
+for (i in 1:length(sellst)) {
+  sel_pm <- as_tibble(sellst[[i]]$sel_fsh) |>
+    rowwise() |>
+    mutate(across(everything(), ~ . / max(c_across(everything())))) |>
+    ungroup()
+  sel_pm <- cbind(1964:2023, sel_pm)
+  names(sel_pm) <- c("Year", 1:15)
+  sel_pm <- sel_pm |> mutate(source = names(sellst)[i])
+  all_sel <- rbind(all_sel, sel_pm)
+}
+Plot_Sel() + ggthemes::theme_few(base_size = 9)
+```
+
+
+```{r separable_ssb_r_vpa}
+#| echo: false
+#| warnings: FALSE
+#| messages: FALSE
+#| label: fig-separable_ssb_r_vpa
+#| fig.cap: "Model results comparing last year's selected model with one where the
+#| selectivity is more highly variable over time (VPA). Recruitment is shown in the top panel and
+#| spawning biomass in the lower."
+#| fig.width: 8
+#| fig.height: 10
+
+
+p1 <- plot_recruitment(sellst[c(1, 3)], xlim = c(2000.5, 2022.5))
+# p1
+p2 <- plot_ssb(sellst[c(1, 3)], xlim = c(1963.5, 2024.5), breaks = seq(1964, 2024, by = 4), alpha = .2)
+# p2
+p1 / p2
+```
+
+```{r separable_ssb_r}
+#| echo: false
+#| warnings: FALSE
+#| messages: FALSE
+#| label: fig-separable_ssb_r
+#| fig.cap: "Model results comparing last year's selected model with one where the
+#| selectivity is constant over time (separable). Recruitment is shown in the top panel and
+#| spawning biomass in the lower."
+#| fig.width: 8
+#| fig.height: 10
+
+p1 <- plot_recruitment(sellst[c(1, 2)], xlim = c(2000.5, 2022.5))
+# p1
+p2 <- plot_ssb(sellst[c(1, 2)], xlim = c(1963.5, 2024.5), breaks = seq(1964, 2024, by = 4), alpha = .2)
+# p2
+p1 / p2
+```
+
+```{r separable_srr}
+#| echo: false
+#| warnings: FALSE
+#| messages: FALSE
+#| label: fig-separable_srr
+#| fig.cap: "Model results comparing last year's selected model with one where the
+#| selectivity is fixed over time (separable) for the estimated stock-recruitment
+#| relationship. Note that the vertical bars represent the 95% confidence intervals
+#| for the age-1 recruitment."
+
+plot_srr(sellst[c(1, 2)], alpha = .2, xlim = c(0, 6400), ylim = c(0, 115000), sizeout = 2, sizein = 3, yrsin = c(1977, 1979:2021), ebar = TRUE)
+```
+
+
+For another set of experiments, we evaluated the SRR curve given the past 20 years of
 selectivity estimates. From this we get a set of SRR curves that are conditioned on the
 selectivity estimate AND the MSY value. The script to run this set involved reading in the
 control file and modifying the option for which years to include for the selectivity
@@ -663,7 +678,6 @@ names(modlst) <- paste0("sel_", (3):20)
 # .OVERLAY=TRUE
 plot_srr(modlst[c(1, 4, 12, 18)], alpha = .2, xlim = c(0, 6400), ylim = c(0, 85000), sizeout = 2, sizein = 4, yrsin = c(1977, 1979:2021))
 ```
-
 
 ```{r sel_ABC_plot}
 #| echo: false
@@ -1091,13 +1105,13 @@ df1 |>
   xlim(c(2000, 2024))
 ```
 
-Additionally, considering that humans are part of the ecosystem xxx
 
-Such a management procedure would need to be tested using a full feedback loop system.
+Such a management procedure would need to be tested using a full feedback loop simulation.
 Consequently, we updated the simulation feature of the assessment model to behave as an
 operating model. This required some simplifications on how the bottom-trawl survey
 covariance structure was applied, in addition to a couple of other issues (e.g., the
-random-effects derived estimates of weight-at-age).
+random-effects derived estimates of weight-at-age). Initial result
+ Additionally, considering that humans are part of the ecosystem xxx
 
 ### Tests of future ecosystem states using EWE (Rpath) scenarios
 
@@ -1112,7 +1126,8 @@ datasets and be used as a self testing platform. Several modifications that have
 occurred since this was first implemented, including the addition of a new biomass index, 
 required some code updates. 
 
-The model was run for 100 years under three scenarios: status
+The model was run for 100 years under three scenarios: status quo fishing, pollock fishing
+that would average 2.2 million tons, and without any pollock fishing.
 
 # Bayesian diagnostics
 Following the advice of @monnahan2023 we performed multiple
@@ -1125,9 +1140,9 @@ models by confirming simulated data were consistent with the observations.
 Process error variances can be estimated jointly with random effects and other parameters
 when desired, and should be for important model components. 
 
-We also attempted the Pareto-smoothed importance sampling 
-leave-one-out cross-validation
-(PSIS-LOO) method to assess model fit and found that the
+We investigated how to implement the Pareto-smoothed importance sampling 
+leave-one-out cross-validation (PSIS-LOO) method. We hope to have this for future
+analysis to assess model fit.
 
 ## Steps for judging model performance based on the posterior predictive distributions
 
@@ -1168,6 +1183,32 @@ Posterior predictive checks can also be facilitated by visualizing the posterior
 predictive distribution. This can includes comparing the observed data’s summary 
 statistics (e.g., mean, variance) relative to those of the posterior predictive distribution.
 
+Updating the 2023 model for MCMC runs using ADNUTS, we were able achieve reasonable
+statistics but some divergent transitions remained. Investigations showed that 
+they were reasonable. @fig-bayesdiag1 shows some of the summary figures related
+to the MCMC sampling and  @fig-bayesdiag2 shows the relationship of the slowest
+mixing parameters. The result from sampling showed that for the  1340 parameters,
+there was 1,000 iterations over  8 chains with an average run time per chain of 12 minutes.
+The minimum effective sample size was  2,756 (36.26%) and and the maximum $\hat{R}$ 
+was 1.004 with 21 divergences.
+
+```{r bayesdiag1}
+#| echo: false
+#| warnings: FALSE
+#| messages: FALSE
+#| label: fig-bayesdiag1
+#| fig.cap: "Diagnostic output for ADNUTS sampling for the 2023 EBS pollock model."
+  knitr::include_graphics("../doc/figs/bayes_sample.png")
+```
+
+```{r bayesdiag2}
+#| echo: false
+#| warnings: FALSE
+#| messages: FALSE
+#| label: fig-bayesdiag2
+#| fig.cap: "Diagnostic output showing  the slow mixing parameters of the 2023 EBS pollock model posterior sampling."
+  knitr::include_graphics("../doc/figs/slowmix.png")
+```
 <!-- More from Monnahan: -->
 <!-- [An approximate cross-validation technique -->
 <!-- called PSIS-LOO is the most practical tool for model selection, but can also  -->
@@ -1247,46 +1288,69 @@ do fine-scale bridging.
 In subsequent sections we compare how the selectivity estimates compare, along with
 spawning biomass and recruitment.
   
+## Comparng base results over different platforms
 
-### Selectivity
+Our first pass at comparing models involved examining how selectivity could be
+specified and fit with the different platforms. The success in coming close to matching
+the pattern estimated in the present assessment varied among different platforms
+(@fig-selmain).  An alternative presentations shows the differences by age over time (@fig-selmainage). 
+These preliminary runs over different platforms showed important differences
+in spawning biomass and recruits with the current assessment coming in below
+expectations (@fig-ssbplatform). The differences for the SRR were also noteworthy
+(@fig-srrplatform). 
 
-```{r}
+```{r selmain}
+#| echo: false
+#| warnings: FALSE
+#| messages: FALSE
+#| label: fig-selmain
+#| fig.cap: "Comparison of the time series of selectivity estimates over different
+#| modeling platforms."
+
 p<-Plot_Sel() + ggthemes::theme_few(base_size=9)
 p
 ```
 
-
-### Selectivity by age
-
-```{r}
+```{r selmainage}
+#| echo: false
+#| warnings: FALSE
+#| messages: FALSE
+#| label: fig-selmainage
+#| fig.cap: "Comparison of the time series of selectivity-at-age estimates over different
+#| modeling platforms."
 p <- Plot_Sel_age()
 ggplotly(p)
 ```
 
-### SSB
-
-```{r}
-
+```{r ssbplatform}
+#| echo: false
+#| warnings: FALSE
+#| messages: FALSE
+#| label: fig-ssbplatform
+#| fig.cap: "Comparison of the time series of selectivity-at-age estimates over different
+#| modeling platforms."
 p<- Plot_SSB()
 ggplotly(p)
-
 ```
 
-### Stock recruitment relationship
-
-```{r}
-
+```{r srrplatform}
+#| echo: false
+#| warnings: FALSE
+#| messages: FALSE
+#| label: fig-srrplatform
+#| fig.cap: "Comparison of the stock-recruitment relationships between different modeling 
+#| platforms."
 p<- Plot_SRR()
 ggplotly(p)
-
 ```
 
-Additional AMAK runs
-=======================================================================
 
-### Run description
+## Additional AMAK runs
 
-Runs with different selectivity assumptions where:     
+In an attempt to get different platforms closer to eachother, some tuning of the 
+model specification for AMAK was undertaken. This included some comparisons with
+the early CPUE data added, and with a newly developed 3-parameter double logistic
+parameterizations:
 
   - **base**: selectivity at age allowed to vary (sigma penalty=0.7)     
   
@@ -1307,15 +1371,14 @@ df <- df |> rowwise() |> mutate(across(2:4, ~ . - min(c_across(2:4))))
 gt::gt(df) |> gt::fmt_number( columns = 2:4, decimals = 1)
 ```
 
-### Selectivity
 
-```{r echo=FALSE}
-# am_run<-AMAK_obj()
-  #source(here::here("GetResults.R"))
-#am_run2<-AMAK_obj(run_dir=here("amak2","runs", "3par"))
- # am_run<-AMAK_obj(run_dir=here("amak2","runs", "base"))
- # am_run2<-AMAK_obj(run_dir=here("amak2","runs", "3par"))
-  #am_run3<-AMAK_obj(run_dir=here("amak2","runs", "cpue"),src="AMAK w CPUE", nind=6)
+```{r sel_amak}
+#| echo: false
+#| warnings: FALSE
+#| messages: FALSE
+#| label: fig-sel_amak
+#| fig.cap: "Comparison of the selectivity estimates between different modeling 
+#| specifications in AMAK"
    am_sel <- rbind(pm_run$sel, pm_run2$sel, am_run$sel,am_run2$sel, am_run3$sel)
    am_ts <- rbind(pm_run$ts, pm_run2$ts, am_run$ts,am_run2$ts,am_run3$ts)
    am_fit<- rbind(am_run$fit, am_run2$fit, am_run3$fit)
@@ -1323,43 +1386,65 @@ p1 <- Plot_Sel(am_sel)
 p1 + ggthemes::theme_few(base_size=9)
 ```
 
-### Selectivity at age
-```{r echo=FALSE}
+```{r sel_age_amak}
+#| echo: false
+#| warnings: FALSE
+#| messages: FALSE
+#| label: fig-sel_age_amak
+#| fig.cap: "Comparison of the selectivity-at-age estimates between different modeling 
+#| specifications in AMAK"
 p1  <- Plot_Sel_age(am_sel)
 ggplotly(p1)
 ```
 
-### SSB and recruitment
 
-```{r echo=FALSE}
+```{r ssb_amak}
+#| echo: false
+#| warnings: FALSE
+#| messages: FALSE
+#| label: fig-ssb_amak
+#| fig.cap: "Comparison of the selectivity-at-age estimates between different modeling 
+#| specifications in AMAK"
 p1 <- Plot_SSB(am_ts)
 ggplotly(p1)
 ```
 
-### AMAK fit to indices
-
-#### All 
-```{r echo=FALSE}
+```{r ind_fit}
+#| echo: false
+#| warnings: FALSE
+#| messages: FALSE
+#| label: fig-ind_fit
+#| fig.cap: "Comparison of the fit to indices between different modeling 
+#| specifications in AMAK"
+p1 <- Plot_SSB(am_ts)
 p1 <- Plot_index(df=am_fit, idx=c(1,2,5)) + ggthemes::theme_few(base_size=9)
 ggplotly(p1)
 ```
 
-#### With CPUE 
-```{r idxe2, echo=FALSE}
+```{r ind_fit2}
+#| echo: false
+#| warnings: FALSE
+#| messages: FALSE
+#| label: fig-ind_fit2
+#| fig.cap: "Comparison of the fit to indices between different modeling 
+#| specifications in AMAK"
+p1 <- Plot_SSB(am_ts)
 #glimpse(am_run3$fit)
 Plot_index(df=am_run3$fit, idx=c(1,2,5,6)) + ggthemes::theme_few(base_size=9)
 ```
 
-### Stock recruitment relationship
-
-```{r}
+```{r srr_amak}
+#| echo: false
+#| warnings: FALSE
+#| messages: FALSE
+#| label: fig-srr_amak
+#| fig.cap: "Comparison of the SRR between different modeling 
+#| specifications in AMAK"
 p<- Plot_SRR(df=am_ts)
-ggplotly(p)
-
+p
 ```
 
-Additional SS3 runs
-=======================================================================
+## Additional SS3 runs
 
 ### Run description
 
@@ -1369,7 +1454,6 @@ Runs with different selectivity assumptions where:
   - **mod**: selectivity at age moderately constrained (sigma penalty=0.4)     
   - **mix**: selectivity at age moderately constrained for middle ages, high for older ages, loose for younger ages      
 
-### Selectivity
 
 ```{r echo=FALSE}
 ss_sel <- rbind(r1$sel,r2$sel,r3$sel,r4$sel)#,r5$sel)
@@ -1393,4 +1477,4 @@ ggplotly(p1)
 ```
 
 
-
+# References

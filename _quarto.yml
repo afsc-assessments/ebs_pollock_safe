@@ -71,10 +71,10 @@ format:
     number-sections: true
     code-summary: "Show the code"
     code-fold: true
-  #typst:
-    #documentclass: scrreprt
-  #docx:
-    #reference-docx: "template.docx"
+  pdf:
+    documentclass: scrreprt
+  docx:
+    reference-docx: "template.docx"
 
 bibliography: doc/references.bib
 
