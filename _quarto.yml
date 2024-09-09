@@ -8,9 +8,6 @@ project:
     - "!doc/model.qmd"
     - "!doc/SSC_Minutes.qmd"
 
-output-dir: doc
-
-
 website: 
   page-navigation: true
   title: "Eastern Bering Sea walleye pollock stock assessment" 

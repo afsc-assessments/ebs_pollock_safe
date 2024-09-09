@@ -94,6 +94,7 @@ summary(fit.mle)
 summary(fit.mle2)
 saveRDS(fit.mle, file='fit.mle.RDS')
 saveRDS(fit.mle2, file='fit.mle2.RDS')
+saveRDS(fit.mle2, file='fit.mle2.RDS')
 
 ## Again check for issues of nonconvergence and other standard checks. Then
 ## use for inference.
