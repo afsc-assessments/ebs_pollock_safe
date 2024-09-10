@@ -74,7 +74,7 @@ format:
   docx:
     reference-docx: "template.docx"
 
-bibliography: docs/references.bib
+bibliography: doc/references.bib
 
 filters:
   - include-files.lua

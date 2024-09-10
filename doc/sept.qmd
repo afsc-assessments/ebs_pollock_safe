@@ -374,13 +374,13 @@ p1
   yrsin = c(1964:2021)
 ) + theme(legend.position = "none") 
   p2
-ggsave("sel_notanim.png",p2, path=here::here("docs","figs"))
-anim_save("sel_anim.gif",p1, path=here::here("docs","figs"))
+ggsave("sel_notanim.png",p2, path=here::here("doc","figs"))
+anim_save("sel_anim.gif",p1, path=here::here("doc","figs"))
 }else{
   if (knitr:::is_latex_output()) {
-    knitr::include_graphics("../docs/figs/sel_notanim.png")
+    knitr::include_graphics("../doc/figs/sel_notanim.png")
   } else {
-    knitr::include_graphics("../docs/figs/sel_anim.gif")
+    knitr::include_graphics("../doc/figs/sel_anim.gif")
   }
 }
 ```
@@ -453,7 +453,7 @@ apparent potential for bias.
 #| label: fig-SRRsim
 
 #knitr::include_graphics(here::here("doc","figs","srr_sim.png"))
-knitr::include_graphics("../docs/figs/srr_sim.png")
+knitr::include_graphics("../doc/figs/srr_sim.png")
 ```
 
 ## Beverton-Holt stock-recruitment relationship
@@ -1342,7 +1342,7 @@ was 2,756 (36.26%) and and the maximum $\hat{R}$ was 1.004 with 21 divergences.
 #| messages: FALSE
 #| label: fig-bayesdiag1
 #| fig.cap: "Diagnostic output for ADNUTS sampling for the 2023 EBS pollock model."
-  knitr::include_graphics("../docs/figs/bayes_sample.png")
+  knitr::include_graphics("../doc/figs/bayes_sample.png")
 ```
 
 ```{r bayesdiag2}
@@ -1351,7 +1351,7 @@ was 2,756 (36.26%) and and the maximum $\hat{R}$ was 1.004 with 21 divergences.
 #| messages: FALSE
 #| label: fig-bayesdiag2
 #| fig.cap: "Diagnostic output showing  the slow mixing parameters of the 2023 EBS pollock model posterior sampling."
-  knitr::include_graphics("../docs/figs/slowmix.png")
+  knitr::include_graphics("../doc/figs/slowmix.png")
 ```
 
 <!-- More from Monnahan: -->
