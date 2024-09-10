@@ -2,12 +2,12 @@ project:
   type: website
   output-dir: docs
   render: 
-    - "docs/sept.qmd"
-    - "!docs/DoubleLogistic.Rmd"
-    - "!docs/fishery.qmd"
-    - "!docs/modeleq.qmd"
-    - "!docs/model.qmd"
-    - "!docs/SSC_Minutes.qmd"
+    - "doc/sept.qmd"
+    - "!doc/DoubleLogistic.Rmd"
+    - "!doc/fishery.qmd"
+    - "!doc/modeleq.qmd"
+    - "!doc/model.qmd"
+    - "!doc/SSC_Minutes.qmd"
 
 website: 
   page-navigation: true
@@ -43,7 +43,7 @@ website:
         text: Preface
       #- href: doc/SSC_Minutes.qmd
         #text: SSC minutes
-      - href: docs/sept.qmd
+      - href: doc/sept.qmd
         text: EBS pollock assessment, September 2024
       #- href: doc/platforms.Rmd
         #text: Alternative software platforms
