@@ -1165,11 +1165,10 @@ of the mean value, the recommendation would be $1.2 \times \sqrt{0.75} = 1.039$ 
 If the SSB stayed at 75% of the mean, then the following year would be
 $1.039 \times \sqrt{0.75} = 0.8998$ million t. More formally,
 
-```{=tex}
 \begin{align}
 A_{y+1} &= TAC_y \times \sqrt{\frac{B_{y+1}}{\bar{B}}} \\&=TAC_y \times [\frac{B_{y+1}}{\bar{B}}]^\lambda
 \end{align}
-```
+
 where $A_{y+1}$ is the "advice" on catch, $B_{y+1}$ is the spawning biomass projected in
 the coming year, $\bar{B}$ is the mean spawning biomass and $\lambda$ is a responsiveness
 parameter (set to 0.5 in this example).
@@ -1180,7 +1179,7 @@ focus on the conservation goal of maintaining spawning biomass and provide ecosy
 stability--similar to the over-arching principle of the 2 Mt catch limit for the BSAI
 region.
 
-Too evaluate performance of alternative pollock fishing at the ecosystem level, we
+To evaluate performance of alternative pollock fishing at the ecosystem level, we
 examined results from a mass-balance ecosystem model (e.g., @whitehouse2020). This model
 is based on the extensive diet composition data and is a version of Ecosim implemented
 using the software "Rpath" (@rpath). One scenario involved increasing pollock TACs to
