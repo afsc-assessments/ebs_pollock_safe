@@ -5,6 +5,7 @@ project:
   
   render: 
     - "doc/sept.qmd"
+    - "doc/index.qmd"
     - "!doc/DoubleLogistic.Rmd"
     - "!doc/fishery.qmd"
     - "!doc/modeleq.qmd"
@@ -41,7 +42,7 @@ website:
     collapse-level: 0
     
     contents:
-      - href: index.qmd
+      - href: doc/index.qmd
         text: Preface
       #- href: doc/SSC_Minutes.qmd
         #text: SSC minutes
