@@ -76,12 +76,17 @@ format:
   pdf:
     documentclass: scrreprt
     papersize: letter
+    number-sections: true
     header-includes:
+      - \counterwithout{figure}{chapter}
       - \usepackage{fancyhdr}
       - \pagestyle{fancy}
       - \fancyhf{}
+      - \lhead{September}
+      - \rhead{2024}
+      - \chead{--Draft--}
       - \rfoot{\thepage}
-      - \lfoot{My Document}
+      - \lfoot{EBS pollock assessment discussion paper }
 
   docx:
     reference-docx: "template.docx"

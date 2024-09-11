@@ -78,9 +78,9 @@ by having most of the data far from the origin means estimating steepness become
 certain and possibly unreliable. We provided an illustration of this in an external
 simulation. In the 2023 assessment, $\sigma_R$ was specified at 1.0 as a precautionary
 measure. We seek guidance on $\sigma_R$ approaches and general treatment of the SRR given
-the direct management implication under Tier 1.
+the direct management implications under Tier 1.
 
-Incorporating the natural mortality at age and year from CEATTLE had a modest impact on
+Incorporating the natural mortality-at-age and year from CEATTLE had a modest impact on
 the SRR because the recruitment scales were higher.
 
 The model code was updated to work as an operating model so that a full-feedback
@@ -455,7 +455,7 @@ apparent potential for bias.
 ```{r SRRsim}
 #| echo: false
 #| fig.cap: "Results from simulation-estimation scenarios from the type of data available
-#| for EBS pollock, 1978-2022"
+#| for EBS pollock, 1978-2022. The clusters of black dots show resampled stock-recruit data."
 #| label: fig-SRRsim
 
 #knitr::include_graphics(here::here("doc","figs","srr_sim.png"))
@@ -659,7 +659,7 @@ differences in selectivity patterns).
 The large differences due to assuming separability also impacts the estimates of the stock
 recruitment relationship (@fig-separable_srr). This figure also depicts the different
 magnitude of the recent recruitment and the corresponding
-increased uncertainty in recent recruitment. In particular, the 2018
+increased uncertainty. In particular, the 2018
 year class is estimated to be much larger in the separable model.
 
 Another form of evaluating the selectivity estimates was to simply apply each of the
@@ -840,20 +840,21 @@ are quite similar (@fig-F35). This suggests that at least given the current mode
 #| label: fig-F35
 #| fig.cap: "Model results comparing last year's selected model (SRR 1978-2021)
 #| with one where the
-#| SRR was conditioned such that $F_{MSY}$ was equal the the SPR rate of $F_{35}$.
+#| SRR was conditioned such that $F_{MSY}$ was equal to the SPR rate of $F_{35}$.
 #| The vertical bars represent the 95% confidence intervals for the age-1 recruitment."
 plot_srr(srrlst[c(1, 10)], alpha = .2, xlim = c(0, 4200), ylim = c(0, 85000), sizeout = 1, sizein = 3, yrsin = c(1978:2021), ebar = TRUE)
 ```
 
-# Incorporating natural mortality age arising from CEATTLE
+# Incorporating natural mortality-at-age arising from CEATTLE
 
-In past assessments we have mentioned that a commonly adopted approach for stocks that are
-also included in multispecies trophic interaction models (@trijoulet2020) it is considered
-best practice to include the estimates of natural mortality-at-age over time within the
-assessment model. We developed an option to include the 2023 CEATTLE estimates of natural
-mortality (@tbl-Mmatrix; @fig-Mmatrix_matrix). This resulted slightly higher recruitment but lower
-spawning biomass in the near term (@fig-Mmatrix). This is due to the higher natural
-mortality for most ages and years compared to the base 2023 model.
+In past assessments we have mentioned that a commonly adopted approach 
+is to use estimated natural mortality-at-age and year fro 
+multispecies trophic interaction models (@trijoulet2020).
+We developed an option to include the 2023 CEATTLE estimates of natural
+mortality (@tbl-Mmatrix; @fig-Mmatrix_matrix). This resulted in slightly higher 
+recruitment but lower spawning biomass in the near term (@fig-Mmatrix). 
+This is due to the higher natural mortality for most ages and years compared 
+to the base 2023 model.
 
 
 
@@ -1020,7 +1021,7 @@ bottom temperatures from the summer bottom trawl survey. Subsequent analyses pro
 additional support using moored sea-floor echo-sounders (@levine2024). Connecting these
 studies with future temperature scenarios together with alternative fishing mortality
 rates in the Russian zone requires some additional developments. Such a research model
-evaluation has begun but it more work is neede before it can be included in the
+evaluation has begun but it more work is needed before it can be included in the
 assessment.
 
 # Further considerations of pollock and its role in the ecosystem
@@ -1072,9 +1073,9 @@ Additionally, would our estimates of uncertainty in the SRR curve overlap in a m
 would provide context for the management advice?
 
 We thus added a feature of the model where one can provide a condition that the SRR be
-consistent with a specified MSY value.\
-As an experiment, we conditioned the SRR curve to have the MSY value set to 1.75 and 1.3
-million t. We then compared those curves with the 2023 model specifications
+consistent with a specified MSY value. As an experiment, we conditioned the 
+SRR curve to have the MSY value set to 1.75 and 1.3 million t. We then compared 
+those curves with the 2023 model specifications
 (@fig-srrplot_cond). When overplotted, the fit comparisons indicate somewhat worse fits to
 the available years of data (post 1977; @fig-srrplot_cond2). However, the fits were
 reasonable within the estimates of uncertainty. Here we conclude that the management
@@ -1270,38 +1271,61 @@ df |> ggplot(aes(x = Year, y = SSB)) +
 #| echo: FALSE
 #| message: FALSE
 #| label: fig-mp_hist
-#| fig.cap: "Results from applying a simple catch-advice rule given historical
-#| spawning biomass projections (SSB.projected) compared to the actual catch (as a function
-#| of historical ABCs and TACs). A single value for 
-#| responsiveness was used ( $/lambda =0.5$ )."
-#|
+#| fig.cap: "Results from applying a simple catch-advice rule given historical actual
+#| catches (points, bottom panel) based on 
+#| spawning biomass projections and mean SSB (top panel, blue and dashed line, respectively).
+#| Arrows represent the catch advice given historical catches and different values of lambda."
 df1 <- NULL
+#for (resp in c(0.5))  {
 for (resp in c(0.05, 0.5, 0.95)) {
   for (i in 2000:2022) {
     # get values from the time series
     lastidx <- i - 1977 + 14
-    cat_mn <- mean(M$obs_catch[14:lastidx])
-    cat_this <- M$obs_catch[lastidx]
-    ssb_mn <- mean(M$SSB[14:lastidx, 2])
+    cat_mean <- mean(M$obs_catch[14:lastidx])
+    TACy     <- M$obs_catch[lastidx]
+    ssb_mean <- mean(M$SSB[14:lastidx, 2])
     ssb_this <- (M$SSB[lastidx, 2])
     ssb_next <- (M$SSB[lastidx + 1, 2])
     # cat_next   <- (ssb_next/ssb_this)^0.5 * cat_this
-    cat_next <- (ssb_next / ssb_mn)^resp * cat_this
-    df1 <- data.frame(Year = i, 'Mean catch' = cat_mn, 'Actual catch' = cat_this, 
-                      'Catch advice' = cat_next, 'Mean SSB' = ssb_mn, ssb_this = ssb_this, 
-                      'SSB projected' = ssb_next, resp = resp) |> rbind(df1)
+    A <- (ssb_next / ssb_mean)^resp * TACy
+    delta <- A - TACy
+    df1 <- data.frame(Year = i, 'Mean catch' = cat_mean, 'Actual catch' = TACy, 
+                      'Catch advice' = A , 'Mean SSB' = ssb_mean, ssb_this = ssb_this, 
+                      'SSB projected' = ssb_next, resp = resp, adj=(ssb_next/ssb_mean)^resp,
+                      idx = lastidx, delta=delta
+                      ) |> rbind(df1)
   }
 }
-df1 |>
-  pivot_longer(cols = c(3:5, 7), names_to = "var", values_to = "value") |> filter(resp==0.5) |> 
-  mutate(Year = ifelse(var == "ABC", Year + 1, Year)) |>
-  ggplot(aes(x = Year, y = value, shape = var, color = var)) +
-  geom_point() +
-  geom_line() +
-  labs(title = "EBS Pollock parallel catch advice", x = "Year", y = "relative to mean") +
-  theme_bw() +
-  #facet_grid(resp ~ .) +
-  xlim(c(2000, 2024))
+p1 <- df1 |> mutate(TAC.Multiplier=adj, Lambda=as.factor(resp)) |> 
+  ggplot(aes(x = Year, y = SSB.projected)) + ggthemes::theme_few() + ylim(c(0,NA)) +
+  ylab("Projected SSB and mean")+
+  geom_line(linewidth=1, color="purple")   + geom_line(aes(x=Year, y=Mean.SSB), color="green", linetype=2) #+
+p2 <- df1 |> mutate(Lambda=as.factor(resp)) |> 
+  ggplot(aes(x = Year, y = Actual.catch, color=Lambda))  + ggthemes::theme_few() +
+  geom_point(size=1.8) +
+  geom_segment(aes(xend=Year+1,yend=Catch.advice), arrow=arrow(length = unit(0.04,"npc") )) + ylim(c(0,NA))+
+  ylab("Catch (kt)")
+#p3 <- df1 |> mutate(TAC.Multiplier=adj, Lambda=as.factor(resp)) |> 
+  #ggplot(aes(x = Year, y = TAC.Multiplier, color=Lambda))  + geom_line() + ggthemes::theme_few() +
+  #geom_point(size=2) #+
+p1/p2 #+ plot_layout(guides = "collect")
+  #geom_segment(aes(xend=Year+1,yend=Catch.advice), arrow=arrow(length = unit(0.1,"cm"))) + ylim(c(0,NA))+
+  #ylab("Catch (kt)")
+    
+#write_csv(df1,"adj.csv")
+#df1 |> filter(resp==0.5) |> transmute(Year, TAC=Actual.catch, adj=sqrt(SSB.projected/Mean.SSB), A=delta) |> 
+  #ggplot(aes(x=Year,y=A)) + geom_line()
+#df1 |> pivot_longer(cols = c(3:5, 7,12), names_to = "var", values_to = "value") 
+#p1 <- df1 |> pivot_longer(cols = c(3:5, 7), names_to = "var", values_to = "value") |> 
+  #filter(resp==0.5) |> 
+  #mutate(Year = ifelse(var %in% c("SSB.projected","Catch.advice"), Year + 1, Year)) |>
+  #ggplot(aes(x = Year, y = value, shape = var, color = var)) +
+  #geom_point() +
+  #geom_line() +
+  #labs(title = "EBS Pollock parallel catch advice", x = "Year", y = "relative to mean") +
+  #theme_bw() +
+  #xlim(c(2000, 2024))
+#p1
 ```
 
 # Bayesian diagnostics
@@ -1309,22 +1333,22 @@ df1 |>
 In response to the SSC's request to provide documentation on the convergence properties
 and other aspects of Bayesian integrations, we start by following the advice of
 @monnahan2023. This involved performing multiple "no-U-turn sampler" (NUTS) chains and
-note that that the potential scale reduction $̂\hat{R}$ was \<1.01 and the effective
+note that that the potential scale reduction $\hat{R}$ was \<1.01 and the effective
 sample sizes were \>400 for all parameters. We also report on the presence of divergent
 transitions as part of the diagnostics and investigated how to implement the
 Pareto-smoothed importance sampling leave-one-out cross-validation (PSIS-LOO) method. We
-hope to have this for future analysis to assess model fit.
+hope to have this for future analysis to assess model fit. Another avenue that requires
+more work is to include process error variances in the estimation--essentially apply 
+a state-space modeling approach. 
 
 ## Steps for judging model performance based on the posterior predictive distributions
 
 As in past years, we used posterior predictive checks to validate models by confirming
-simulated data were consistent with the observations. Investigations on how to produce
-standard figures we highlight those as follows.
-
-Process error variances can be estimated jointly with random effects and other parameters
-when desired, and should be for important model components. After obtaining posterior
+simulated data were consistent with the observations. Here we attempt to expand on 
+approaches that might be useful for evaluating models. We outline a summary of what
+we found here in order to improve on our diagnostics for assessments.  After obtaining posterior
 samples, let’s denote these samples as $\theta_1$, $\theta_2$, $\ldots$, $\theta_N$, where
-N is the number of posterior samples. Next is to generate predictive samples. For each
+N is the number of posterior samples. The next step is to generate predictive samples. For each
 posterior sample $\theta_i$, generate a predictive sample $y_i^{\text{pred}}$ from the
 likelihood function $p(y \mid \theta_i)$. These predictive samples form the posterior
 predictive distribution. This step is repeated for each posterior sample, resulting in a
@@ -1345,7 +1369,7 @@ computed as:
 $p = \frac{\sum_{j=1}^M \mathbb{I}(y_j^{\text{pred}} \leq y_{\text{obs}})}{M}$
 
 Here, $\mathbb{I}(\cdot)$ is an indicator function that returns 1 if the condition inside
-is true, and 0 otherwise. This gives the count the predictive samples are less than or
+is true, and 0 otherwise. This gives the count of predictive samples that are less than or
 equal to the observed value divided by the total number of samples.
 
 Under a well-calibrated model, the observed data should fall uniformly across the range of
@@ -1355,15 +1379,15 @@ relative to a uniform distribution. Significant deviations from uniformity may i
 model misspecification.
 
 Posterior predictive checks can also be facilitated by visualizing the posterior
-predictive distribution. This can includes comparing the observed data’s summary
+predictive distribution. This can include comparing the observed data’s summary
 statistics (e.g., mean, variance) relative to those of the posterior predictive
 distribution.
 
-Updating the 2023 model for MCMC runs using ADNUTS, we were able achieve reasonable
+Updating the 2023 model for MCMC runs using ADNUTS, we were able to achieve reasonable
 statistics but some divergent transitions remained. Investigations showed that they were
 reasonable. @fig-bayesdiag1 shows some of the summary figures related to the MCMC sampling
-and @fig-bayesdiag2 shows the relationship of the slowest mixing parameters. The result
-from sampling showed that for the 1340 parameters, there was 1,000 iterations over 8
+and @fig-bayesdiag2 shows relationships between the slowest mixing parameters. The result
+from sampling showed that for the 1340 parameters, there were 1,000 iterations over 8
 chains with an average run time per chain of 12 minutes. The minimum effective sample size
 was 2,756 (36.26%) and and the maximum $\hat{R}$ was 1.004 with 21 divergences.
 
@@ -1372,7 +1396,8 @@ was 2,756 (36.26%) and and the maximum $\hat{R}$ was 1.004 with 21 divergences.
 #| warnings: FALSE
 #| messages: FALSE
 #| label: fig-bayesdiag1
-#| fig.cap: "Diagnostic output for ADNUTS sampling for the 2023 EBS pollock model."
+#| fig.cap: "Diagnostic output for ADNUTS sampling for the 2023 EBS pollock model.
+#| For interpretation and guidance on these panels please see @carpenter2017stan. "
   knitr::include_graphics("../doc/figs/bayes_sample.png")
 ```
 
@@ -1381,7 +1406,11 @@ was 2,756 (36.26%) and and the maximum $\hat{R}$ was 1.004 with 21 divergences.
 #| warnings: FALSE
 #| messages: FALSE
 #| label: fig-bayesdiag2
-#| fig.cap: "Diagnostic output showing  the slow mixing parameters of the 2023 EBS pollock model posterior sampling."
+#| fig.cap: "Joint posterior plots for the slowest mixing parameters:
+#| The red dots and elipses indicate point estimate and covariance of the 
+#| MLE results. Trace plots are shown
+#| on the diagonals. Upper off-diagonals show correlation coefficients between
+#| parameters. "
   knitr::include_graphics("../doc/figs/slowmix.png")
 ```
 
@@ -1474,7 +1503,7 @@ spawning biomass and recruitment.
 Our first pass at comparing models involved examining how selectivity could be specified
 and fit with the different platforms. The success in coming close to matching the pattern
 estimated in the present assessment varied among different platforms (@fig-selmain). An
-alternative presentations shows the differences by age over time (@fig-selmainage). These
+alternative presentation shows the differences by age over time (@fig-selmainage). These
 preliminary runs over different platforms showed important differences in spawning biomass
 and recruits with the current assessment coming in below expectations (@fig-ssbplatform).
 The differences for the SRR were also noteworthy (@fig-srrplatform).
@@ -1527,9 +1556,9 @@ ggplotly(p)
 
 ## Additional AMAK runs
 
-In an attempt to get different platforms closer to eachother, some tuning of the model
+In an attempt to get different platforms closer to each other, some tuning of the model
 specification for AMAK was undertaken. This included some comparisons with the early CPUE
-data added, and with a newly developed 3-parameter double logistic parameterizations:
+data added, and with a newly developed 3-parameter double logistic parameterization:
 
 -   **base**: selectivity at age allowed to vary (sigma penalty=0.7)
 
