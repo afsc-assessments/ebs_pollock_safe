@@ -1,6 +1,8 @@
 project: 
   type: website
   output-dir: docs
+  title: "Eastern Bering Sea walleye pollock stock assessment"
+  
   render: 
     - "doc/sept.qmd"
     - "!doc/DoubleLogistic.Rmd"
@@ -58,6 +60,7 @@ website:
 lightbox: true
 format:
   html:
+    date: "`r format(Sys.time(), '%B %d, %Y %H:%M')`"
     theme:
       light: [cosmo, theme.scss] 
       dark: [cosmo, theme-dark.scss]
@@ -71,6 +74,14 @@ format:
     code-fold: true
   pdf:
     documentclass: scrreprt
+    papersize: letter
+    header-includes:
+      - \usepackage{fancyhdr}
+      - \pagestyle{fancy}
+      - \fancyhf{}
+      - \rfoot{\thepage}
+      - \lfoot{My Document}
+
   docx:
     reference-docx: "template.docx"
 
