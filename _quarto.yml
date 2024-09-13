@@ -59,9 +59,10 @@ website:
       #- href: doc/modeleq.qmd
         #text: Appendix 1, Model equations
 lightbox: true
+date: "`r format(Sys.time(), '%B %d, %Y %H:%M')`"
 format:
   html:
-    date: "`r format(Sys.time(), '%B %d, %Y %H:%M')`"
+    
     theme:
       light: [cosmo, theme.scss] 
       dark: [cosmo, theme-dark.scss]
