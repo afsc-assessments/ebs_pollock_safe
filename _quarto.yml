@@ -59,7 +59,9 @@ website:
       #- href: doc/modeleq.qmd
         #text: Appendix 1, Model equations
 lightbox: true
-date: "`r format(Sys.time(), '%B %d, %Y %H:%M')`"
+date: now
+date-format: "YYYY-MM-DDTHH:mm"
+
 format:
   html:
     
