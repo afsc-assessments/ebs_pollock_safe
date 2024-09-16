@@ -61,7 +61,7 @@ website:
 lightbox: true
 engine: knitr
 date: now
-date-format: "YYYY-MM-DDTHH:mm"
+date-format: "YYYY-MM-DD HH:mm"
 
 format:
   html:
