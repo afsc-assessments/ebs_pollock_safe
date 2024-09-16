@@ -59,6 +59,7 @@ website:
       #- href: doc/modeleq.qmd
         #text: Appendix 1, Model equations
 lightbox: true
+engine: knitr
 date: now
 date-format: "YYYY-MM-DDTHH:mm"
 
