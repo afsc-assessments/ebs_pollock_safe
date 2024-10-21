@@ -54,8 +54,7 @@ format:
       after_body: "doc/after_body.html"
     keep_md: true
     keep_html: true
-    self_contained: false
-    code_folding: hide
+    self_contained: true
     mathjax: default
     pandoc_args: "--lua-filter=doc/figs.lua"
 editor_options: 
