@@ -52,11 +52,11 @@ if (doplots) {
   )
   # "23.0")
   names(modlst)
-  p1 <- plot_ssb(modlst[c(1:2)], xlim = c(2008.5, 2023.5), breaks = seq(2008, 2024, by = 2), alpha = .1)
+  p1 <- plot_ssb(modlst[c(1:2)], xlim = c(2008.5, 2024.5), breaks = seq(2008, 2025, by = 2), alpha = .1)
   p1
-  p1 <- plot_ssb(modlst[c(1:3)], xlim = c(1963.5, 2023.5), breaks = seq(1964, 2024, by = 2), alpha = .1)
+  p1 <- plot_ssb(modlst[c(1:2)], xlim = c(1963.5, 2024.5), breaks = seq(1964, 2025, by = 2), alpha = .1)
   p1
-  p2 <- plot_ssb(modlst[c(1, 9)], xlim = c(2008.5, 2023.5), breaks = seq(2008, 2024, by = 2), alpha = .2)
+  p2 <- plot_ssb(modlst[c(1, 2)], xlim = c(2008.5, 2024.5), breaks = seq(2008, 2025, by = 2), alpha = .2)
   p2
   p3 <- p1 / p2
   ggsave("doc/figs/mod_data.pdf", plot = p3, width = 6, height = 8.0, units = "in")
@@ -80,7 +80,7 @@ if (doplots) {
   #---BTS Fit---------------------
   # Comparing base with 2 vast configurations
   # p1 <- plot_recruitment(modlst[c(2,4,5)],xlim=c(2010.8,2019.5));p1
-  p1 <- plot_bts(modlst[c(1, 3)], xlim = c(1981.5, 2023.5), ylim = c(0, 15500))
+  p1 <- plot_bts(modlst[c(1, 2)], xlim = c(1981.5, 2024.5), ylim = c(0, 15500))
   p1
   ggsave("doc/figs/mod_bts_fit.pdf", plot = p1, width = 8, height = 4.0, units = "in")
   # p1 <- plot_ssb(modlst[c(3,4)],xlim=c(2000.5,2020.5),alpha=.2); p1
@@ -101,7 +101,7 @@ if (doplots) {
   # sel
   # M<- modlst[[thismod]]
   #---Selectivity-----------------
-  yr <- c(M$Yr, 2024)
+  yr <- c(M$Yr, 2025)
   sel <- rbind(M$sel_fsh, M$sel_fut)
   p1 <- plot_sel(Year = yr, sel = sel, scale = 3)
   p1
@@ -120,7 +120,8 @@ if (doplots) {
   # p1 <- plot_mnage(modlst[c(2,3)])
   # p1 <- plot_mnage(modlst[thismod]) ;p1
   p1 <- plot_mnage(modlst[thismod])
-  p1 # Note used model 1 for figure...because of kludge for age compos
+  plot_mnage
+  plotly::ggplotly(p1) # Note used model 1 for figure...because of kludge for age compos
   ggsave("doc/figs/mod_mean_age.pdf", plot = p1, width = 5.8, height = 8, units = "in")
   p1 <- plot_bts(modlst[thismod])
   p1
@@ -133,23 +134,23 @@ if (doplots) {
 
   #  p1 <- p1+ geom_vline(xintercept=2006.5,color="grey",size=1)
   # p1 <- p1+scale_y_log10()
-  p1 <- plot_ats(modlst[c(9)]) + ggthemes::theme_few(base_size = 13)
+  p1 <- plot_ats(modlst[c(2)]) + ggthemes::theme_few(base_size = 13)
   p1
   ggsave("doc/figs/mod_ats_biom.pdf", plot = p1, width = 9.2, height = 3.7, units = "in")
-  p1 <- plot_avo(modlst[c(thismod)], ylim = c(0, 5)) + xlim(c(2005, 2024))
+  p1 <- plot_avo(modlst[c(thismod)], ylim = c(0, 5)) + xlim(c(2005, 2025))
   p1
   #  p1 <- plot_avo(modlst[c(2)]) ;p1
   ggsave("doc/figs/mod_avo_fit.pdf", plot = p1, width = 9.2, height = 4.7, units = "in")
   # p1 <- plot_cope(modlst[[2]]) ;p1
-  p1 <- plot_cpue(modlst[[thismod]])
+  p1 <- plot_cpue(modlst[[thismod]]); p1
   ggsave("doc/figs/mod_cpue_fit.pdf", plot = p1, width = 5.2, height = 3.7, units = "in")
-  p1 <- plot_recruitment(modlst[thismod], xlim = c(1963.5, 2023.5), fill = "yellow") +
+  p1 <- plot_recruitment(modlst[thismod], xlim = c(1963.5, 2024.5), fill = "yellow") +
     scale_y_continuous(label = comma, limits = c(0, 1.05e5)) + theme_few(base_size = 14)
   p1
   p1 <- plot_recruitment(modlst[1], xlim = c(1963.5, 2023.5), fill = "yellow") +
     scale_y_continuous(label = comma, limits = c(0, 1.05e5)) + theme_few(base_size = 14)
   p1
-  p2 <- plot_ssb(modlst[c(thismod)], xlim = c(2000.5, 2023.5))
+  p2 <- plot_ssb(modlst[c(thismod)], xlim = c(2000.5, 2024.5))
   p2
   ggsave("doc/figs/mod_rec.pdf", plot = p1, width = 9, height = 4, units = "in")
 
@@ -215,7 +216,7 @@ if (doplots) {
   # p1 <- plot_srr(modlst[c(2,4)],alpha=.2,xlim=c(0,5200),ylim=c(0,75000))
   # ggsave("doc/figs/bholt_ricker.pdf",plot=p1,width=7.4,height=3.9,units="in")
   af_title <- paste(thisyr, "Assessment")
-  # plot_agefit(modlst[[thismod]],case_label=af_title,gear="bts",type="survey")
+   plot_agefit(modlst[[thismod]],case_label=af_title,gear="bts",type="survey")
   pdf("doc/figs/mod_bts_age.pdf", width = 6, height = 8)
   plot_agefit(modlst[[thismod]], case_label = af_title, gear = "bts", type = "survey", styr = 1982, ageplus = 10)
   plot_agefit(modlst[[thismod]], case_label = af_title, gear = "bts", type = "survey", styr = 1982, ageplus = 10)
@@ -348,13 +349,13 @@ if (doplots) {
       data.frame(Model = "Last year", Year = (nextyr - 1):(nextyr + 3), SSB = P$future_SSB[4, 2:6], lb = P$future_SSB[4, 2:6] - 2 * P$future_SSB.sd[4, 2:6], ub = P$future_SSB[4, 2:6] + 2 * P$future_SSB.sd[4, 2:6])
     )
   )
-  p1 <- ggplot(df, aes(x = Year, y = SSB, ymax = ub, ymin = lb, fill = Model)) +
+  p1 <- ggplot(df, aes(x = Year, y = SSB, ymax = ub, ymin = lb, color= Model, fill = Model)) +
     geom_ribbon(alpha = .6) +
-    geom_line() +
+    geom_line(linewidth=1.5) +
     theme_few() +
     scale_x_continuous(limits = c(2002, 2028), breaks = seq(2002, 2028, 2)) +
     ylab("Female spawning biomass (kt)") +
-    geom_vline(xintercept = 2023, col = "grey", size = 1.2)
+    geom_vline(xintercept = 2024, col = "grey", size = 1.2)
   p1
   ggsave("doc/figs/proj_ssb.pdf", plot = p1, width = 7.4, height = 4.5, units = "in")
 
@@ -402,7 +403,7 @@ if (doplots) {
     ylab("Age") +
     geom_contour(aes(z = F), color = "darkgrey", size = .5, alpha = .4) +
     scale_fill_gradient(low = "white", high = "red") +
-    scale_x_continuous(breaks = seq(1965, thisyr, 5)) +
+    scale_x_continuous(breaks = seq(1965, thisyr+1, 5)) +
     geom_line(data = df.g[df.g$age == "6", ], aes(x = Year, y = F * 10)) +
     annotate("text", label = "Age 6 F (x10)", x = 2015, y = 1.2, size = 5, colour = "black") +
     scale_y_continuous(breaks = seq(0, 10, 1))
@@ -412,17 +413,21 @@ if (doplots) {
   #---Historical assessment retrospectives--------------------------------------------------------
   dd <- as.data.frame(read.csv("doc/data/Age3history.csv", header = TRUE))
   head(dd)
-  names(dd) <- c("Year", 2022:2006, 2001:1998)
-  dd.g <- pivot_longer(dd, cols = 2:22, names_to = "Assessment", values_to = "Biomass")
+  names(dd) <- c("Year", 2023:2006, 2001:1998)
+  dd.g <- pivot_longer(dd, cols = 2:23, names_to = "Assessment", values_to = "Biomass")
   head(dd.g)
   dim(dd.g)
   # this line to add current year estimate!!
   names(M)
+  thisyr
   M$age3plus
-  t <- data.frame(Year = 1964:(thisyr + 1), Assessment = thisyr, Biomass = c(M$age3plus, M$age3plus1))
+  M$age3plus1
+  length(1964:(thisyr+1))
+  t <- data.frame(Year = 1964:(thisyr + 1), Assessment = thisyr, Biomass = 
+                    c(M$age3plus, M$age3plus1))
   dd.g <- rbind(dd.g, t) %>% filter(as.numeric(Assessment) > 2006)
   tmp <- dd.g %>% filter(Year > 2006, Year == 1 + as.numeric(Assessment)) # %>% summarise(max(Year))
-  p1 <- ggplot(dd.g, aes(x = Year, y = Biomass, color = Assessment)) +
+p1 <- ggplot(dd.g, aes(x = Year, y = Biomass, color = Assessment)) +
     geom_line(alpha = .8, size = .75) +
     scale_x_continuous(breaks = seq(1980, thisyr + 2, 2), limits = c(1980, thisyr + 1)) +
     xlab("Year") +
@@ -431,7 +436,7 @@ if (doplots) {
     geom_point(data = tmp, size = 2) +
     theme_few() +
     guides(size = FALSE, shape = FALSE, alpha = FALSE, col = FALSE)
-  p1
+  plotly::ggplotly(p1)
   ggsave("doc/figs/mod_hist.pdf", plot = p1, width = 9.2, height = 4.0, units = "in")
 
   #----------------------------------------------------------
@@ -507,8 +512,7 @@ if (doplots) {
   # plot_recruitment(retouts,xlim=c(1990,2017),rel=T,legend=FALSE,alpha=.2)
 
 
-  # Plot of regimes on base model
-
+  #---Plot of regimes on base model
   regime <- c("1964-77", "1978-present", "1978-99", "1978-89", "1990-present", "1990-99", "2000-present", "1964-present")
   hlr <- M$regime[2]
   p3 <- tibble(regime = regime, Mean = M$regime, ub = Mean + 2 * M$regime.sd, lb = Mean - 2 * M$regime.sd) %>%
@@ -518,6 +522,7 @@ if (doplots) {
     ylab("Mean recruitment (age 1)") +
     geom_point(size = 4, color = "red") +
     geom_hline(yintercept = hlr, linetype = 2)
+  p3
   ggsave("doc/figs/mod_regimes.pdf", plot = p3, width = 9.2, height = 5.0, units = "in")
 
   #---Fits to ats age mod_ats_age.pdf-------------------------------------------------------------
@@ -528,8 +533,8 @@ if (doplots) {
   #----Read in retro results-----------------
   library(patchwork)
   i <- 0
-  thismod <- 9 # the selected model
-  getret <- function(nyrs = 15, mod = 1) {
+  thismod <- 2 # the selected model
+  getret <- function(nyrs = 10, mod = 1) {
     retouts <- list()
     for (i in 0:nyrs) {
       rn <- paste0(.MODELDIR[mod], "retro/r_", i, ".rep")
@@ -539,10 +544,11 @@ if (doplots) {
     }
     return(retouts)
   }
+  ret1 <- getret(mod = 2, nyrs = 10)
+  
   ret1 <- getret(mod = 9, nyrs = 20)
-  ret2 <- getret(mod = 2, nyrs = 20)
   ret3 <- getret(mod = 3, nyrs = 20)
-  p1 <- plot_ssb(ret1, xlim = c(2000, thisyr), legend = F, breaks = seq(2000, 2023, 2), ylim = c(0, 6900)) + xlab("") + ggtitle("Base, Model 23.0") + coord_cartesian(ylim = c(0, NA))
+  p1 <- plot_ssb(ret1, xlim = c(2000, thisyr), legend = F, breaks = seq(2000, 2025, 2), ylim = c(0, 6900)) + xlab("") + ggtitle("Model 23.0") + coord_cartesian(ylim = c(0, NA))
   p1
   # p2 <- plot_ssb(ret2,xlim=c(2000,thisyr),legend=F,breaks=seq(2000,2023,2),ylim=c(0,6900))+ggtitle("w/o ATS") + coord_cartesian(ylim=c(0,NA));p2
   # p3 <- plot_ssb(ret3,xlim=c(2000,thisyr),legend=F,breaks=seq(2000,2022,2),ylim=c(0,6900))+ggtitle("w/o BTS") + coord_cartesian(ylim=c(0,NA));p3
@@ -550,8 +556,8 @@ if (doplots) {
   # subtitle = 'EBS walleye pollock assessment', caption = 'Disclaimer: Draft results, please do not cite' ); p3
   ggsave("doc/figs/retcompSSB.pdf", plot = p1, width = 7.2, height = 5.0, units = "in")
   # recruitment
-  p1 <- plot_R_rel(ret1, xlim = c(2000, thisyr), legend = F, rel = FALSE, ylim = c(0, 110000), ylab = "Age-1 recruitment") + xlab("") + ggtitle("Base, Model 23.0") + coord_cartesian(ylim = c(0, 125000))
-  p1
+  p1 <- plot_R_rel(ret1, xlim = c(2000, thisyr), legend = F, rel = FALSE, ylim = c(0, 110000), ylab = "Age-1 recruitment") + xlab("") + ggtitle("Model 23.0") + coord_cartesian(ylim = c(0, 125000))
+  plotly::ggplotly(p1)
   # p2 <- plot_R_rel(ret2,xlim=c(thisyr-15,thisyr-1),legend=F,rel=FALSE,ylim=c(0,120000),ylab="Age-1 recruitment") + ggtitle("w/o ATS") + coord_cartesian(ylim=c(0,125000));p2
   # p3 <- p1/p2   + plot_annotation(title = 'Age 1 recruitment with and without acoustic trawl survey data',
   #  subtitle = 'EBS walleye pollock assessment', caption = 'Disclaimer: Draft results, please do not cite' ); p3
@@ -767,15 +773,15 @@ if (doplots) {
     return(df)
   }
 
-  df <- getMohnSSB(retouts = ret1, nyrs = 20)
-  df <- getMohnR(retouts = ret1, nyrs = 20)
+  df <- getMohnSSB(retouts = ret1, nyrs = 10)
+  df <- getMohnR(retouts = ret1, nyrs = 10)
 
   df
   write.csv(df, "doc/data/mohnrho.csv")
   df
   library(flextable)
   # A try at a catch table not quite there...
-  cd <- read_csv("../data/fishery/sampler/imported/akfin_cat.csv")
+  cd <- read_csv("~/_mymods/ebs_main/data/fishery/sampler/imported/akfin_cat.csv")
   names(cd) <- c("Year", "Area", "Subarea", "NMFS_area", "Trip_code", "Trip_name", "Species", "ret_disc", "Gear_code", "catch", "WED")
   cd_tab <- cd %>%
     filter(Area == "BSAI") %>%
@@ -795,7 +801,7 @@ if (doplots) {
   # df <- data.table(Year=M$SSB[,1],SSB=2*M$SSB[,2],Catch=M$obs_catch,U=M$obs_catch/(2*M$SSB[,2]))
   # ggplot(df,aes(x=Year,y=U)) + geom_line(size=2,color="red") + .THEME + xlim(c(1990,2020)) + ylab("Catch / spawning biomass")
   #--------phase plane figure-------------------
-  source("../R/do-phase.R")
+  source("tools/do-phase.R")
 
 
   # Look at SER
@@ -1132,6 +1138,9 @@ if (do_data_plots) {
     group_by(Year, strata) %>%
     summarize(Catch = sum(Catch)) %>%
     ggplot(aes(x = Year, y = Catch, fill = strata)) +
+    scale_x_continuous(breaks = seq(1990, 2025, 5))  +
+    scale_y_continuous(label = comma) +
+    ylab("Catch (t)") +
     geom_area(color = "white") +
     theme_few(base_size = 18)
   p1
@@ -1156,7 +1165,7 @@ if (do_data_plots) {
     theme_few(base_size = 14) +
     ylab("Tons of roe produced") +
     expand_limits(y = 0) +
-    scale_x_continuous(breaks = seq(2000, 2022, 2)) # p1
+    scale_x_continuous(breaks = seq(2000, 2024, 2)) # p1
   #  + geom_hline(yintercept=mst,linetype="dashed") + geom_hline(yintercept=mbt,linetype="dashed")
   p1
   ggsave("doc/figs/roe.pdf", plot = p1, width = 7.5, height = 4.5, units = "in")
@@ -1165,8 +1174,8 @@ if (do_data_plots) {
   #--- Catch-age estimates for sex catch age --------------------------
   # Updated
   edt <- NULL
-  for (i in 2022:1991) {
-    edt <- rbind(edt, read_table(paste0("../ebs_main/data/fishery/sampler/results/Est_", i, ".dat")))
+  for (i in 2023:1991) {
+    edt <- rbind(edt, read_table(paste0("~/_mymods/ebs_main/data/fishery/sampler/results/Est_", i, ".dat")))
   }
   tot <- edt %>%
     filter(type == "N", sex < 3, stratum < 5) %>%
@@ -1185,11 +1194,12 @@ if (do_data_plots) {
     geom_point(size = 3.5) +
     geom_line(size = 1.2) +
     expand_limits(y = 0) +
-    scale_x_continuous(breaks = seq(1990, 2023, 2)) +
-    ylab("Catch (thousands)") +
+    scale_x_continuous(breaks = seq(1990, 2024, 2)) +
+    scale_y_continuous(label = comma) +
+    ylab("Catch (thousands of fish)") +
     xlab("Year")
   p1
-  ggsave("doc/figs/catch_sex.pdf", plot = p1, width = 7.5, height = 4.5, units = "in")
+  ggsave("doc/figs/catch_sex.pdf", plot = p1, width = 9.5, height = 6.5, units = "in")
   # Look at catch in Number vs catch in weight
   edt_df <- edt |>
     mutate(Year = year) |>
@@ -1228,7 +1238,7 @@ if (do_data_plots) {
   adf <- as.data.frame(M$pobs_bts) %>% mutate(Model = "VAST ages")
   adf <- rbind(
     adf,
-    as.data.frame(modlst[[7]]$pobs_bts) %>% mutate(Model = "Design-based")
+    as.data.frame(modlst[[2]]$pobs_bts) %>% mutate(Model = "Design-based")
   )
   names(adf) <- c("Year", 1:15, "Model") # %>% mutate
   glimpse(adf)

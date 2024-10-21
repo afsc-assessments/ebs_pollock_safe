@@ -2,10 +2,22 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://nmfs-opensci.github.io/NOAA-quarto-simple/doc/sept.html</loc>
-    <lastmod>2024-09-16T15:16:02.592Z</lastmod>
+    <lastmod>2024-09-26T16:34:00.920Z</lastmod>
+  </url>
+  <url>
+    <loc>https://nmfs-opensci.github.io/NOAA-quarto-simple/doc/model.html</loc>
+    <lastmod>2024-07-31T03:07:08.398Z</lastmod>
+  </url>
+  <url>
+    <loc>https://nmfs-opensci.github.io/NOAA-quarto-simple/doc/fishery.html</loc>
+    <lastmod>2024-07-30T23:53:45.891Z</lastmod>
   </url>
   <url>
     <loc>https://nmfs-opensci.github.io/NOAA-quarto-simple/doc/preface.html</loc>
     <lastmod>2024-09-13T15:19:56.483Z</lastmod>
+  </url>
+  <url>
+    <loc>https://nmfs-opensci.github.io/NOAA-quarto-simple/doc/modeleq.html</loc>
+    <lastmod>2024-10-15T08:38:52.492Z</lastmod>
   </url>
 </urlset>

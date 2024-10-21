@@ -255,6 +255,17 @@ data. The retrospective approach simply uses the current model to
 evaluate how it may change over time with the addition of new data based
 on the evolution of data collected over the past several years.
 
+To provide a diagnostic for diversity in the age structure of the spawning biomass, we 
+computed the Shannon entropy in exponential form. Following @jost2006, and 
+substituting the population's mature age structure in place of species, this 
+provides an estimate of the effective number of ages. This is computed for each
+year as a measure of different age groups contributing to the spawning population
+as:
+
+ $$ H_i = \exp(-\sum p_a \cdot \log(p_a)) $$
+ 
+where $p_a$ is the proportion of mature fish biomass-at-age $a$ in year $i$. 
+
 ## Parameter estimation
 
 The objective function was simply the sum of the negative log-likelihood
@@ -466,3 +477,4 @@ For longer term projections a form of operating model (as has been
 presented for the evaluation of $B_{20\%}$) with feedback (via future
 catch specifications) using the control rule and assessment model would
 be required.
+

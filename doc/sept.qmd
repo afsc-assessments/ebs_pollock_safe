@@ -1,5 +1,5 @@
 ---
-output: pptx
+output: html
 title: "Eastern Bering Sea walleye pollock stock assessment"
 subtitle: September 2024
 author: "Jim Ianelli and Carey McGilliard"
