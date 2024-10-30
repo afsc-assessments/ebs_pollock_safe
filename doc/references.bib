@@ -6,11 +6,23 @@
   note = {Accessed: 2024-10-28}
 }
 
-@misc{ianellisept,
-  author = {Ianelli, J.}},
+@article{ianelli2024,
+  title = {Eastern Bering Sea Pollock Stock Assessment Model Evaluations},
+  author = {Ianelli, J. and C. McGilliard},
+  year = {2024},
+  publisher = {North Pacific Fishery Management Council},
+  address = {1007 West Third, Suite 400, Anchorage, Alaska 99501},
+  howpublished = {Online},
+  url = { https://afsc-assessments.github.io/ebs_pollock_safe/doc/sept.html },
+  note = {Accessed: 2024-10-28}
+}
+
+@techrepor{ianellisept,
+  author = {Ianelli, J. and C. McGilliard},
   title = {Eastern Bering Sea Pollock SAFE Report - September 2024 update},
   year = {2024},
   howpublished = {\url{https://afsc-assessments.github.io/ebs_pollock_safe/doc/sept.html}},
+  url = {https://afsc-assessments.github.io/ebs_pollock_safe/doc/sept.html},
   note = {Accessed: 2024-10-28}
 }
 
@@ -113,6 +125,15 @@ url = {https://besjournals.onlinelibrary.wiley.com/doi/abs/10.1111/1365-2664.135
 eprint = {https://besjournals.onlinelibrary.wiley.com/doi/pdf/10.1111/1365-2664.13515},
 abstract = {Abstract Having a realistic representation of ecosystems in fisheries models is important in the context of ecosystem-based fisheries management (EBFM). While different modelling approaches support EBFM, accounting for trophic interactions and uncertainty in stock dynamics is important for management advice. Multispecies models exist, but are rarely used for assessments. Most stock assessments are single species models and predation is subsumed into natural mortality, which is often an assumed known value. The use of state-space assessment models, which account for stochasticity in unobserved processes (process errors), is increasing. However, many stocks are managed assuming deterministic processes. Little is known of how ignoring predation and process errors in stock assessment can impact the perception of the stocks and therefore fisheries management. We developed an age-structured multispecies operating model that simulated data with errors in observations, recruitment and fish abundance. Four estimation models (EMs) that differed according to whether or not they accounted for predation or process errors were fitted to the simulated data. Relative differences between true and predicted outputs were estimated as a measure of bias. Equilibrium unfished biomass was estimated for each model as a proxy reference point. Ignoring predation had the largest impact on stock perception and resulted in large bias in parameters, derived outputs and absolute or relative reference points. Estimating unobserved processes was not sufficient in limiting the bias when natural mortality was misspecified. Ignoring process errors had limited bias but the bias increased when no contrasts existed in fishing mortality over time. Looking solely at likelihood values to choose among models is misleading and predictive ability could be used to prevent selecting models that overfit the data. Synthesis and applications. Ignoring trophic interactions that occur in marine ecosystems induces bias in stock assessment outputs and results in low model predictive ability with subsequently biased reference points. While it may be difficult to estimate natural mortality when no data exist to inform it, stock managers should remember that, if predation is large, assuming a constant mortality over time and/or age could have large consequences on stock perception and reference point estimates and affect resulting management advice.},
 year = {2020}
+}
+
+@article{wespestad2000,
+  author = {Wespestad, V. G. and Fritz, L. W. and Ingraham, W. J. and Megrey, B. A.},
+  title = {On Relationships between Cannibalism, Climate Variability, Physical Transport, and Recruitment Success of Bering Sea Walleye Pollock (Theragra chalcogramma)},
+  year = {2000},
+  journal = {ICES Journal of Marine Science},
+  volume = {57},
+  pages = {272--278}
 }
 
 @techreport{low1983,
@@ -752,21 +773,13 @@ eprint = { https://doi.org/10.1139/cjfas-2022-0050 } ,
     abstract = { Generating accurate data for stock assessments is resource-demanding, necessitating periodic evaluation of survey sampling designs and potential impacts on stock assessments. We developed a framework for bootstrapped resampling of survey age data and calculation of input sample sizes as a function of among-bootstrap variance in age compositions. Data from this bootstrap estimator were then used to evaluate the influence of alternative sampling rates and methods on uncertainty in estimates of the overfishing limit (OFL) calculated using stock assessment models. For dusky rockfish (Sebastes variabilis) and Pacific ocean perch (Sebastes alutus), a 10\% decrease in the number of tows sampled upon led to a predicted 5\%–6\% increase in the CV of OFL (log–log slope = −0.576 to −0.486), which was greater than the 0\%–2\% increase from a 10\% decrease in otoliths-per-tow (log–log slope = −0.238 to −0.029). Application of this approach across all stocks monitored in the survey of interest is required to identify which stocks (i) benefit the most from increased sampling of ageing structures or (ii) cost the least in terms of OFL uncertainty owing to reduced sampling. }
 }
 
-@article{ianelli2024,
-  title = {Eastern Bering Sea Pollock Stock Assessment Model Evaluations},
-  author = {Ianelli, J.},
-  year = {2024},
-  publisher = {North Pacific Fishery Management Council},
-  address = {1007 West Third, Suite 400, Anchorage, Alaska 99501},
-  howpublished = {Online},
-  url = { https://afsc-assessments.github.io/ebs_pollock_safe/doc/sept.html },
-  note = {Accessed: 2024-10-28}
-}
 
-@misc{afscISS,
-  author = {{AFSC Assessments}},
-  title = {{AFSC ISS: Integrated Stock Synthesis Tools}},
+@manual{afscISS,
+  title = {afscISS: Retrieve composition data ISS},
+  author = {Pete Hulson and Ben Williams},
   year = {2024},
+  note = {R package version 1.0.0, https://afsc-assessments.github.io/afscISS/},
+  url = {https://github.com/afsc-assessments/afscISS/},
   howpublished = {\url{https://github.com/afsc-assessments/afscISS}},
   note = {Accessed: 2024-10-28}
 }
@@ -2805,7 +2818,7 @@ pages={86–99} }
 	langid = {en}
 }
 
-@article{Francis2011,
+@article{francis2011,
   title = {Data Weighting in Statistical Fisheries Stock Assessment Models},
   author = {Francis, R. I. C. Chris},
   year = {2011},

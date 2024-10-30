@@ -1332,7 +1332,7 @@ p1/p2 #+ plot_layout(guides = "collect")
 
 In response to the SSC's request to provide documentation on the convergence properties
 and other aspects of Bayesian integrations, we start by following the advice of
-@monnahan2023. This involved performing multiple "no-U-turn sampler" (NUTS) chains and
+@monnahan2024. This involved performing multiple "no-U-turn sampler" (NUTS) chains and
 note that that the potential scale reduction $\hat{R}$ was \<1.01 and the effective
 sample sizes were \>400 for all parameters. We also report on the presence of divergent
 transitions as part of the diagnostics and investigated how to implement the
@@ -1528,7 +1528,7 @@ p
 #| fig.cap: "Comparison of the time series of selectivity-at-age estimates over different
 #| modeling platforms."
 p <- Plot_Sel_age()
-ggplotly(p)
+plotly::ggplotly(p)
 ```
 
 ```{r ssbplatform}
@@ -1540,7 +1540,7 @@ ggplotly(p)
 #| spawning biomass (bottom) estimates over different
 #| modeling platforms."
 p<- Plot_SSB()
-ggplotly(p)
+plotly::ggplotly(p)
 ```
 
 ```{r srrplatform}
@@ -1551,7 +1551,8 @@ ggplotly(p)
 #| fig.cap: "Comparison of the stock-recruitment relationships between different modeling 
 #| platforms."
 p<- Plot_SRR()
-ggplotly(p)
+p
+#ggplotly(p)
 ```
 
 ## Additional AMAK runs
@@ -1605,7 +1606,8 @@ p1 + ggthemes::theme_few(base_size=9)
 #| fig.cap: "Comparison of the selectivity-at-age estimates between different modeling 
 #| specifications in AMAK"
 p1  <- Plot_Sel_age(am_sel)
-ggplotly(p1)
+p1
+#ggplotly(p1)
 ```
 
 ```{r ssb_amak}
@@ -1616,7 +1618,7 @@ ggplotly(p1)
 #| fig.cap: "Comparison of the selectivity-at-age estimates between different modeling 
 #| specifications in AMAK"
 p1 <- Plot_SSB(am_ts)
-ggplotly(p1)
+plotly::ggplotly(p1)
 ```
 
 ```{r ind_fit}
@@ -1628,7 +1630,7 @@ ggplotly(p1)
 #| specifications using the AMAK software platform."
 p1 <- Plot_SSB(am_ts)
 p1 <- Plot_index(df=am_fit, idx=c(1,2,5)) + ggthemes::theme_few(base_size=9)
-ggplotly(p1)
+plotly::ggplotly(p1)
 ```
 
 ```{r ind_fit2}

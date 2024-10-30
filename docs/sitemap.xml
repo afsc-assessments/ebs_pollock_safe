@@ -1,3 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://nmfs-opensci.github.io/NOAA-quarto-simple/doc/sept.html</loc>
+    <lastmod>2024-10-30T13:37:27.387Z</lastmod>
+  </url>
+  <url>
+    <loc>https://nmfs-opensci.github.io/NOAA-quarto-simple/doc/preface.html</loc>
+    <lastmod>2024-09-13T15:19:56.483Z</lastmod>
+  </url>
+  <url>
+    <loc>https://nmfs-opensci.github.io/NOAA-quarto-simple/ebswp.html</loc>
+    <lastmod>2024-10-30T16:56:58.380Z</lastmod>
+  </url>
 </urlset>

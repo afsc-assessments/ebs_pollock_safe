@@ -390,7 +390,7 @@ p1 <- ggplot(dd.g, aes(x = Year, y = Biomass, color = Assessment)) +
     summarise(mnage = sum(Selectivity * age) / sum(Selectivity)) %>%
     ggplot(aes(x = Year, y = mnage, shape = case, color = case)) +
     geom_point(size = 2) +
-    theme_few() +
+    ggthemes::theme_few() +
     ylim(c(0, 10)) +
     ylab("Mean age selected") +
     scale_x_continuous(breaks = seq(2010, 2024, by = 2))
@@ -398,7 +398,7 @@ p1 <- ggplot(dd.g, aes(x = Year, y = Biomass, color = Assessment)) +
   p1 <- ggplot(assdf, aes(x = age, y = Selectivity, color = case, group = Year)) +
     geom_point(size = .5) +
     geom_line() +
-    theme_few() +
+    ggthemes::theme_few() +
     facet_grid(Year ~ .) +
     geom_point(data = yrdf, size = .5) +
     facet_grid(Year ~ .)
@@ -441,7 +441,7 @@ p1 <- ggplot(dd.g, aes(x = Year, y = Biomass, color = Assessment)) +
   }
   ret1 <- getret(mod = 2, nyrs = 10)
   
-  ret1 <- getret(mod = 9, nyrs = 20)
+  ret1 <- getret(mod = 2, nyrs = 20)
   ret3 <- getret(mod = 3, nyrs = 20)
   p1 <- plot_ssb(ret1, xlim = c(2000, thisyr), legend = F, breaks = seq(2000, 2025, 2), ylim = c(0, 6900)) + xlab("") + ggtitle("Model 23.0") + coord_cartesian(ylim = c(0, NA))
   p1
@@ -449,14 +449,14 @@ p1 <- ggplot(dd.g, aes(x = Year, y = Biomass, color = Assessment)) +
   # p3 <- plot_ssb(ret3,xlim=c(2000,thisyr),legend=F,breaks=seq(2000,2022,2),ylim=c(0,6900))+ggtitle("w/o BTS") + coord_cartesian(ylim=c(0,NA));p3
   # p3 <- p1/p2   + plot_annotation(title = 'Spawning biomass with and without acoustic trawl survey data',
   # subtitle = 'EBS walleye pollock assessment', caption = 'Disclaimer: Draft results, please do not cite' ); p3
-  ggsave("doc/figs/retcompSSB.pdf", plot = p1, width = 7.2, height = 5.0, units = "in")
+  ggsave("doc/figs/mod_retro.pdf", plot = p1, width = 7.2, height = 5.0, units = "in")
   # recruitment
   p1 <- plot_R_rel(ret1, xlim = c(2000, thisyr), legend = F, rel = FALSE, ylim = c(0, 110000), ylab = "Age-1 recruitment") + xlab("") + ggtitle("Model 23.0") + coord_cartesian(ylim = c(0, 125000))
   plotly::ggplotly(p1)
   # p2 <- plot_R_rel(ret2,xlim=c(thisyr-15,thisyr-1),legend=F,rel=FALSE,ylim=c(0,120000),ylab="Age-1 recruitment") + ggtitle("w/o ATS") + coord_cartesian(ylim=c(0,125000));p2
   # p3 <- p1/p2   + plot_annotation(title = 'Age 1 recruitment with and without acoustic trawl survey data',
   #  subtitle = 'EBS walleye pollock assessment', caption = 'Disclaimer: Draft results, please do not cite' ); p3
-  ggsave("doc/figs/retcompR.pdf", plot = p1, width = 7.2, height = 5.0, units = "in")
+  ggsave("doc/figs/mod_retroR.pdf", plot = p1, width = 7.2, height = 5.0, units = "in")
 
   ## Make dataframe to plot by cohort
   nyrs <- 15
@@ -487,6 +487,7 @@ p1 <- ggplot(dd.g, aes(x = Year, y = Biomass, color = Assessment)) +
   ret_df <- rbind(get_coh(ret1), get_coh(ret3, run = "Without BTS")) |> mutate(Years_data = ifelse(run == "Base", Years_data - .14, Years_data + .14))
   ret_df <- rbind(get_coh(ret1), get_coh(ret2, run = "Without ATS"), get_coh(ret3, run = "Without BTS")) |> mutate(Years_data = ifelse(run == "Base", Years_data - .18, ifelse(run == "Without ATS", Years_data, Years_data + .18)))
 
+  ret_df <- get_coh(ret1)
   plot_coh <- function(dat = ret_df, coh = cohsub, logscale = FALSE, grid = T) {
     p1 <- dat |>
       filter(cohort %in% coh) |>
@@ -503,15 +504,16 @@ p1 <- ggplot(dd.g, aes(x = Year, y = Biomass, color = Assessment)) +
     return(p1)
   }
 
-  cohsub <- c(2003:2005, 2008)
-  cohsub <- c(2012:2013, 2008)
-  cohsub <- c(2012:2013, 2008)
-  plot_coh(grid = FALSE, coh = cohsub)
+  #cohsub <- c(2003:2005, 2008)
+  #cohsub <- c(2012:2013, 2008)
+  #cohsub <- c(2012:2013, 2008)
+  #plot_coh(grid = FALSE, coh = cohsub)
+  #plot_coh(grid = FALSE, coh = c(2005, 2008, 2012:2013, 2016, 2018))
+  library(ggthemes)
   plot_coh(grid = FALSE, coh = c(2005, 2008, 2012:2013, 2016, 2018))
-  plot_coh(grid = FALSE, coh = c(2005, 2008, 2012:2013, 2016, 2018))
-  plot_coh(grid = FALSE, coh = c(2003:2005, 2008))
-  plot_coh(grid = T, coh = c(2003:2005))
-  plot_coh(grid = T, coh = c(2012:2013))
+  #plot_coh(grid = FALSE, coh = c(2003:2005, 2008))
+  #plot_coh(grid = T, coh = c(2003:2005))
+  #plot_coh(grid = T, coh = c(2012:2013))
   plot_coh(logscale = TRUE)
 
   # Plot by endyr

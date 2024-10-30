@@ -20,7 +20,7 @@ author:
 keep-md: true
 keep-tex: true
 csl: cjfas.csl
-date: 10/19/2024
+date: 10/31/2024
 date-format: "MMMM YYYY"
 bibliography: doc/references.bib
 header-includes:
@@ -29,13 +29,11 @@ header-includes:
   - \usepackage[capitalise,noabbrev]{cleveref}
 fig-pos: H
 tbl-pos: H
+filters:
+ - highlight-text
+#filters:
+  #- parse-latex
 format: 
-  titlepage-pdf:
-    coverpage: true
-    cover-bg-image: "gappollock.png"
-    #documentclass: scrbook
-    #classoption: ["oneside", "open=any"]
-    #number-sections: true
   pdf:
     number-pages: FALSE
     number-sections: TRUE
@@ -47,7 +45,7 @@ format:
     keep-tex: true
     extra_dependencies: rotating
      #number-sections: true
-    header-includes:
+    header-includes: 
       - \counterwithout{figure}{chapter}
       - \usepackage{fancyhdr}
       - \pagestyle{fancy}
@@ -59,6 +57,14 @@ format:
       - \rfoot{\textit{}}
       - \lfoot{\textit{}}
       - \setlength{\footskip}{4cm} % Lower the footer
+      - \makeatletter
+      - \renewcommand{\chapter}{%
+      - \if@openright\cleardoublepage\else\clearpage\fi
+      - \thispagestyle{plain}%
+      - \global\@topnum\z@
+      - \@afterindenttrue
+      - \secdef\@chapter\@schapter}
+      - \makeatother
   html:
     toc: true
     toc_float: true
@@ -69,13 +75,13 @@ format:
     theme: readable
     highlight: tango
     css: doc/style.css
-    includes:
-      after_body: "doc/after_body.html"
+    #includes:
+      #after_body: "doc/after_body.html"
     keep_md: true
     keep_html: true
     self_contained: true
     mathjax: default
-    pandoc_args: "--lua-filter=doc/figs.lua"
+    #pandoc_args: "--lua-filter=doc/figs.lua"
 editor_options: 
   chunk_output_type: console
 css: mystyle.css
@@ -112,7 +118,10 @@ knitr::opts_chunk$set(fig.pos = "H", out.extra = "")
   Alaska Fisheries Science Center, National Marine Fisheries Service \\
   National Oceanic and Atmospheric Administration \\ 
   7600 Sand Point Way NE., Seattle, WA 98115-6349 \\ 
-    \end{centering}
+\end{centering}
+
+
+
 
 |  |
 |----|
@@ -126,41 +135,6 @@ review under applicable information quality guidelines. It has not been formally
 disseminated by the National Marine Fisheries Service and should not be
 construed to represent any agency determination or policy. 
 :::
-<!-- \thispagestyle{empty} -->
-
-<!-- \newpage -->
-
-<!-- \begin{longtable}{|c|c|c|} -->
-
-<!-- \caption{This is a multi-page table.} \\ -->
-
-<!-- \hline -->
-
-<!-- Header 1 & Header 2 & Header 3 \\ \hline -->
-
-<!-- \endfirsthead -->
-
-<!-- \multicolumn{3}{c}{{\bfseries Continued from previous page}} \\ \hline -->
-
-<!-- Header 1 & Header 2 & Header 3 \\ \hline -->
-
-<!-- \endhead -->
-
-<!-- \hline \multicolumn{3}{|r|}{{Continued on next page}} \\ \hline -->
-
-<!-- \endfoot -->
-
-<!-- \hline -->
-
-<!-- \endlastfoot -->
-
-<!-- 1 & 2 & 3 \\ -->
-
-<!-- 4 & 5 & 6 \\ -->
-
-<!-- % Add more rows as needed -->
-
-<!-- \end{longtable} -->
 
 # Executive summary
 
@@ -224,17 +198,22 @@ biomass  estimated from 1987. The values for the recent years appear to have sta
 well above $B_{MSY}$. This continues to be due to the strength of the 2018
 year-class of the pollock population.
 
-The following table is based on results from the selected model ("Model
-23.0") based on changes presented in @ianelli2023. The ABC
-recommendation is based on Tier XX3xx calculation as a proxy (or an outright
-FMP re-classification) for Tier 1. This is because of the variability
-indicated by the very high value based on the $F_{MSY}$ estimate derived
-from unreliable assumptions about the stock-recruitment relationship
-(@ianellisept).
+The following tables are based on results from last year's selected model 
+("Model 23.0").  The first table has the ABC recommendation based on Tier 3 
+calculation as a proxy reduction from the maximum
+permissible under Tier 1. The second table repeats the result but is simply as a 
+reclassified Tier 3 table. We provide these as options to guide the SSC in their
+decisions. We also recall the work presented at their October 2024 meeting 
+which indicated the very high value of $F_{MSY}$ estimates when alternative (i.e., 
+less prior influence) assumptions about the stock-recruitment relationship were examined
+@ianellisept.
 
 <!-- Note that the intro table static part is stored in doc/data/intro_table.dat and needs updating every year. -->
 
-\begin{table}[ht]
+#### Tier 1 version
+
+
+<!-- \begin{table}[H] -->
 \scalebox{0.95}{
 \centering
 \begin{tabular}{lrr|rr}
@@ -264,7 +243,41 @@ from unreliable assumptions about the stock-recruitment relationship
   \hline
 \end{tabular}
 }
-\end{table}
+
+#### Tier 3 version
+
+<!-- \begin{table}[H] -->
+\scalebox{0.95}{
+\centering
+\begin{tabular}{lrr|rr}
+  \hline
+       & \multicolumn{2}{c|}{As estimated or $\mathit{specified}$ } & \multicolumn{2}{c}{As estimated or $\mathit{recommended}$ }  \\
+       & \multicolumn{2}{c|}{$\mathit{last}$ year for:}  & \multicolumn{2}{c}{$\mathit{this}$ year for: }               \\
+        Quantity & `r thisyr`      &`r thisyr+1`   & `r thisyr+1`      &`r thisyr+2` \\ 
+  \hline
+  M            (natural mortality rate, ages 3+)    &   0.3 &   0.3 &   0.3 &   0.3 \\
+  Tier         &    1a  &   1a  &   `r M$tier3ab1 ` & `r M$tier3ab2 ` \\
+  Projected total (age  3+) biomass (t)     & `r M$it$a1[1]` t & `r M$it$a2[1]` t & `r  M$age3plus1s` t & `r  M$age3plus2s` t \\
+  Projected female  spawning  biomass (t)   & `r M$it$b1[1]` t & `r M$it$b2[1]` t & `r  M$ssb1s`  t & `r  M$ssb2s`  t \\  
+  $B_0$        & `r M$it$c1[1]` t & `r M$it$c2[1]` t & `r  M$b100s`,000  t & `r  M$b100s`,000  t \\          
+  $B_{msy}$    & `r M$it$d1[1]` t & `r M$it$d2[1]` t & `r  M$b35s`,000  t & `r  M$b35s`,000  t \\          
+  $F_{OFL}$    & `r M$it[1,8]` & `r M$it[2,8]` & `r  M$FOFL1s`  & `r  M$FOFL2s `  \\                  
+  $maxF_{ABC}$ & `r M$it[1,9]` & `r M$it[2,9]` & `r  M$FABC1s `  & `r  M$FABC2s `  \\                  
+  $F_{ABC}$    & `r M$it[1,10]`& `r M$it[2,10]`& `r  (M$fabc1)` & `r  (M$fabc2)` \\                  
+  $OFL$        & `r M$it$e1[1]` t & `r M$it$e2[1]` t & `r  M$ofl1s`  t & `r  M$ofl2s`  t \\          
+  $maxABC$     & `r M$it$f1[1]` t & `r M$it$f2[1]` t & `r  M$maxabc1s  ` t & `r  M$maxabc2s  ` t \\      
+  $ABC$        & `r M$it$g1[1]` t & `r M$it$g2[1]` t & `r  M$abc1s ` t & `r  M$abc2s`  t \\        
+  \hline
+  Status                                  & `r lastyr-1`  & `r lastyr`&         `r lastyr`             &    `r thisyr`          \\
+  \hline
+  Overfishing                             & No          &   n/a       & No                         &    n/a                 \\
+  Overfished                              & n/a         &   No        & n/a                        &    No                  \\
+  Approaching overfished                  & n/a         &   No        & n/a                        &    No                  \\
+  \hline
+\end{tabular}
+}
+
+<!-- \end{table} -->
 
 ## Response to SSC and Plan Team comments
 
@@ -824,7 +837,7 @@ estimated numbers-at- age from the BTS for strata 1--9 (except for
 \cref{tbl:btsage} (based on the method in @kotwicki2014 and then using
 VAST--see @sec-vast for those details). Compared to the previous
 design-based age composition estimates, those derived from the
-spatio-temporal model were generally very similar (@fig-bts_vast_age).
+spatio-temporal model were generally very similar (see @ianelli2023). 
 
 In the previous assessments, the BTS mean body mass-at-ages was computed
 based on the sex-specific mean length-at-age in each year and converted
@@ -971,12 +984,12 @@ below (noting that the final results are unlikely to change):
     Pribilof Islands was average since 2009 (33%).
 
 4)  The strongest pollock backscatter during the AVO and AT surveys was
-    measured along the southern portion of the EBS shelf (Figure 4). The
+    measured along the southern portion of the EBS shelf. The
     center of gravity estimate for the 2024 AVO survey was similar to
     that of the AVO 2022 and 2023 estimates, whereas the center of
     gravity estimate for the 2024 AT survey was shifted southeast
     compared to the AT 2022 estimate, and more similar to the AVO
-    2022-2024 center of gravity estimates (Figure 5). xxx
+    2022-2024 center of gravity estimates (@fig-cog_AVO_ATS). 
 
 Relative to the original index, the correlation between the AVO index
 and the AT survey biomass was higher (R^2^ = 0.9, compared to R^2^ = 0.6
@@ -1089,7 +1102,6 @@ Progress this year has lagged on this and measures to adopt an alternative
 software approach (e.g., @RTMB) would help to ease implementation of this 
 and other features (e.g., that of @cheng2023).
 
-
 ## Parameters estimated outside of the assessment model
 
 ### Natural mortality and maturity at age
@@ -1101,12 +1113,11 @@ estimates tended to be higher and more variable (Holsman et al. *this
 volume*; @holsman2015; @livingston1998; @hollowed2000). @clark1999 found
 that specifying a conservative (lower) natural mortality rate may be
 advisable when natural mortality rates are uncertain. More recent
-studies confirm this (e.g., @Johnson2014). In @ianelli2024 a research model
+studies confirm this (e.g., @Johnson2014). In @ianellisept a research model
 with the estimated *M* at-age and year matrix was applied. The SSC noted
 that further refinements to the CEATTLE model may hold promise for future
 application and sensitivities.
 
-xxx
 As in past years
 the estimates indicate higher values than used here. In the 2018
 assessment we evaluated natural mortality, and it was noted that the
@@ -1119,7 +1130,6 @@ mortality rates would be consistent with those data. Given these
 trade-offs, structural model assumptions were held to be the same as
 previous years for consistency (i.e., the mortality schedule presented
 below).
-xxx
 
 Maturity-at-age values used for the EBS pollock assessment were
 originally based on @smith1981 and were later reevaluated via
@@ -1349,16 +1359,22 @@ use for projection purposes, we tested the following scenarios:
 
 1.  The selectivity estimates from the most recent year was used
     for projections. (**most-recent**)
+1.  The selectivity estimates from the most recent 2-year mean was used
+    for projections. (**2-yr-avg**)
 1.  The selectivity estimates from the most recent 3-year mean was used
     for projections. (**3-yr-avg**)
+1.  The selectivity estimates from the most recent 4-year mean was used
+    for projections. (**4-yr-avg**)
 1.  The selectivity estimates from the most recent 5-year mean was used
     for projections. (**5-yr-avg**)
+    
+    
 
 # Results
 
 The input sample size (as tuned in 2016 using "Francis Weights") can be
 evaluated visually for consistency with expectations of mean annual age
-for the different gear types (@fig-mod_mean_age; Francis 2011). The
+for the different gear types (@fig-mod_mean_age; @francis2011). The
 estimated selectivity pattern changes over time and reflects to some
 degree the extent to which the fishery is focused on particularly
 prominent year-classes (@fig-mod_fsh_sel). The model fits the fishery
@@ -1402,9 +1418,10 @@ for the two acoustic indices in @fig-acoustic_ppl. Additionally, we
 developed some preliminary diagnostics to evaluate how the model's
 posterior components affect key parameters of interest. For example, it
 is useful to know the relative impact of the 2018 year-class on the next
-year's spawning biomass (@fig-ssb_v_2018). Additionally, what different
-components (in negative log-likelihood terms) conflict or interact with
-such a critical parameter (@fig-post_profile).
+year's spawning biomass (@fig-ssb_v_2018). 
+<!-- Additionally, what different -->
+<!-- components (in negative log-likelihood terms) conflict or interact with -->
+<!-- such a critical parameter (@fig-post_profile). -->
 
 ## Evaluation of Model(s) and Associated Uncertainty
 
@@ -1456,30 +1473,11 @@ to the acoustic-trawl survey biomass series (including the USV data from
 (@fig-mod_ats_biom).
 
 The estimated parameters and standard errors are provided
-[online](https://github.com/afsc-assessments/ebswp/blob/main/2023_runs/usehulsoniss/pm.std).
+[online](https://github.com/afsc-assessments/ebs_pollock_safe/blob/main/2024/runs/m23/pm.std).
 The code for the model (with dimensions and links to parameter names)
 and input files are available
 [here](https://github.com/afsc-assessments/ebswp/tree/main).
 
-
-Sensitivities
-
-yyyFor full assessments, the author should provide additional model
-run(s) that address sensitivity of the model to at least one of: model
-specification (e.g., asymptotic vs. domed selectivities, a new prior on
-natural mortality), treatment or inclusion of data sets, data weighting
-methods or magnitudes, or any other modeling choice that is new or
-potentially influential to the scientific advice from the proposed base
-model. The author can choose to provide whatever illustrative tables or
-figures are appropriate toward understanding the impact of these
-sensitivities, and can host such runs as an external document (see
-example here:
-https://afsc-assessments.github.io/goa-fhs/sensitivities_goa_fhs_2022.html).
-Note that if a model is being proposed to the September Plan Team as an
-“alternative” the document must contain a longer description of how the
-alternative model was specified, justified, and fuller reproduction of
-that model’s results (see table above) and include those results in the
-main SAFE.
 
 ### Convergence status and criteria
 
@@ -1498,29 +1496,12 @@ with global estimate of the 2018 year-class.
 
 ### Retrospective analysis (within model)
 
-yyyIteratively remove years of data from the base model starting with
-the most recent year; the maximum retrospective length is up to the
-author, who should provide an explanation. Explain how time-varying
-quantities were treated during the retrospective period, if applicable.
-Show a single plot of the biomass time series with associated
-uncertainty intervals for each model run. Provide summary text
-indicating a) whether or not a retrospective pattern is visually present
-(i.e., outside confidence intervals of the base model); b) whether or
-not any retrospective pattern is positive (years with less data have
-systematically lower biomass estimates) or negative; c) the cause of any
-retrospective patterning, if known. Example text: “
-
 We ran a twenty-year retrospective analysis by sequential removal of all data
 annually beginning with 2024 and ending in 2005 (@fig-mod_retro). 
-xxxThe retrospective pattern was negative, with the most recent year showing
-largest pattern? This does not present an immediate population
-
-### Retrospective analysis
-
-Running the assessment model over a grid with progressively fewer years
-included (going back to 10 years, i.e., assuming the data extent ended
-in `r thisyr-10`) results in a fair amount of variability in spawning
-biomass (@fig-mod_retro). Last year with the lower than expected survey
+While variable, the confidence bounds of the retrospective patterns
+overlapped in all years reflecting the general model uncertainty rather than
+a consistent retrospective pattern.
+In 2023, the lower than expected survey
 biomass estimate followed by an increase this year, the retrospective
 pattern degraded with an average bias (Mohns $\rho$ equal to
 `r round(rhoMohn10,3)` for the 10 year retrospective).
@@ -1661,15 +1642,15 @@ relationship used within the model (@fig-mod_rs).
 Environmental factors affecting recruitment are considered important and
 contribute to the variability. Previous studies linked strong Bering Sea
 pollock recruitment to years with warm sea temperatures and northward
-transport of pollock eggs and larvae (Wespestad et al. 2000; Mueter et
-al. 2006). As part of the Bering-Aleutian Salmon International Survey
+transport of pollock eggs and larvae (@wespestad2000; @mueter2006).
+As part of the Bering-Aleutian Salmon International Survey
 (BASIS) project research has also been directed toward the relative
 density and quality (in terms of condition for survival) of
-young-of-year pollock. For example, Moss et al. (2009) found age-0
+young-of-year pollock. For example, @moss2009 found age-0
 pollock were very abundant and widely distributed to the north and east
 on the Bering Sea shelf during 2004 and 2005 (warm sea temperature; high
 water column stratification) indicating high northern transport of
-pollock eggs and larvae during those years. Mueter et al. (2011) found
+pollock eggs and larvae during those years. @mueter2011 found
 that warmer conditions tended to result in lower pollock recruitment in
 the EBS. This is consistent with the hypothesis that when sea
 temperatures on the eastern Bering Sea shelf are warm and the water
@@ -1726,8 +1707,8 @@ reasonable posterior marginal density for $F_{MSY}$, it seems if Tier 1
 criterion is unmet, then so would the requirement for Tier 2. Given the priors
 assumed for the SRR, and the fact that the results are largely similar to 
 the Tier 3 proxy for $F_{MSY}$ (i.e., the $F_{SPR\%}$ at $F_{MSY}$ is close
-to $F_{35\%}$), we recommend adopting Tier 3 for this stock until a more
-detailed management strategy evaluation can be pursued.
+to $F_{35\%}$), **we recommend adopting Tier 3 for this stock until a more
+detailed management strategy evaluation can be pursued**.
 As noted below in the section on risk evaluations, there are reasons for
 increased concerns. However, these seem to be unrelated to overall stock
 productivity as relates to the SRR and estimates of $F_{MSY}$. 
@@ -1825,7 +1806,7 @@ tab <- xtable::xtable(df, digits = c(0, 0, 0, 0, 0), big.mark = ",", align = "cc
 print(tab, floating = FALSE, include.rownames = F, big.mark = ",", hline.after = c(-1, 0, 2, 4, nrow(tab)), comment = FALSE)
 ```
 
-Note that the values presented for 2026 assumed a catch of 1,300,000 t
+Note that the values presented for 2026 assumed a catch of 1,350,000 t
 in 2025.
 
 ## Standard Harvest Scenarios and Projection Methodology
@@ -1974,7 +1955,7 @@ System](https://www.fisheries.noaa.gov/resource/data/species-information-system)
 we computed the average fishing mortality rate corresponding to the
 specified OFL for the last complete year (`r thisyr-1`). This
 hypothetical `r thisyr-1` $F_{OFL}$ from this year's model was estimated
-to be 0.262 for EBS pollock (assuming this year's estimated 2022
+to be XXX0.262XXX for EBS pollock (assuming this year's estimated 2023
 selectivity and weight-at-age).
 
 ## ABC Recommendation
@@ -1993,11 +1974,11 @@ class. Treating all new data the same way as in the past, this estimate
 suggests that it would be the biggest year-class on record
 (`r M$yc2018s` age 1 numbers), but with considerable uncertainty.
 
-Given the same estimated aggregate fishing effort as in 2022 and given
+[xxGiven the same estimated aggregate fishing effort as in 2024 and given]{bg-colour="#FFFF00" }
 the estimated stock trend, the constant-F scenario would yield about 1.3
-million t. To obtain 2023 catches on the order of 1.45 million t, given
+million t. To obtain 2025 catches on the order of 1.45 million t, given
 the base model estimates, would require about 18% more effort than what
-was estimated from 2022.
+was estimated from 2022.xx
 
 ### Should the ABC be reduced below the maximum permissible ABC?
 
@@ -2235,7 +2216,7 @@ has effectively maintained fishery production at around 1.3 million t
 since 1990. Demonstrations that would allow fishing to near $F_{MSY}$
 catch quantities would show that catch variability would be extremely
 high (and unrealistic given current capacity and OY limits for combined
-BSAI groundfish; Ianelli 2005). Furthermore, the frequency of being at
+BSAI groundfish; @ianelli2005). Furthermore, the frequency of being at
 much lower spawning stock sizes would be much higher, and would likely
 be riskier and fishing effort would need to be much higher. While the
 biological basis for ABC setting is founded in sound conservation of
@@ -2956,6 +2937,8 @@ Year    &   Males   &   Females &   Males   &   Females &   Males   &   Females 
 \end{tabular}
 }
 \end{table}
+
+
 \begin{table}[ht]
 \centering
 \caption{`r tabcap[12]`} 
@@ -3444,9 +3427,9 @@ Year    &   AT  scaled  biomass index   &   AVO index   &   Relative error  &   
 2021    &   $-no\,  survey-$    &   2.410   &   0.0479  &   22\%    \\
 2022    &   3.834       &   2.903   &   0.0341  &   16\%    \\
 2023    &   $-no\,  survey-$    &   2.481   &   0.0294  &   14\%    \\
-2024    &   2.87                &  xxx 2.481   &   0.0294  &   14\%    \\
+2024    &   2.87                &  2.007    &   0.0272  &   13\%    \\
 \hline                                          
-Mean    &   2.848       &   2.190   &   5\% &   23\%    \\
+Mean    &   2.850       &   2.180   &   5\% &   23\%    \\
 \hline                                          
 \end{tabular}
 \end{table}
@@ -4154,6 +4137,7 @@ printfig("bts_lenfreq.png", 83)
 #printfig("vastage_vs_db.pdf", 27)
 # printfig("wtage_bts.pdf",94);
 printfig("at_age.png", 74)
+printfig("cog_AVO_ATS.png", 103)
 printfig("AVO_Series_change.png", 99)
 printfig("avo_map_yr.pdf", 16)
 printfig("fsh_lw_month.png", 23)
@@ -4194,13 +4178,13 @@ printfig("mcmc_marg.pdf", 56)
 printfig("mcmc_marg_fmsy.pdf", 87)
 printfig("acoustic_ppl.png", 93)
 printfig("ssb_v_2018.pdf", 96)
-printfig("post_profile.pdf", 95)
+#printfig("post_profile.pdf", 95)
 
 printfig("mod_retro.pdf", 52)
 printfig("mod_retroR.pdf", 97)
 printfig("retro_cohort_termyr.pdf", 101)
 printfig("retro_cohort.pdf", 102)
-# printfig("retro_sel.pdf",89)
+printfig("retro_sel.pdf",89)
 printfig("retro_sel_mnage.pdf", 90)
 printfig("fmsy_sel", 92)
 

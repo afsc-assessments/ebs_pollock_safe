@@ -60,7 +60,6 @@ date-format: "YYYY-MM-DD HH:mm"
 css: mystyle.css
 format:
   html:
-    
     theme:
       light: [cosmo, theme.scss] 
       dark: [cosmo, theme-dark.scss]
@@ -68,7 +67,7 @@ format:
     code-overflow: wrap
     toc: true
     toc-title: 'Contents'
-    embed-resources: true
+    embed-resources: false
     #numbering: true
     #number-sections: true
     code-summary: "Show the code"
