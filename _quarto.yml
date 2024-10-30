@@ -57,7 +57,7 @@ lightbox: true
 engine: knitr
 date: now
 date-format: "YYYY-MM-DD HH:mm"
-
+css: mystyle.css
 format:
   html:
     

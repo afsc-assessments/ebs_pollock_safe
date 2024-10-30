@@ -17,71 +17,29 @@ if (doplots) {
   # p1 <- plot_ssb(modlst[c(1,2,3)],xlim=c(2008.5,2019.5));p1
   # p1 <- plot_bts(modlst[c(1,2,3)],xlim=c(2008.5,2019.5));p1
   # p1 <- plot_Nage_3(modlst[c(1,2)],xlim=c(2000.5,2023.5));p1
-  p1 <- plot_recruitment(modlst[c(1:2)], xlim = c(2000.5, 2022.5)) + ylab("")
-  p1
+  p1 <- plot_recruitment(modlst[c(1,2)], xlim = c(2000.5, 2022.5)) + ylab("")
   p2 <- plot_recruitment(modlst[c(2, 3)], xlim = c(2000.5, 2022.5)) + ylab("")
-  p3 <- plot_recruitment(modlst[c(3, 4)], xlim = c(2000.5, 2022.5)) + ylab("")
-  p4 <- plot_recruitment(modlst[c(4, 5)], xlim = c(2000.5, 2022.5)) + ylab("")
-  p5 <- plot_recruitment(modlst[c(5, 6)], xlim = c(2000.5, 2022.5)) + ylab("")
-  p6 <- plot_recruitment(modlst[c(6, 7)], xlim = c(2000.5, 2022.5)) + ylab("")
-  p7 <- plot_recruitment(modlst[c(7, 8)], xlim = c(2000.5, 2022.5)) + ylab("")
-  p8 <- plot_recruitment(modlst[c(8, 9)], xlim = c(2000.5, 2022.5)) + ylab("")
-  p1 <- plot_recruitment(modlst[c(1, 9)], xlim = c(2000.5, 2022.5)) + ylab("")
-  p1
-  library(patchwork)
+  p3 <- plot_recruitment(modlst[c(2, 4)], xlim = c(2000.5, 2022.5)) + ylab("")
+  p4 <- plot_recruitment(modlst[c(2, 5)], xlim = c(2000.5, 2022.5)) + ylab("")
+  #library(patchwork)
   (p1 + p2) /
-    (p3 + p4) /
-    (p5 + p6) /
-    (p7 + p8)
+    (p3 + p4) 
   # p2 <- plot_ssb(modlst[c(1:7)],xlim=c(2008.5,2021.5),breaks=seq(2008,2021,by=2),alpha=.2); p2
   # p2 <- plot_ssb(modlst[c(1,4)],xlim=c(2008.5,2021.5),breaks=seq(2008,2021,by=2),alpha=.2); p2
   # p2 <- plot_ssb(modlst[c(1,5)],xlim=c(2008.5,2021.5),breaks=seq(2008,2021,by=2),alpha=.2); p2
   #---SSB-------------------------
-  modlst[[3]]$SSB
-  names(modlst) <- c("Last year", 1:7, "Model 23.0")
-  names(modlst) <- c(
-    "Last year", # 1
-    "m1",
-    "m2 ",
-    "m3",
-    "m4",
-    "m5",
-    "m6",
-    "m7",
-    "m8"
-  )
-  # "23.0")
-  names(modlst)
-  p1 <- plot_ssb(modlst[c(1:2)], xlim = c(2008.5, 2024.5), breaks = seq(2008, 2025, by = 2), alpha = .1)
-  p1
-  p1 <- plot_ssb(modlst[c(1:2)], xlim = c(1963.5, 2024.5), breaks = seq(1964, 2025, by = 2), alpha = .1)
-  p1
-  p2 <- plot_ssb(modlst[c(1, 2)], xlim = c(2008.5, 2024.5), breaks = seq(2008, 2025, by = 2), alpha = .2)
-  p2
-  p3 <- p1 / p2
-  ggsave("doc/figs/mod_data.pdf", plot = p3, width = 6, height = 8.0, units = "in")
-
-  p1 <- plot_ssb(modlst[c(1, 9)], xlim = c(2008.5, 2022.5), breaks = seq(2008, 2024, by = 2), alpha = .2)
-  p1
-
-  p1 <- plot_recruitment(modlst[c(1, 2)], xlim = c(2008.5, 2022.5), breaks = seq(2008, 2024, by = 2), alpha = .2)
-  p1
-  p1 <- plot_ssb(modlst[c(6, 5, 4)], xlim = c(2008.5, 2022.5), breaks = seq(2008, 2024, by = 2), alpha = .2)
-  p1
-  p1 <- plot_ssb(modlst[3], xlim = c(2008.5, 2022.5), breaks = seq(2008, 2024, by = 2), alpha = .2)
-  p1
-  p2 <- plot_ssb(modlst[c(1, 9)], xlim = c(2008.5, 2024.5), breaks = seq(2008, 2024, by = 2), alpha = .2)
-  p2
-  # Comparing base with 2 vast configurations
-  p3 <- p1 / p2
-  p3
-  ggsave("doc/figs/mod_bridge.pdf", plot = p1, width = 8, height = 5.0, units = "in")
+  p0 <- plot_ssb(modlst[c(1, 2)], xlim = c(1963.5, 2024.5), breaks = seq(2008, 2025, by = 2), alpha = .3) ; plotly::ggplotly(p0)
+  p0 <- plot_ssb(modlst[c(1, 2)], xlim = c(2018.5, 2024.5), breaks = seq(2008, 2025, by = 2), alpha = .3)
+  p1 <- plot_ssb(modlst[c(2, 3)], xlim = c(2018.5, 2024.5), breaks = seq(2008, 2025, by = 2), alpha = .3)
+  p2 <- plot_ssb(modlst[c(2, 4)], xlim = c(2018.5, 2024.5), breaks = seq(2008, 2025, by = 2), alpha = .3)
+  p3 <- plot_ssb(modlst[c(2, 5)], xlim = c(2018.5, 2024.5), breaks = seq(2008, 2025, by = 2), alpha = .3)
+  p3 <- p0/p1 / p2/p3 + plot_layout(axis_titles = "collect");p3
+  ggsave("doc/figs/mod_bridge.pdf", plot = p3, width = 6, height = 8.0, units = "in")
 
   #---BTS Fit---------------------
   # Comparing base with 2 vast configurations
   # p1 <- plot_recruitment(modlst[c(2,4,5)],xlim=c(2010.8,2019.5));p1
-  p1 <- plot_bts(modlst[c(1, 2)], xlim = c(1981.5, 2024.5), ylim = c(0, 15500))
-  p1
+  p1 <- plot_bts(modlst[c( 2)], xlim = c(1981.5, 2024.5), ylim = c(0, 15500))
   ggsave("doc/figs/mod_bts_fit.pdf", plot = p1, width = 8, height = 4.0, units = "in")
   # p1 <- plot_ssb(modlst[c(3,4)],xlim=c(2000.5,2020.5),alpha=.2); p1
   # plot_recruitment(modlst,xlim=c(2004.5,2018.5))
@@ -89,11 +47,9 @@ if (doplots) {
   # plot_ssb(modlst[c(2,3)],xlim=c(2004.5,2020.5),alpha=.1)
   # plot_bts(modlst,xlim=c(1981.5,2019.5),ylim=c(0,35000))
   # ggsave("doc/figs/mod_eval0a.pdf",plot=p1,width=6,height=4,units="in")
-  p1 <- plot_bts(modlst[c(1, 2)], xlim = c(2009.5, 2022.5), ylim = c(0, 15000))
-  p1
   #  plot_bts(modlst[c(3)],xlim=c(1982,2019.5),ylim=c(0,15000))
   ##  plot_bts(modlst[c(2)],xlim=c(1982,2019.5),ylim=c(0,15000))
-  ggsave("doc/figs/mod_bts_bridge.pdf", plot = p1, width = 8, height = 4, units = "in")
+  # ggsave("doc/figs/mod_bts_bridge.pdf", plot = p1, width = 8, height = 4, units = "in")
   # M$maxabc2s
   # M$sel_fut
   #  names(M)
@@ -104,7 +60,7 @@ if (doplots) {
   yr <- c(M$Yr, 2025)
   sel <- rbind(M$sel_fsh, M$sel_fut)
   p1 <- plot_sel(Year = yr, sel = sel, scale = 3)
-  p1
+  #p1
   # p1 <- plot_sel();p1
   # dtmp <- p1$data %>% filter(Year==2022)
   # p1 <- p1 + geom_density_ridges(data=dtmp, stat="identity",fill="gold",alpha=.02) ;p1
@@ -114,45 +70,36 @@ if (doplots) {
   ggsave("doc/figs/mod_fsh_sel.pdf", plot = p1, width = 4, height = 9, units = "in")
 
   p1 <- plot_sel(sel = M$sel_bts, styr = 1982, fill = "darkblue")
-  p1
   # plot_sel(sel=M$sel_eit,styr=1994,fill="darkblue")
   ggsave("doc/figs/mod_bts_sel.pdf", plot = p1, width = 4, height = 8, units = "in")
   # p1 <- plot_mnage(modlst[c(2,3)])
   # p1 <- plot_mnage(modlst[thismod]) ;p1
   p1 <- plot_mnage(modlst[thismod])
-  plot_mnage
-  plotly::ggplotly(p1) # Note used model 1 for figure...because of kludge for age compos
+  # plotly::ggplotly(p1) # Note used model 1 for figure...because of kludge for age compos
   ggsave("doc/figs/mod_mean_age.pdf", plot = p1, width = 5.8, height = 8, units = "in")
-  p1 <- plot_bts(modlst[thismod])
-  p1
-  ggsave("doc/figs/mod_bts_biom.pdf", plot = p1, width = 5.2, height = 3.7, units = "in")
+  # p1 <- plot_bts(modlst[thismod]);p1
+  # ggsave("doc/figs/mod_bts_biom.pdf", plot = p1, width = 5.2, height = 3.7, units = "in")
 
-  p1 <- plot_ats(modlst[c(2, 9)]) + ggthemes::theme_few() +
-    scale_x_continuous(limits = c(1990, 2024))
-  p1
+  p1 <- plot_ats(modlst[c(1,2)]) + ggthemes::theme_few() +
+    scale_x_continuous(limits = c(1990, 2025))
   ggsave("doc/figs/mod_ats_bridging.pdf", plot = p1, width = 5.2, height = 3.7, units = "in")
 
   #  p1 <- p1+ geom_vline(xintercept=2006.5,color="grey",size=1)
   # p1 <- p1+scale_y_log10()
   p1 <- plot_ats(modlst[c(2)]) + ggthemes::theme_few(base_size = 13)
-  p1
   ggsave("doc/figs/mod_ats_biom.pdf", plot = p1, width = 9.2, height = 3.7, units = "in")
   p1 <- plot_avo(modlst[c(thismod)], ylim = c(0, 5)) + xlim(c(2005, 2025))
-  p1
   #  p1 <- plot_avo(modlst[c(2)]) ;p1
   ggsave("doc/figs/mod_avo_fit.pdf", plot = p1, width = 9.2, height = 4.7, units = "in")
   # p1 <- plot_cope(modlst[[2]]) ;p1
-  p1 <- plot_cpue(modlst[[thismod]]); p1
+  p1 <- plot_cpue(modlst[[thismod]]); #p1
   ggsave("doc/figs/mod_cpue_fit.pdf", plot = p1, width = 5.2, height = 3.7, units = "in")
   p1 <- plot_recruitment(modlst[thismod], xlim = c(1963.5, 2024.5), fill = "yellow") +
     scale_y_continuous(label = comma, limits = c(0, 1.05e5)) + theme_few(base_size = 14)
-  p1
-  p1 <- plot_recruitment(modlst[1], xlim = c(1963.5, 2023.5), fill = "yellow") +
-    scale_y_continuous(label = comma, limits = c(0, 1.05e5)) + theme_few(base_size = 14)
-  p1
-  p2 <- plot_ssb(modlst[c(thismod)], xlim = c(2000.5, 2024.5))
-  p2
-  ggsave("doc/figs/mod_rec.pdf", plot = p1, width = 9, height = 4, units = "in")
+  ggsave("doc/figs/mod_rec.pdf", plot = p1, width = 8, height = 6, units = "in")
+  
+  #p2 <- plot_ssb(modlst[c(thismod)], xlim = c(2000.5, 2024.5),alpha=.4)
+  #p2
 
   #  p1 <- plot_srr(modlst[c(thismod)],alpha=.2,xlim=c(0,5200),ylim=c(0,77000));p1
   #  ggsave("doc/figs/mod_srr_sq_a.pdf",plot=p1,width=9,height=4,units="in")
@@ -179,30 +126,6 @@ if (doplots) {
 
   LY <- modlst[[2]]
   p1 <- plot_srr(modlst[c(2)], alpha = .2, xlim = c(0,4200), ylim = c(0, 85000), sizeout = 2, sizein = 4, yrsin = c(1977, 1979:2021)); p1
-  p1 <- plot_srr(modlst[c(1)], alpha = .2, xlim = c(0,4200), ylim = c(0, 85000), sizeout = 2, sizein = 4, yrsin = c(1977, 1979:2021)); p1
-  p1 <- plot_srr(modlst[c(1,2)], alpha = .2, xlim = c(0,4200), ylim = c(0, 85000), sizeout = 2, sizein = 4, yrsin = c(1977, 1979:2021))
-  p1
-  ggsave("doc/figs/mod_srr1.pdf", plot = p1, width = 9, height = 5, units = "in")
-  p1
-  p2 <- plot_srr(modlst[c(2)], alpha = .2, xlim = c(0,4200), ylim = c(0, 85000), sizeout = 2, sizein = 4, yrsin = c(1977, 1979:2021))
-  p2
-  ggsave("doc/figs/mod_srr2.pdf", plot = p2, width = 9, height = 5, units = "in")
-  
-  p3 <- plot_srr(modlst[c(3)], alpha = .2, xlim = c(0,4200), ylim = c(0, 85000), sizeout = 2, sizein = 4, yrsin = c( 1964:2021))
-  p3
-  ggsave("doc/figs/mod_srr3.pdf", plot = p3, width = 9, height = 5, units = "in")
-  
-  p4 <- plot_srr(modlst[c(1,2)], alpha = .2, xlim = c(0,4200), ylim = c(0, 85000), sizeout = 2, sizein = 4, yrsin = c( 1964:2021))
-  p4
-  p1 <- plot_srr(modlst[c(3,2)], alpha = .2, xlim = c(0,4200), ylim = c(0, 85000), sizeout = 2, sizein = 4, yrsin = c(1977, 1979:2021))
-  p1/p2/p3
-  
-  p1 <- plot_srr(modlst[c(1:3)], alpha = .2, xlim = c(0, 5200), ylim = c(0, 85000), sizeout = 2, sizein = 4, yrsin = c(1977, 1979:2021)) +
-    facet_grid(Model~. )
-    #geom_vline(xintercept = LY$bmsy, color = "cyan", size = .51) +
-    #geom_vline(xintercept = M$bmsy, color = "red", size = .51)
-  p1
-  #  p1 <- plot_srr(modlst[c(1,2)],alpha=.2,xlim=c(0,5200),ylim=c(0,100000));p1
   ggsave("doc/figs/mod_srr.pdf", plot = p1, width = 9, height = 5, units = "in")
   # p1 <- plot_srr(modlst[c(3,5)],alpha=.2,xlim=c(0,5200),ylim=c(0,80000));p1
   # p1 <- plot_srr(modlst[c(3,6)],alpha=.2,xlim=c(0,5200),ylim=c(0,80000));p1
@@ -219,16 +142,15 @@ if (doplots) {
    plot_agefit(modlst[[thismod]],case_label=af_title,gear="bts",type="survey")
   pdf("doc/figs/mod_bts_age.pdf", width = 6, height = 8)
   plot_agefit(modlst[[thismod]], case_label = af_title, gear = "bts", type = "survey", styr = 1982, ageplus = 10)
-  plot_agefit(modlst[[thismod]], case_label = af_title, gear = "bts", type = "survey", styr = 1982, ageplus = 10)
   dev.off()
 
-  pdf("doc/figs/mod_ats_age.pdf", width = 5, height = 5)
+  pdf("doc/figs/mod_ats_age.pdf", width = 5, height = 6)
   plot_agefit(modlst[[thismod]], case_label = af_title, gear = "ats", type = "survey", styr = 2001)
   dev.off()
   #  plot_agefit(modlst[[2]],case_label=af_title,gear="fsh",type="fishery",styr=1992)
   pdf("doc/figs/mod_fsh_age.pdf", width = 6, height = 8)
   plot_agefit(modlst[[thismod]], case_label = af_title, gear = "fsh", type = "fishery", styr = 1992, ageplus = 10)
-  plot_agefit(modlst[[thismod]], case_label = af_title, gear = "fsh", type = "fishery", styr = 1978, ageplus = 10)
+  #plot_agefit(modlst[[thismod]], case_label = af_title, gear = "fsh", type = "fishery", styr = 1978, ageplus = 10)
   dev.off()
   # plot_agefit(modlst[[2]],case_label=af_title,gear="fsh",type="fishery",styr=1992,ageplus=10)
   # plot_agefit(M,case_label=af_title,gear="fsh",type="fishery")
@@ -245,37 +167,8 @@ if (doplots) {
   # Read report file and make list
   # fn       <- paste0(.CABMODELDIR, "pm")
   # CABmodlst   <- lapply(fn, read_admb)
-  CAB_names <- (c("last year", "Add 2021 catch", "Add BTS", "Add ATS", "Add AVO"))
-  CABmodlst <- modlst[c(2, 4, 6, 7, 8)]
-  names(CABmodlst)
-  str(CABmodlst)
-
   # CAB_names <- c("last year", "Catch added", "+Catch-age", "+BTS", "+AVO")
-  #  CAB_names <- c("last year", "Catch added","Agin")
-  names(CABmodlst) <- CAB_names
-  names(CABmodlst)
-  nmods <- length(CAB_names)
-  # for (i in 1:nmods) CABmodlst[[i]] <- c(CABmodlst[[i]],get_vars(CABmodlst[[i]]))
-  # p1 <-  plot_ssb(CABmodlst[c(1,3,5)],xlim=c(2009.5,2019.5),alpha=.1,ylim=c(0,5200)); p1
 
-  A <- .get_ssb_df(modlst[[2:9]])
-  names(A)
-
-  A$Model <- factor(A$Model, levels = c("last year", "Add 2021 catch", "Add BTS", "Add ATS", "Add AVO"))
-  p1 <- ggplot(A, aes(x = year, y = ssb, ymin = lb, ymax = ub, fill = Model)) +
-    labs(x = "Year", y = "Spawning biomass") +
-    theme_few(base_size = 14) +
-    expand_limits(y = 0) +
-    geom_line(aes(linetype = Model, color = Model), size = 1.2) +
-    scale_x_continuous(limits = c(2010, 2022), breaks = 2010:2022) +
-    geom_ribbon(alpha = 0.1)
-  p1
-  ggsave("doc/figs/mod_data.pdf", plot = p1, width = 8, height = 4, units = "in")
-  # plot_ssb(CABmodlst,xlim=c(2009.5,2020.5),alpha=.05,ylim=c(0,6000),breaks=2009:2020)
-  # p2 <-  plot_recruitment(CABmodlst,xlim=c(2009.5,2020.5),alpha=.05) ;p2
-  # p2 <-  p2 + scale_fill_discrete(labels=CAB_names) + scale_color_discrete(labels=CAB_names) + theme_few()
-  # p3 <- p1/p2
-  # p1
   # plot_ssb(modlst[],xlim=c(2004.5,2018.5),alpha=.1,ylim=c(0,5200))
   # for (i in 1:length(mod_names)) modlst[[i]] <- c(modlst[[i]],get_vars(modlst[[i]]))
   # plot_recruitment(CABmodlst[c(1,5)],xlim=c(2000.5,2019.5),fill="yellow")
@@ -350,13 +243,13 @@ if (doplots) {
     )
   )
   p1 <- ggplot(df, aes(x = Year, y = SSB, ymax = ub, ymin = lb, color= Model, fill = Model)) +
-    geom_ribbon(alpha = .6) +
+    geom_ribbon(alpha = .4) +
     geom_line(linewidth=1.5) +
     theme_few() +
     scale_x_continuous(limits = c(2002, 2028), breaks = seq(2002, 2028, 2)) +
     ylab("Female spawning biomass (kt)") +
     geom_vline(xintercept = 2024, col = "grey", size = 1.2)
-  p1
+  #p1
   ggsave("doc/figs/proj_ssb.pdf", plot = p1, width = 7.4, height = 4.5, units = "in")
 
   #---R/S------------------
@@ -381,14 +274,14 @@ if (doplots) {
     ylab("ln(Recruits/spawning biomass)") +
     xlab("Spawning biomass (kt)") +
     guides(size = FALSE, shape = FALSE, alpha = FALSE, col = FALSE)
-  p3 <- p1 / p2
+  p3 <- p1 / p2 + plot_layout(axis_titles = "collect")
   p3
   ggsave("doc/figs/mod_rs.pdf", plot = p3, width = 5.2, height = 7.5, units = "in")
 
-  p1 <- plot_ser(modlst[thismod], xlim = c(1964, thisyr + 1), alpha = .7) + scale_x_continuous(breaks = seq(1965, thisyr + 1, 5))
-  p1
+  p1 <- plot_ser(modlst[thismod], xlim = c(1964, thisyr + 1), alpha = .5) + scale_x_continuous(breaks = seq(1965, thisyr + 1, 5))
+  #p1
   ggsave("doc/figs/mod_ser.pdf", plot = p1, width = 9.2, height = 7.0, units = "in")
-  p1
+  #p1
 
   #---fishing mortality mod_F.pdf-----------------------------------------------------------------
   df <- data.frame(Year = M$Yr, M$F)
@@ -407,12 +300,12 @@ if (doplots) {
     geom_line(data = df.g[df.g$age == "6", ], aes(x = Year, y = F * 10)) +
     annotate("text", label = "Age 6 F (x10)", x = 2015, y = 1.2, size = 5, colour = "black") +
     scale_y_continuous(breaks = seq(0, 10, 1))
-  p1
+  #p1
   ggsave("doc/figs/mod_F.pdf", plot = p1, width = 9.2, height = 6.0, units = "in")
 
   #---Historical assessment retrospectives--------------------------------------------------------
   dd <- as.data.frame(read.csv("doc/data/Age3history.csv", header = TRUE))
-  head(dd)
+ # tail(dd)
   names(dd) <- c("Year", 2023:2006, 2001:1998)
   dd.g <- pivot_longer(dd, cols = 2:23, names_to = "Assessment", values_to = "Biomass")
   head(dd.g)
@@ -429,29 +322,32 @@ if (doplots) {
   tmp <- dd.g %>% filter(Year > 2006, Year == 1 + as.numeric(Assessment)) # %>% summarise(max(Year))
 p1 <- ggplot(dd.g, aes(x = Year, y = Biomass, color = Assessment)) +
     geom_line(alpha = .8, size = .75) +
-    scale_x_continuous(breaks = seq(1980, thisyr + 2, 2), limits = c(1980, thisyr + 1)) +
+    scale_x_continuous(breaks = seq(1980, thisyr +1, 5), limits = c(1980, thisyr + 1)) +
     xlab("Year") +
     ylim(0, 16000) +
     ylab("Age 3+ biomass (kt)") +
     geom_point(data = tmp, size = 2) +
     theme_few() +
     guides(size = FALSE, shape = FALSE, alpha = FALSE, col = FALSE)
-  plotly::ggplotly(p1)
+  #plotly::ggplotly(p1)
   ggsave("doc/figs/mod_hist.pdf", plot = p1, width = 9.2, height = 4.0, units = "in")
 
   #----------------------------------------------------------
   # Extract Fmsy for different selectivity years
+  # Note this requires cross-checking w/ code to get years to line
+  # up correctly...
 
   idx <- grep("msy2_dec", M$fit$name)
   length(idx)
 
   fdf <- data.frame(
-    year = rep(2013:2022, 2),
+    year = rep(2015:2024, 2),
     Source = M$fit$name[idx],
     est = M$fit$est[idx],
     std = M$fit$std[idx]
   )
-  unique(fdf$Source)
+  fdf
+  #unique(fdf$Source)
 
   p1 <- fdf %>%
     filter(Source != "Fmsy2_decwt") %>%
@@ -460,12 +356,11 @@ p1 <- ggplot(dd.g, aes(x = Year, y = Biomass, color = Assessment)) +
     geom_point(size = 5, color = "purple") +
     theme_few(base_size = 12) +
     xlab("Year selected for MSY calculation") +
-    scale_x_continuous(breaks = seq(2013, thisyr, 1), limits = c(2012, thisyr + 1)) +
+    scale_x_continuous(breaks = seq(2015, thisyr, 1), limits = c(2015, thisyr + 1)) +
     ylab("Fmsy")
-  p1
   ggsave("doc/figs/fmsy_sel_hist.pdf", plot = p1, width = 5.2, height = 4.0, units = "in")
 
-  ##
+  ##---retrospecitve selectivity--------------------------------------------------------------
   sel <- M$sel_fsh
   seldf <- NULL
   yrs <- (thisyr - 10):(thisyr)
@@ -498,7 +393,7 @@ p1 <- ggplot(dd.g, aes(x = Year, y = Biomass, color = Assessment)) +
     theme_few() +
     ylim(c(0, 10)) +
     ylab("Mean age selected") +
-    scale_x_continuous(breaks = seq(2010, 2022, by = 2))
+    scale_x_continuous(breaks = seq(2010, 2024, by = 2))
   p1
   p1 <- ggplot(assdf, aes(x = age, y = Selectivity, color = case, group = Year)) +
     geom_point(size = .5) +
@@ -849,7 +744,7 @@ p1 <- ggplot(dd.g, aes(x = Year, y = Biomass, color = Assessment)) +
     geom_density_2d()
 
   ## VAST figure
-  idxOut <- read.csv("data/vast.csv", header = TRUE)
+  idxOut <- read.csv("doc/data/vast.csv", header = TRUE)
   idxOut
   df <- mutate(idxOut, CV = sd / Biomass, sd = sd / 1e6, Biomass = Biomass / 1e6, ll = Biomass - 2 * sd, ul = 2 * sd + Biomass) %>%
     select(Model, Area, Year, Biomass, CV, ul, ll)
@@ -858,10 +753,11 @@ p1 <- ggplot(dd.g, aes(x = Year, y = Biomass, color = Assessment)) +
     geom_smooth(span = .1, se = F) +
     geom_errorbar(aes(ymin = ll, ymax = ul), width = .5, position = position_dodge(width = 0.5)) +
     theme_few(base_size = 19) +
-    scale_x_continuous(breaks = seq(1982, 2022, by = 4)) +
+    scale_y_continuous(label = comma) +
+    scale_x_continuous(breaks = seq(1980, 2025, by = 4)) +
     geom_hline(yintercept = 0) +
     facet_grid(Area ~ ., scales = "free") +
-    ylab("Biomass (millions of t)")
+    ylab("Biomass (kt)")
   p1
   ggsave("doc/figs/vast_idx.pdf", plot = p1, width = 9.4, height = 5, units = "in")
 
@@ -869,9 +765,10 @@ p1 <- ggplot(dd.g, aes(x = Year, y = Biomass, color = Assessment)) +
     geom_point(size = 3, color = "red", position = position_dodge(width = 0.5)) +
     geom_errorbar(aes(ymin = ll, ymax = ul), width = .5, position = position_dodge(width = 0.5)) +
     theme_few(base_size = 19) +
-    scale_x_continuous(breaks = seq(1982, 2022, by = 4)) +
-    ylim(c(0, 15)) +
-    ylab("Biomass (millions of t)")
+    scale_y_continuous(label = comma) +
+    scale_x_continuous(breaks = seq(1980, 2025, by = 4)) +
+    ylim(c(0, NA)) +
+    ylab("Biomass (kt)")
   p1
   ggsave("doc/figs/bts_biom.png", plot = p1, width = 9.4, height = 7, units = "in")
   ggsave("doc/figs/bts_biom.pdf", plot = p1, width = 9.4, height = 7, units = "in")
@@ -1114,7 +1011,7 @@ if (do_data_plots) {
 
   #---Fishery stuff----------------------
   wed <- read.csv("~/_mymods/sampler/cases/ebswpSAM/imported/akfin_cat.csv", as.is = TRUE)
-  tac <- read.csv("~/_mymods/ebswp/doc/data/tac_abc.csv", as.is = TRUE)
+  tac <- read.csv("~/_mymods/afsc-assessments/ebs_pollock_safe/doc/data/tac_abc.csv", as.is = TRUE)
   wed %>%
     filter(FMP.Area == "BSAI") %>%
     group_by(Year) %>%
@@ -1164,6 +1061,7 @@ if (do_data_plots) {
     geom_line(size = 1.0) +
     theme_few(base_size = 14) +
     ylab("Tons of roe produced") +
+    scale_y_continuous(label = comma) +
     expand_limits(y = 0) +
     scale_x_continuous(breaks = seq(2000, 2024, 2)) # p1
   #  + geom_hline(yintercept=mst,linetype="dashed") + geom_hline(yintercept=mbt,linetype="dashed")
@@ -1213,7 +1111,6 @@ if (do_data_plots) {
     geom_text(size = 3) +
     geom_smooth(method = lm)
   # left_join(edt_df, cdf_df) |> mutate(Number=Number/mean(Number),Biomass=Biomass/mean(Biomass) ) |> pivot_longer(!Year,names_to="Type",values_to="Catch") |> ggplot(aes(x=Year,y=Catch,color=Type)) +
-  library(scales)
   left_join(edt_df, cdf_df) |>
     pivot_longer(!Year, names_to = "Type", values_to = "Catch") |>
     ggplot(aes(x = Year, y = Catch, color = Type)) +
@@ -1238,7 +1135,7 @@ if (do_data_plots) {
   adf <- as.data.frame(M$pobs_bts) %>% mutate(Model = "VAST ages")
   adf <- rbind(
     adf,
-    as.data.frame(modlst[[2]]$pobs_bts) %>% mutate(Model = "Design-based")
+    as.data.frame(modlst[[1]]$pobs_bts) %>% mutate(Model = "Design-based")
   )
   names(adf) <- c("Year", 1:15, "Model") # %>% mutate
   glimpse(adf)
@@ -1261,7 +1158,7 @@ if (do_data_plots) {
     byc[, i] <- formatC(byc[, i], format = "d", big.mark = ",")
   }
 
-  catch <- read_csv("../ebs_main/data/fishery/pollock_catch.csv")[, c(1, 6, 9, 4, 10, 11)]
+  catch <- read_csv("~/_mymods/ebs_main/data/fishery/pollock_catch.csv")[, c(1, 6, 9, 4, 10, 11)]
   names(catch) <- c("Year", "target", "gear", "NMFS_area", "Catch", "wed")
   glimpse(catch)
   catch <- catch %>%
@@ -1282,7 +1179,20 @@ if (do_data_plots) {
   tail(catchw)
   write_csv(catchw, "doc/data/catch_tab.csv")
 
-  # xtable(catchw)
+  #---COG------------------
+    cog<- read_csv("doc/data/COG_utm.csv")
+    cog <- cog %>% mutate(Year = as.numeric(Year), m=ifelse(m=="Easting (km)","E","N") )
+    cog
+    c1 <- cog |> filter(m=="E") |> select(-m)
+    c1
+    c2 <- cog |> filter(m=="N") |> select(-m)
+    c3 <- cbind(c1,c2)
+    names(c3) <- c("Year","E","E_se","yr","N","N_se")
+    c3
+    c3 <- c3 |> mutate(Elb=E-1.96*E_se,Eub=E+1.96*E_se,Nlb=N-1.96*N_se,Nub=N+1.96*N_se)
+    c3 |> ggplot(aes(y=N,x=E)) + geom_point() + geom_errorbar(aes(xmin=Elb,xmax=Eub,ymin=Nlb,ymax=Nub),width=.5) + geom_abline(intercept=0,slope=1) + theme_few()
+    
+  "~/_mymods/ebs_main/data/bts/cog_area_occupied/Ln_effective_area.csv"
 
 
   #---temperature------------------

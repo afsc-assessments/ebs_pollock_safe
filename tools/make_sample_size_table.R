@@ -1,5 +1,4 @@
 make_sample_size_table <- function(){
-  
     i_bts=1; i_eit=1
     tab <- data.frame()
     for (i in 1978:thisyr) {

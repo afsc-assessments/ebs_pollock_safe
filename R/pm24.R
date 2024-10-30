@@ -41,16 +41,6 @@ mod_names <- c(
 # BTS age compositions included through 2023
 # but with Hulsons BTS input sample sizes
 
-# "Catch update",     #2
-# "AVO new",     #3
-# "AVO full",    #4
-# "Tuned22",     #5
-# "Ageing Error",#6
-# "Diag cov BTS",#7
-# "GenGam",      #8
-### "SSB=mean ",   #9
-# "SSB Emp. wt-age", #10
-# "SSB RE wt-age") #10
 mod_dir <- c("lastyr",
   "m23","m1", "m2", "m3")
 # mod_names <- c("MSY=1.2","Fmsy=F35%", "Base est.")
@@ -99,9 +89,26 @@ reffig <<- function(i) {
 
 # ![Results of the EBS pollock model for recent spawning biomass estimates comparing the base model using the covariance matrix with the one where only the diagonal is applied.]
 # (doc/figs/mod_diag_ssb.pdf){#fig-diagssb}
-printfig <<- function(tmp, i) {
-  cat(paste0("\n![", figcap[fnum == i], "](doc/figs/", tmp, "){#fig-", figlab[fnum == i], "}\n"))
-}
+  
+  #' Print Figure Markdown with Captions
+  #'
+  #' This function prints the markdown syntax for a figure with a caption and label, useful for dynamic document generation.
+  #'
+  #' @param tmp A character string representing the name of the figure file (without path).
+  #' @param i An integer or index that matches the figure number, used to retrieve the corresponding caption and label.
+  #' 
+  #' @details This function assumes that there are two vectors, `figcap` and `figlab`, and a vector or variable `fnum`. 
+  #' It matches the index `i` with `fnum` to extract the appropriate caption and label for the figure.
+  #' 
+  #' @examples
+  #' # Assuming figcap, figlab, and fnum are properly defined:
+  #' printfig("figure1.png", 1)
+  #'
+  #' @export
+  printfig <<- function(tmp, i) {
+    cat(paste0("\n![", figcap[fnum == i], "](doc/figs/", tmp, "){#fig-", figlab[fnum == i], "}\n"))
+  }
+
 # printfig <<- function(tmp,i){ cat(paste0("\n![",figcap[fnum==i],"\\label{fig:",figlab[fnum==i],"}](doc/figs/",tmp,")   \n ")) }
 
 # Table captions
@@ -116,14 +123,31 @@ reftab <<- function(i) {
 # tabcap[1]
 # tap <- data_frame(t=c(1,2),c=c(1,2))
 # printtab <<- function(tmp,i){ cat(paste0("\n![",tabcap[fnum==i],"](doc/figs/",tmp,"){#tbl-",tablab[fnum==i],"}\n") )
+#' Print Table with Captions and Labels
+#'
+#' This function prints a table using `xtable` with a specified caption and label.
+#'
+#' @param tmp A data frame or matrix to be converted into a table.
+#' @param i An integer or index used to retrieve the corresponding caption and label for the table.
+#' 
+#' @details This function utilizes the `xtable` package to create LaTeX or HTML representations of the table.
+#' It matches the index `i` with vectors `tabcap` and `tablab` to assign the appropriate caption and label.
+#' 
+#' @examples
+#' # Assuming tabcap and tablab are properly defined:
+#' printtab(data.frame(A = 1:3, B = 4:6), 1)
+#'
+#' @export
 printtab <<- function(tmp, i) {
-  tab <- xtable(tmp, digits = 0, auto = TRUE, caption = tabcap[i], label = paste0("tab:", tablab[i]))
+  tab <- xtable(tmp, digits = 0, auto = TRUE, caption = tabcap[i], label = paste0("tbl:", tablab[i]))
   print(tab, caption.placement = "top", include.rownames = FALSE, sanitize.text.function = function(x) {
-    x
-  })
+    x })
 }
+  
+
 # print(tablab)
 
 # source("../R/Do_Plots.R")
 # source("../R/Do_MCMC.R")
 # source("../R/Do_Proj.R")
+

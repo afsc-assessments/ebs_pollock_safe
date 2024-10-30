@@ -28,7 +28,6 @@ d<- 'mcmc'
 m <- 'pm' # the model name, folder is also assumed to be called this runs/base/mcmc
 ## First optimize the model to make sure the Hessian is good.
 setwd(d);
-setwd(d);
 system('pm -nox -mcmc 15 -hbf 1 -binp pm.bar -phase 50');
 setwd('..')
 
@@ -40,8 +39,9 @@ chains=8
 
 inits <- NULL ## start chains from MLE
 fit.mle <- sample_nuts(model=m, path=d, iter=iter, warmup=iter/4,
-                   chains=chains, cores=chains, control=list(max_treedepth=14,
-                    metric='mle'))
+                   chains=chains, cores=chains, 
+                   control=list(max_treedepth=14,
+                   metric='mle'))
 
 summary(fit.mle)
 plot_uncertainties(fit.mle)
@@ -70,15 +70,14 @@ launch_shinyadmb(fit.mle)
 ## adapt_delta toward 1 if you have divergences (runs will take longer).
 rm(fit.mle2.rds)
 fit.mle2<-readRDS(file='fit.mle2.RDS')
-mass <- fit.mle2$covar.est # note this is in unbounded parameter space
-inits <- get.inits(fit.mle2, reps) ## use inits from pilot run
+mass <- fit.mle$covar.est # note this is in unbounded parameter space
+inits <- get.inits(fit.mle, reps) ## use inits from pilot run
 reps
 fit.mle2 <- sample_nuts(model=m, path=d, iter=1000, warmup=iter/10,
                    chains=chains, cores=chains, control=list(max_treedepth=14,
                     metric=mass,adapt_delta=0.98))
 ?sample_nuts()
 # Get the mcmc samples
-sample_nuts(model=m, path=d, mceval=TRUE)
 
 plot_sampler_params(fit.mle2)
 summary(fit.mle2)
@@ -92,9 +91,27 @@ launch_shinyadmb(fit.mle)
 launch_shinyadmb(fit.mle2)
 summary(fit.mle)
 summary(fit.mle2)
+
+mass <- fit.mle2$covar.est # note this is in unbounded parameter space
+inits <- get.inits(fit.mle2, reps) ## use inits from pilot run
+reps
+fit.mle3 <- sample_nuts(model=m, path=d, iter=1000, warmup=iter/10,
+                   chains=chains, cores=chains, control=list(max_treedepth=14,
+                    metric=mass,adapt_delta=0.99))
+
+plot_sampler_params(fit.mle3)
+summary(fit.mle3)
+pairs_admb(fit.mle3, pars=1:6, order='slow')
+pairs_admb(fit.mle3, pars=1:6, order='fast')
+pairs_admb(fit.mle3, pars=1:6, order='mismatch')
+pairs_admb(fit.mle3, pars=c(2:9), order='orig')
+
 saveRDS(fit.mle, file='fit.mle.RDS')
 saveRDS(fit.mle2, file='fit.mle2.RDS')
-saveRDS(fit.mle2, file='fit.mle2.RDS')
+saveRDS(fit.mle3, file='fit.mle3.RDS')
+-------------------------------------------------
+
+sample_nuts(model=m, path=d, mceval=TRUE)
 
 ## Again check for issues of nonconvergence and other standard checks. Then
 ## use for inference.
