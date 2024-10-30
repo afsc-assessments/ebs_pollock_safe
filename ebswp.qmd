@@ -261,11 +261,11 @@ less prior influence) assumptions about the stock-recruitment relationship were 
   Projected female  spawning  biomass (t)   & `r M$it$b1[1]` t & `r M$it$b2[1]` t & `r  M$ssb1s`  t & `r  M$ssb2s`  t \\  
   $B_0$        & `r M$it$c1[1]` t & `r M$it$c2[1]` t & `r  M$b100s`,000  t & `r  M$b100s`,000  t \\          
   $B_{msy}$    & `r M$it$d1[1]` t & `r M$it$d2[1]` t & `r  M$b35s`,000  t & `r  M$b35s`,000  t \\          
-  $F_{OFL}$    & `r M$it[1,8]` & `r M$it[2,8]` & `r  M$FOFL1s`  & `r  M$FOFL2s `  \\                  
-  $maxF_{ABC}$ & `r M$it[1,9]` & `r M$it[2,9]` & `r  M$FABC1s `  & `r  M$FABC2s `  \\                  
-  $F_{ABC}$    & `r M$it[1,10]`& `r M$it[2,10]`& `r  (M$fabc1)` & `r  (M$fabc2)` \\                  
-  $OFL$        & `r M$it$e1[1]` t & `r M$it$e2[1]` t & `r  M$ofl1s`  t & `r  M$ofl2s`  t \\          
-  $maxABC$     & `r M$it$f1[1]` t & `r M$it$f2[1]` t & `r  M$maxabc1s  ` t & `r  M$maxabc2s  ` t \\      
+  $F_{OFL}$    & `r M$it[1,8]` & `r M$it[2,8]` & `r  M$Tier3_FOFL1s`  & `r  M$Tier3_FOFL2s `  \\                  
+  $maxF_{ABC}$ & `r M$it[1,9]` & `r M$it[2,9]` & `r  M$Tier3_FABC1s `  & `r  M$Tier3_FABC2s `  \\                  
+  $F_{ABC}$    & `r M$it[1,10]`& `r M$it[2,10]`& `r  (M$Tier3_FABC1s)` & `r  (M$Tier3_FABC2s)` \\                  
+  $OFL$        & `r M$it$e1[1]` t & `r M$it$e2[1]` t & `r  M$Tier3_OFL1s`  t & `r  M$OFL2s`  t \\          
+  $maxABC$     & `r M$it$f1[1]` t & `r M$it$f2[1]` t & `r  M$Tier3_ABC1s  ` t & `r  M$Tier3_ABC2s  ` t \\      
   $ABC$        & `r M$it$g1[1]` t & `r M$it$g2[1]` t & `r  M$abc1s ` t & `r  M$abc2s`  t \\        
   \hline
   Status                                  & `r lastyr-1`  & `r lastyr`&         `r lastyr`             &    `r thisyr`          \\
@@ -1086,7 +1086,7 @@ estimated values for the period 1978-1990 and as earlier
 that assuming average values of 100 and 50 for the BTS and ATS data,
 respectively resulted in consistent model fits and were (relatively)
 appropriate given the sampling levels among these surveys (using 
-@Francis2011, equation TA1.8).
+@francis2011, equation TA1.8).
 The inter-annual variability reflects the variability in the number of hauls
 sampled for ages in the ATS data. For the BTS data we adopted the
 results presented in @hulson2023 (with the time series updated this year
