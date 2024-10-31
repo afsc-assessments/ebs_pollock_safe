@@ -106,7 +106,7 @@ library(patchwork)
   library(patchwork)
   ret1<-getret(ret_dir="retro1", mod=2,nyrs=10)
   retlyr<-getret(mod=1,nyrs=20)
-  ret2<-getret(ret_dir="retro2",mod=2,nyrs=20)
+  ret2<-getret(ret_dir="retro2",mod=2,nyrs=10)
   ret3<-getret(ret_dir="retro3", mod=2,nyrs=10)
   ret4<-getret(ret_dir="retro4", mod=2,nyrs=10)
   ret5<-getret(ret_dir="retro5", mod=2,nyrs=10)
@@ -282,22 +282,23 @@ library(patchwork)
   #r$> mohn(shake)
   #[1] -0.2310701
   
-  retouts<-ret2
   names(ret2)
   i=2
-  getMohn <- function(retouts=ret2,nyrs=20){
-    rc = retouts[[1]]$SSB[,2]
+  getMohn <- function(retouts=ret2,nyrs=11){
+    #rc = retouts[[1]]$SSB[,2]
     rc = retouts[[1]]$sel_fsh[,6]
     ntmp=0
     rho=0
-    df <- data.frame(peel=1:20,rho=1:20)
-    for (i in 1:20) {
+    df <- data.frame(peel=1:nyrs,rho=1:nyrs)
+    for (i in 1:nyrs) {
       X <- retouts[[i]]
       rn <- names(X)
-      #dtmp = X$SSB 
+      dtmp = X$SSB 
       dtmp = X$sel_fsh[,6] 
-      lr   = length(dtmp[,1])
-      rho  = rho +(dtmp[lr,2] -rc[lr])/rc[lr]
+      #lr   = length(dtmp[,1])
+      lr   = length(dtmp)
+      #rho  = rho +(dtmp[lr,2] -rc[lr])/rc[lr]
+      rho  = rho +(dtmp[lr] -rc[lr])/rc[lr]
       df$peel[i] <- i-1
       df$rho[i] <- rho/i
       print(paste(i,rho/i))
@@ -305,8 +306,12 @@ library(patchwork)
     return(df)
   }
   
-  df <- getMohn(ret2)
-  df
+  retouts<-ret4
+  df1 <- getMohn(ret1)
+  df2 <- getMohn(ret2)
+  df4 <- getMohn(ret4)
+  df5 <- getMohn(ret5)
+  df2
   write_csv(df,here::here("doc/data/mohnrho.csv"))
   here::here("doc/data/mohnrho.csv")
   library(flextable)
