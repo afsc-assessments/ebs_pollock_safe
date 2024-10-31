@@ -64,7 +64,7 @@ format:
       - \renewcommand{\chapter}{%
       - \secdef\@chapter\@schapter}
       - \makeatother
-  html:
+  docx:
     toc: true
     toc_float: true
     toc_depth: 3
