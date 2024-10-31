@@ -20,8 +20,8 @@ author:
 keep-md: true
 keep-tex: true
 csl: cjfas.csl
-date: 10/31/2024
-date-format: "MMMM YYYY"
+date: "`r format(Sys.time(), '%B %d, %Y %H:%M')`"
+# date-format: "MMMM YYYY"
 bibliography: doc/references.bib
 header-includes:
   - \usepackage{multirow}
@@ -633,6 +633,7 @@ an area between 58$^\circ$ and 60$^\circ$N latitude and between
 
 The table below lists the data and periods covered for this assessment.
 
+\begin{table}[ht]
 \centering
 \label{tbl:dataextent}
 \begin{tabular}{p{1.5in}p{1.8in}p{2.8in}}
@@ -648,6 +649,7 @@ The table below lists the data and periods covered for this assessment.
  Acoustic vessels of opportunity (AVO) & Biomass index & 2006--2019, 2021-`r thisyr` \\
 \hline
 \end{tabular}
+\end{table}
 
 *Note the 2020 acoustic survey data based on unmanned surface vessel
 (USV) transects and age-specific proportions were unavailable in this
