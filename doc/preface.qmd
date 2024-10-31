@@ -1,0 +1,22 @@
+---
+title: "Eastern Bering Sea walleye pollock stock assessment" 
+subtitle: "September 2024 draft"
+date: "`r format(Sys.time(), '%B %d, %Y %H:%M')`"
+
+page-layout: full
+---
+
+# Preface {.unnumbered}
+
+This is a draft assessment for eastern Bering Sea walleye pollock
+(*Gadus chalcogrammus*) for the 2024 assessment cycle. The assessment
+was conducted using the `ebswp` R package. The stock assessment model was
+written using the Autodif Model Builder (`ADMB`) software.
+
+:::{.box }
+This information is distributed solely for the purpose of pre-dissemination peer review under applicable information quality guidelines. 
+ It has not been formally disseminated by the National Marine Fisheries Service and should not be construed to represent any agency 
+ determination or policy.
+:::
+
+
