@@ -35,7 +35,11 @@ filters:
   #- parse-latex
 format: 
   pdf:
-    number-pages: FALSE
+      #- \if@openright\cleardoublepage\else\clearpage\fi
+      #- \thispagestyle{plain}%
+      #- \global\@topnum\z@
+      #- \@afterindenttrue
+    number-pages: TRUE
     number-sections: TRUE
     number-offset: 1
     number-depth: 2
@@ -44,9 +48,8 @@ format:
     pdf-engine: lualatex
     keep-tex: true
     extra_dependencies: rotating
-     #number-sections: true
     header-includes: 
-      - \counterwithout{figure}{chapter}
+      # - \counterwithout{figure}{chapter}
       - \usepackage{fancyhdr}
       - \pagestyle{fancy}
       - \fancyhf{}
@@ -59,10 +62,6 @@ format:
       - \setlength{\footskip}{4cm} % Lower the footer
       - \makeatletter
       - \renewcommand{\chapter}{%
-      - \if@openright\cleardoublepage\else\clearpage\fi
-      - \thispagestyle{plain}%
-      - \global\@topnum\z@
-      - \@afterindenttrue
       - \secdef\@chapter\@schapter}
       - \makeatother
   html:
@@ -83,7 +82,7 @@ format:
     mathjax: default
     #pandoc_args: "--lua-filter=doc/figs.lua"
 editor_options: 
-  chunk_output_type: console
+  chunk_output_type: inline
 css: mystyle.css
 editor: 
   markdown: 
@@ -261,10 +260,10 @@ less prior influence) assumptions about the stock-recruitment relationship were 
   Projected female  spawning  biomass (t)   & `r M$it$b1[1]` t & `r M$it$b2[1]` t & `r  M$ssb1s`  t & `r  M$ssb2s`  t \\  
   $B_0$        & `r M$it$c1[1]` t & `r M$it$c2[1]` t & `r  M$b100s`,000  t & `r  M$b100s`,000  t \\          
   $B_{msy}$    & `r M$it$d1[1]` t & `r M$it$d2[1]` t & `r  M$b35s`,000  t & `r  M$b35s`,000  t \\          
-  $F_{OFL}$    & `r M$it[1,8]` & `r M$it[2,8]` & `r  M$Tier3_FOFL1s`  & `r  M$Tier3_FOFL2s `  \\                  
-  $maxF_{ABC}$ & `r M$it[1,9]` & `r M$it[2,9]` & `r  M$Tier3_FABC1s `  & `r  M$Tier3_FABC2s `  \\                  
-  $F_{ABC}$    & `r M$it[1,10]`& `r M$it[2,10]`& `r  (M$Tier3_FABC1s)` & `r  (M$Tier3_FABC2s)` \\                  
-  $OFL$        & `r M$it$e1[1]` t & `r M$it$e2[1]` t & `r  M$Tier3_OFL1s`  t & `r  M$OFL2s`  t \\          
+  $F_{OFL}$    & `r M$it[1,8]` & `r M$it[2,8]` & `r  round(M$Tier3_FOFL1,3)`  & `r  round(M$Tier3_FOFL2,3) `  \\                  
+  $maxF_{ABC}$ & `r M$it[1,9]` & `r M$it[2,9]` & `r  round(M$Tier3_FABC1,3) `  & `r  round(M$Tier3_FABC2,3) `  \\                  
+  $F_{ABC}$    & `r M$it[1,10]`& `r M$it[2,10]`& `r  round(M$Tier3_FABC1,3)` & `r  round(M$Tier3_FABC2,3)` \\                  
+  $OFL$        & `r M$it$e1[1]` t & `r M$it$e2[1]` t & `r  M$Tier3_OFL1s`  t & `r  M$Tier3_OFL2s`  t \\          
   $maxABC$     & `r M$it$f1[1]` t & `r M$it$f2[1]` t & `r  M$Tier3_ABC1s  ` t & `r  M$Tier3_ABC2s  ` t \\      
   $ABC$        & `r M$it$g1[1]` t & `r M$it$g2[1]` t & `r  M$abc1s ` t & `r  M$abc2s`  t \\        
   \hline
@@ -632,10 +631,8 @@ an area between 58$^\circ$ and 60$^\circ$N latitude and between
 
 # Data
 
-\cref{tbl:dataextent} lists the data and periods covered for this
-assessment.
+The table below lists the data and periods covered for this assessment.
 
-\begin{table}[ht]
 \centering
 \label{tbl:dataextent}
 \begin{tabular}{p{1.5in}p{1.8in}p{2.8in}}
@@ -651,7 +648,6 @@ assessment.
  Acoustic vessels of opportunity (AVO) & Biomass index & 2006--2019, 2021-`r thisyr` \\
 \hline
 \end{tabular}
-\end{table}
 
 *Note the 2020 acoustic survey data based on unmanned surface vessel
 (USV) transects and age-specific proportions were unavailable in this
@@ -1053,21 +1049,21 @@ the age composition data. This year, we examined additional model and
 data modifications as presented in @ianelli2023.
 
 By the SSC's numbering scheme, last year's model was designated Model
-23.0, which here we contrast with the impact of new data made available in this
+23, which here we contrast with the impact of new data made available in this
 year. 
 
 \begin{description}
 
-    \item[m23.ly--] The model selected "last year" with last year's data
+    \item[m23.ly] The model selected "last year" with last year's data
 
-    \item[m23.0--]  The same model as last year but with all new data updated (AVO, 
+    \item[m23]  The same model as last year but with all new data updated (AVO, 
     BTS, ATS, and fishery catch and fishery 2023 age-composition data)
 
-    \item[m1--] as m23.0 but with new BTS data (age and biomass index estimates) excluded
+    \item[m1] as m23.0 but with new BTS data (age and biomass index estimates) excluded
     
-    \item[m2--] as m1 but with new ATS data (age and biomass index estimates) excluded
+    \item[m2] as m1 but with new ATS data (age and biomass index estimates) excluded
     
-    \item[m3--] as m2 but with new AVO data (biomass index estimates) excluded
+    \item[m3] as m2 but with new AVO data (biomass index estimates) excluded
 
 \end{description}
 
@@ -1368,7 +1364,17 @@ use for projection purposes, we tested the following scenarios:
 1.  The selectivity estimates from the most recent 5-year mean was used
     for projections. (**5-yr-avg**)
     
-    
+To judge which of these is most appropriate, we compute Mohn's $\rho$
+and compare the projected $F_{35\%}$  rate with the annual estimates
+in later years. For example, in the terminal (retrospective) year 2015
+we have estimates of $F_{35\%}$  based on the 2016 expected selectivity 
+(using the above scenarios). We can then compare the "final" estimate of the 2016
+selectivity as estimated this year (2024) and go back and compute the $F_{35\%}$  
+using that year's selectivity. We do that for each retrospective projection
+$\sum (F_{35\%}^{proj,i}-F_{35\%}^{full,i})^2$  given each of the five scenarios outlined 
+above.
+
+[calculations so far incomplete...]{bg-colour="#FFFF00" }
 
 # Results
 
@@ -1502,9 +1508,12 @@ While variable, the confidence bounds of the retrospective patterns
 overlapped in all years reflecting the general model uncertainty rather than
 a consistent retrospective pattern.
 In 2023, the lower than expected survey
-biomass estimate followed by an increase this year, the retrospective
-pattern degraded with an average bias (Mohns $\rho$ equal to
+biomass estimate followed by lower acoustic estimates in 2024
+has created a significant retrospective
+pattern (Mohn's $\rho$ equal to
 `r round(rhoMohn10,3)` for the 10 year retrospective).
+This pattern can be explained by the very optimistic estimates of the 2018
+year class which has declined somewhat. 
 
 For the recruitment side, the retrospective pattern shows two key
 results. First, the 2018 year-class (age 1 recruits in 2019) shows up as
@@ -1556,24 +1565,6 @@ statistic on mean selected age, we found that the corresponding
 $F_{MSY}$ showed a correlation (@fig-fmsy_sel). This figure reveals how
 shifts in the relative age of fish selected impact $F_{MSY}$ estimates.
 
-### Historical retrospectives
-
-yyyProvide a figure comparing the time series of biomass from the last
-several assessments accepted for management and the proposed base model,
-with uncertainty intervals. The author may choose to show only recent
-Full assessments, all assessments for the last n cycles, or some
-combination thereof, at their discretion. Provide a brief summary of how
-the current assessment compares to the historical perception of the
-stock, and the cause of any obvious differences. Example Text: “Figure X
-compares the time series of spawning biomass from Model 24.0 and
-assessment models accepted for management, 2010-present, and associated
-95% confidence intervals. The current assessment model is qualitatively
-similar to all models used for management advice from 2015 onwards,
-coinciding the change from dome-shaped to asymptotic fishery
-selectivity, the inclusion of age data from the bottom trawl survey, and
-the elimination of a restrictive prior on survey catchability q.”
-
-## Time series results
 
 The time series of begin-year biomass estimates (ages 3 and older)
 suggests that the abundance of Eastern Bering Sea pollock remained at a
@@ -1588,6 +1579,19 @@ estimate for `r thisyr` is trending downward and at
 `r round(M$age3plus[length(M$age3plus)]/1000,2)` million t with
 `r nextyr` estimated at `r round(M$age3plus1/1000,2)` million t.
 
+
+
+### Historical retrospectives
+
+The estimates of age 3+ pollock biomass showed a
+large drop last year compared to several of the earlier years but this
+has reversed in the current assessment (@fig-mod_hist,
+\cref{tbl:biom3plus}).
+
+## Population trends
+
+### Fishing intensity
+
 The level of fishing relative to biomass estimates shows that the
 spawning exploitation rate (SER, defined as the percent removal of egg
 production in each spawning year) has been mostly below 20% since 1980
@@ -1600,10 +1604,7 @@ since 2010-2015 but, unlike last year's upward trend, the improved
 spawning biomass condition has held this rate tending toward lower
 levels. Age specific fishing mortality rates reflect these patterns and
 show some increases in the oldest ages from 2011--2013 but relatively
-stable (@fig-mod_F). The estimates of age 3+ pollock biomass showed a
-large drop last year compared to several of the earlier years but this
-has reversed in the current assessment (@fig-mod_hist,
-\cref{tbl:biom3plus}).
+stable (@fig-mod_F). 
 
 Estimated numbers-at-age are presented in (\cref{tbl:estn}) and
 estimated catch-at-age values are presented in (\cref{tbl:estcatage}).
@@ -1626,12 +1627,12 @@ recruitment (@fig-proj_ssb).
 
 ### Recruitment
 
-Model estimates indicate that the 2008, 2012, 2013, and now the 2018
+Model estimates indicate that the 2008, 2012, 2013, and the 2018
 year classes are above average (@fig-mod_rec). The 2018 year class is
-nearly 4 times bigger than average with a CV of about 16%. The
+nearly 4 times bigger than average with a CV of about 10%. The
 stock-recruitment curve as fit within the integrated model shows the
-variability of the estimated curve (@fig-mod_srr). Note that the 2021
-and 2022 year classes (as age 1 recruits in 2022 and 2023) were excluded
+variability of the estimated curve (@fig-mod_srr). Note that the 2022
+and 2023 year classes (as age 1 recruits in 2023 and 2024) were excluded
 from the stock-recruitment curve estimation as per convention and
 guidance from NPFMC. Separate from fitting the stock-recruit
 relationship within the model, examining the estimated
@@ -1974,11 +1975,9 @@ class. Treating all new data the same way as in the past, this estimate
 suggests that it would be the biggest year-class on record
 (`r M$yc2018s` age 1 numbers), but with considerable uncertainty.
 
-[xxGiven the same estimated aggregate fishing effort as in 2024 and given]{bg-colour="#FFFF00" }
-the estimated stock trend, the constant-F scenario would yield about 1.3
-million t. To obtain 2025 catches on the order of 1.45 million t, given
-the base model estimates, would require about 18% more effort than what
-was estimated from 2022.xx
+Given the same estimated aggregate fishing effort as in 2024,
+the stock trend would be stable and yield about 1.3 million t (Table 34).
+
 
 ### Should the ABC be reduced below the maximum permissible ABC?
 
@@ -2254,8 +2253,9 @@ modified from Ianelli et al. (2012) were developed to evaluate some
 near-term risks given alternative `r nextyr` catch values. These
 indicators and rationale for including them are summarized in
 \cref{tbl:dectabledesc}). Model 23 (the "base") results for these
-indicators are provided in \cref{tbl:dectbl}. Each column of this
-table uses a fixed `r nextyr` catch and assumes the same effort for the
+indicators are provided in Table 34.
+<!-- \cref{tbl:dectbl}.  -->
+Each column of this table uses a fixed `r nextyr` catch and assumes the same effort for the
 four additional projection years (`r nextyr+1`--`r nextyr+4`). Given
 this specification, there is a low probability that any of the catches
 shown in the first row would exceed the $F_{MSY}$ level. Also, in the
@@ -4098,22 +4098,22 @@ Fishery effects on age-at-maturity and fecundity            & Maturity study (go
 #| output: asis
 #| echo: false
 # printfig("genetics.pdf", 85)
-printfig("catch.pdf", 1)
+printfig("catch.png", 1)
 printfig("fsh_psc_cpue.png", 67)
-printfig("catch_sex.pdf", 2)
+printfig("catch_sex.png", 2)
 printfig("catch_distn_a.png", 3)
 printfig("fsh_cpue.png", 4)
 printfig("catchp.png", 5)
-printfig("roe.pdf", 8)
+printfig("roe.png", 8)
 printfig("catch_distn_b.png", 6)
 # printfig("cpue_bseason.png",7)
 printfig("fleet_dispersal.png", 9)
 printfig("fsh_wt_freq.png", 72)
 printfig("fsh_wt_freq_week.png", 73)
-printfig("fsh_lenfreq.pdf", 82)
+printfig("fsh_lenfreq.png", 82)
 
 printfig("catage.png", 10)
-printfig("fsh_cohort_locales.pdf", 84)
+printfig("fsh_cohort_locales.png", 84)
 ```
 
 \clearpage
@@ -4124,9 +4124,9 @@ printfig("fsh_cohort_locales.pdf", 84)
 i <- 11
 printfig("bts_biom.png", i)
 i <- i + 1
-printfig("bts_temp.pdf", i)
+printfig("bts_temp.png", i)
 i <- i + 1
-# printfig("bts_temp_cpue.pdf",i);
+# printfig("bts_temp_cpue.png",i);
 i <- i + 1
 printfig("bts_3d.png", i)
 i <- i + 1
@@ -4134,73 +4134,73 @@ printfig("cog.png", 100)
 printfig("bts_age_comp.png", i)
 i <- i + 1
 printfig("bts_lenfreq.png", 83)
-#printfig("vastage_vs_db.pdf", 27)
-# printfig("wtage_bts.pdf",94);
+#printfig("vastage_vs_db.png", 27)
+# printfig("wtage_bts.png",94);
 printfig("at_age.png", 74)
 printfig("cog_AVO_ATS.png", 103)
 printfig("AVO_Series_change.png", 99)
-printfig("avo_map_yr.pdf", 16)
+printfig("avo_map_yr.png", 16)
 printfig("fsh_lw_month.png", 23)
-printfig("fsh_lw_anom_str_yr_box.pdf", 24)
-printfig("fsh_lw_anom_yr_box.pdf", 25)
-printfig("fsh_wtage_comb.pdf", 20)
-printfig("fsh_wtage_data_pred.pdf", 88)
-printfig("fsh_wtage_strata.pdf", 21)
-printfig("fsh_wtage_strata_yr.pdf", 22)
+printfig("fsh_lw_anom_str_yr_box.png", 24)
+printfig("fsh_lw_anom_yr_box.png", 25)
+printfig("fsh_wtage_comb.png", 20)
+printfig("fsh_wtage_data_pred.png", 88)
+printfig("fsh_wtage_strata.png", 21)
+printfig("fsh_wtage_strata_yr.png", 22)
 ```
 
 ```{r modfigs}
 #| output: asis
 #| echo: false
-printfig("mod_data.pdf", 30)
-printfig("mod_cpue_fit.pdf", 38)
-printfig("mod_avo_fit.pdf", 39)
-printfig("mod_bts_biom.pdf", 33)
-printfig("mod_ats_biom.pdf", 34)
-printfig("mod_mean_age.pdf", 35)
-printfig("mod_fsh_sel.pdf", 36)
-printfig("mod_fsh_age.pdf", 37)
+printfig("mod_data.png", 30)
+printfig("mod_cpue_fit.png", 38)
+printfig("mod_avo_fit.png", 39)
+printfig("mod_bts_biom.png", 33)
+printfig("mod_ats_biom.png", 34)
+printfig("mod_mean_age.png", 35)
+printfig("mod_fsh_sel.png", 36)
+printfig("mod_fsh_age.png", 37)
 ```
 
 ```{r diag}
 #| output: asis
 #| echo: false
-printfig("mod_bts_sel.pdf", 40)
-printfig("mod_bts_age.pdf", 41)
-printfig("mod_ats_sel.pdf", 42)
-printfig("mod_ats_age.pdf", 43)
+printfig("mod_bts_sel.png", 40)
+printfig("mod_bts_age.png", 41)
+printfig("mod_ats_sel.png", 42)
+printfig("mod_ats_age.png", 43)
 printfig("mod_fit_agg_comp.png", 104)
 printfig("mod_osa.png", 105)
-printfig("like_profile.pdf", 106)
+printfig("like_profile.png", 106)
 printfig("MLE_v_post.png", 98)
 printfig("mcmc_pairs.png", 55)
-printfig("mcmc_marg.pdf", 56)
-printfig("mcmc_marg_fmsy.pdf", 87)
+printfig("mcmc_marg.png", 56)
+printfig("mcmc_marg_fmsy.png", 87)
 printfig("acoustic_ppl.png", 93)
-printfig("ssb_v_2018.pdf", 96)
-#printfig("post_profile.pdf", 95)
+printfig("ssb_v_2018.png", 96)
+#printfig("post_profile.png", 95)
 
-printfig("mod_retro.pdf", 52)
-printfig("mod_retroR.pdf", 97)
-printfig("retro_cohort_termyr.pdf", 101)
-printfig("retro_cohort.pdf", 102)
-printfig("retro_sel.pdf",89)
-printfig("retro_sel_mnage.pdf", 90)
-printfig("fmsy_sel", 92)
+printfig("mod_retro.png", 52)
+printfig("mod_retroR.png", 97)
+printfig("retro_cohort_termyr.png", 101)
+printfig("retro_cohort.png", 102)
+printfig("retro_sel.png",89)
+printfig("retro_sel_mnage.png", 90)
+printfig("fmsy_sel.png", 92)
 
-printfig("mod_ser.pdf", 44)
-printfig("mod_F.pdf", 45)
-printfig("mod_hist.pdf", 46)
-printfig("mod_phase.pdf", 47)
-printfig("proj_ssb.pdf", 65)
-printfig("mod_rec.pdf", 48)
-printfig("mod_srr.pdf", 49)
-printfig("mod_rs.pdf", 50)
-printfig("mod_regimes.pdf", 86)
-printfig("tier3_proj.pdf", 53)
-printfig("tier3_proj_alt3.pdf", 54)
-printfig("age_diversity.pdf", 51)
-# printfig("sa_density.pdf",61)
+printfig("mod_hist.png", 46)
+printfig("mod_ser.png", 44)
+printfig("mod_F.png", 45)
+printfig("mod_phase.png", 47)
+printfig("proj_ssb.png", 65)
+printfig("mod_rec.png", 48)
+printfig("mod_srr.png", 49)
+printfig("mod_rs.png", 50)
+printfig("mod_regimes.png", 86)
+printfig("tier3_proj.png", 53)
+printfig("tier3_proj_alt3.png", 54)
+printfig("age_diversity.png", 51)
+# printfig("sa_density.png",61)
 # printfig("sel_comp_vast.pdf",61)
 # printfig("poll_cod_rec.png",62)
 ```

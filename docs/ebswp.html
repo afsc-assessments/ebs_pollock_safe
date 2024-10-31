@@ -593,7 +593,7 @@ confirms the abundance year-class from 2018. We note that the center of location
 <section id="input-sample-size" class="level3">
 <h3 class="anchored" data-anchor-id="input-sample-size">Input sample size</h3>
 <p>Sample sizes for age-composition data were re-evaluated in <span class="citation" data-cites="ianelli2023">Ianelli (<a href="#ref-ianelli2023" role="doc-biblioref">2023</a>)</span> and found to be consistent with the relative variability allowed for selectivities and with the observation errors specified for the indices. Principally, this work resulted in tuning the recent era (1991-present year) to an average sample sizes of 350 for the fishery and then using estimated values for the period 1978-1990 and as earlier (). As rationalized in earlier assessments, we found that assuming average values of 100 and 50 for the BTS and ATS data, respectively resulted in consistent model fits and were (relatively) appropriate given the sampling levels among these surveys (using <span class="citation" data-cites="francis2011">Francis (<a href="#ref-francis2011" role="doc-biblioref">2011</a>)</span>, equation TA1.8). The inter-annual variability reflects the variability in the number of hauls sampled for ages in the ATS data. For the BTS data we adopted the results presented in <span class="citation" data-cites="hulson2023">Hulson et al. (<a href="#ref-hulson2023" role="doc-biblioref">2023</a>)</span> (with the time series updated this year <span class="citation" data-cites="afscISS">Hulson and Williams (<a href="#ref-afscISS" role="doc-biblioref">2024</a>)</span>).</p>
-<p>Recent work has shown ways to improve estimation schemes that deal with the interaction between flexibility in fishery selectivity and statistical properties of composition data sample size. Specifically, the Dirichlet-multinomial using either Laplace approximation (<span class="citation" data-cites="thorson2015">Thorson et al. (<a href="#ref-thorson2015" role="doc-biblioref">2015</a>)</span>) or adnuts (<span class="citation" data-cites="monnahan2018">Monnahan and Kristensen (<a href="#ref-monnahan2018" role="doc-biblioref">2018</a>)</span>) should be implemented (e.g., as shown by <span class="citation" data-cites="xu2020">Xu et al. (<a href="#ref-xu2020" role="doc-biblioref">2020</a>)</span>). Progress this year has lagged on this and measures to adopt an alternative software approach (e.g., <span class="citation" data-cites="RTMB">Kristensen (<a href="#ref-RTMB" role="doc-biblioref">2023</a>)</span>) would help to ease implementation of this and other features (e.g., that of <span class="citation" data-cites="cheng2023">Cheng et al. (<a href="#ref-cheng2023" role="doc-biblioref">2023</a>)</span>).</p>
+<p>Recent work has shown ways to improve estimation schemes that deal with the interaction between flexibility in fishery selectivity and statistical properties of composition data sample size. Specifically, the Dirichlet-multinomial using either Laplace approximation (<span class="citation" data-cites="thorson2015">Thorson et al. (<a href="#ref-thorson2015" role="doc-biblioref">2015</a>)</span>) or adnuts (<span class="citation" data-cites="monnahan2018">Monnahan and Kristensen (<a href="#ref-monnahan2018" role="doc-biblioref">2018</a>)</span>) should be implemented (e.g., as shown by <span class="citation" data-cites="xu2020">Xu et al. (<a href="#ref-xu2020" role="doc-biblioref">2020</a>)</span>). Progress this year has lagged on this and measures to adopt an alternative software approach (e.g., <span class="citation" data-cites="RTMB">Kaskr (<a href="#ref-RTMB" role="doc-biblioref">2024</a>)</span>) would help to ease implementation of this and other features (e.g., that of <span class="citation" data-cites="cheng2023">Cheng et al. (<a href="#ref-cheng2023" role="doc-biblioref">2023</a>)</span>).</p>
 </section>
 </section>
 <section id="parameters-estimated-outside-of-the-assessment-model" class="level2">
@@ -1003,6 +1003,9 @@ Johnson, K.F., Monnahan, C.C., McGilliard, C.R., Vert-Pre, K.A., Anderson, S.C.,
 <div id="ref-jost2006" class="csl-entry" role="listitem">
 Jost, L. 2006. Entropy and diversity. Oikos <strong>113</strong>(2): 363–375. Wiley Online Library. doi:<a href="https://doi.org/10.1111/j.2006.0030-1299.14714.x">10.1111/j.2006.0030-1299.14714.x</a>.
 </div>
+<div id="ref-RTMB" class="csl-entry" role="listitem">
+Kaskr, A. 2024. RTMB: Tools for random template model builder (TMB). <a href="https://github.com/kaskr/RTMB" class="uri">https://github.com/kaskr/RTMB</a>.
+</div>
 <div id="ref-kastelle2006" class="csl-entry" role="listitem">
 Kastelle, C.R., and Kimura, D.K. 2006. Age validation of walleye pollock (<em><span>T</span>heragra chalcogramma</em>) from the <span class="nocase">Gulf of Alaska using the disequilibrium of Pb-210 and Ra-226</span>. ICES Journal of Marine Science <strong>63</strong>: 1520–1529.
 </div>
@@ -1020,9 +1023,6 @@ Kotwicki, S., Ianelli, J.N., and Punt, A.E. 2014. Correcting density-dependent e
 </div>
 <div id="ref-kotwicki2013" class="csl-entry" role="listitem">
 Kotwicki, S., and Lauth, R.R. 2013. Detecting temporal trends and environmentally-driven changes in the spatial distribution of groundfishes and crabs on the eastern bering sea shelf. Deep-Sea Research Part II: Topical Studies in Oceanography <strong>94</strong>: 231–243.
-</div>
-<div id="ref-RTMB" class="csl-entry" role="listitem">
-Kristensen, K. 2023. RTMB: R bindings for TMB.
 </div>
 <div id="ref-lang2000" class="csl-entry" role="listitem">
 Lang, G.M., Brodeur, R.D., Napp, J.M., and Schabetsberger, R. 2000. Variation in groundfish predation on juvenile walleye pollock relative to hydrographic structure near the pribilof islands, alaska. ICES Journal of Marine Science <strong>57</strong>: 265–271.
@@ -1100,7 +1100,7 @@ Petitgas, P. 1993. Geostatistics for fish stock assessments: A review and an aco
 Press, W.H., Teukolsky, S.A., Vetterling, W.T., and Flannery, B.P. 1992. Numerical recipes in c. Cambridge University Press.
 </div>
 <div id="ref-rohan2022" class="csl-entry" role="listitem">
-Rohan, S., Prohaska, B., and O’Leary, C. 2022. Eastern and northern bering sea groundfish condition. <em>In</em> Ecosystem status report 2022: Eastern bering sea, stock assessment and fishery evaluation report. <em>Edited by</em> E.C. Siddon. North Pacific Fishery Management Council, Anchorage, Alaska.
+Rohan, S.K., Barnett, L.A.K., and Charriere, N. 2022. Evaluating approaches to estimating mean temperatures and cold pool area from AFSC bottom trawl surveys of the eastern bering sea. NOAA Technical Memorandum, U.S. Department of Commerce, NOAA. doi:<a href="https://doi.org/10.25923/1wwh-q418">10.25923/1wwh-q418</a>.
 </div>
 <div id="ref-schnute1994" class="csl-entry" role="listitem">
 Schnute, J.T. 1994. A general framework for developing sequential fisheries models. Can. J. Fish. Aquat. Sci. <strong>51</strong>: 1676–1688.
@@ -1217,7 +1217,7 @@ Zeppelin, T.K., and Ream, R.R. 2006. Foraging habitats based on the diet of fema
 <!-- fishery catch-age -->
 <!-- incidental catch -->
 <!-- sample size -->
-% latex table generated in R 4.4.1 by xtable 1.8-4 package % Wed Oct 30 14:47:41 2024
+% latex table generated in R 4.4.1 by xtable 1.8-4 package % Wed Oct 30 21:29:01 2024
 <div style="page-break-after: always;"></div>
 <!-- ```{r modfits} -->
 <!-- #| label: tbl-modfits -->
@@ -1242,7 +1242,7 @@ Zeppelin, T.K., and Ream, R.R. 2006. Foraging habitats based on the diet of fema
 <div id="fig-catch" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-catch-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="doc/figs/catch.pdf" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Figure&nbsp;1: Pollock catch estimates (t) from the Eastern Bering Sea by season and region. The A-season is defined as from Jan-May and B-season from June-October."><embed src="doc/figs/catch.pdf" class="img-fluid"></a>
+<a href="doc/figs/catch.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Figure&nbsp;1: Pollock catch estimates (t) from the Eastern Bering Sea by season and region. The A-season is defined as from Jan-May and B-season from June-October."><img src="doc/figs/catch.png" class="img-fluid figure-img"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-catch-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;1: Pollock catch estimates (t) from the Eastern Bering Sea by season and region. The A-season is defined as from Jan-May and B-season from June-October.
@@ -1262,7 +1262,7 @@ Figure&nbsp;2: Nominal catch divided by effort (hours towed) for some bycatch sp
 <div id="fig-catch_sex" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-catch_sex-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="doc/figs/catch_sex.pdf" class="lightbox" data-gallery="quarto-lightbox-gallery-3" title="Figure&nbsp;3: Estimate of EBS pollock catch numbers by sex for the A season (January-May) and B seasons (June-October) and total."><embed src="doc/figs/catch_sex.pdf" class="img-fluid"></a>
+<a href="doc/figs/catch_sex.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3" title="Figure&nbsp;3: Estimate of EBS pollock catch numbers by sex for the A season (January-May) and B seasons (June-October) and total."><img src="doc/figs/catch_sex.png" class="img-fluid figure-img"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-catch_sex-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;3: Estimate of EBS pollock catch numbers by sex for the A season (January-May) and B seasons (June-October) and total.
@@ -1302,7 +1302,7 @@ Figure&nbsp;6: Proportion of the annual EBS pollock TAC by month during the A-se
 <div id="fig-roe" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-roe-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="doc/figs/roe.pdf" class="lightbox" data-gallery="quarto-lightbox-gallery-7" title="Figure&nbsp;7: EBS pollock roe production in A and B seasons, 2000-2024."><embed src="doc/figs/roe.pdf" class="img-fluid"></a>
+<a href="doc/figs/roe.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7" title="Figure&nbsp;7: EBS pollock roe production in A and B seasons, 2000-2024."><img src="doc/figs/roe.png" class="img-fluid figure-img"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-roe-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;7: EBS pollock roe production in A and B seasons, 2000-2024.
@@ -1352,7 +1352,7 @@ Figure&nbsp;11: Pollock fishery data showing the frequency of mean pollock weigh
 <div id="fig-fsh_lenfreq" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-fsh_lenfreq-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="doc/figs/fsh_lenfreq.pdf" class="lightbox" data-gallery="quarto-lightbox-gallery-12" title="Figure&nbsp;12: Fishery catch-at-length (cm) by the pollock fishery, 1992-2024."><embed src="doc/figs/fsh_lenfreq.pdf" class="img-fluid"></a>
+<a href="doc/figs/fsh_lenfreq.png" class="lightbox" data-gallery="quarto-lightbox-gallery-12" title="Figure&nbsp;12: Fishery catch-at-length (cm) by the pollock fishery, 1992-2024."><img src="doc/figs/fsh_lenfreq.png" class="img-fluid figure-img"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-fsh_lenfreq-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;12: Fishery catch-at-length (cm) by the pollock fishery, 1992-2024.
@@ -1372,7 +1372,7 @@ Figure&nbsp;13: EBS pollock fishery estimated catch-at-age data (in number) for 
 <div id="fig-fsh_cohort_locales" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-fsh_cohort_locales-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="doc/figs/fsh_cohort_locales.pdf" class="lightbox" data-gallery="quarto-lightbox-gallery-14" title="Figure&nbsp;14: Pollock age sample mean locales for two cohorts representing the 2008 and 2018 year-classes (from data through 2023)."><embed src="doc/figs/fsh_cohort_locales.pdf" class="img-fluid"></a>
+<a href="doc/figs/fsh_cohort_locales.png" class="lightbox" data-gallery="quarto-lightbox-gallery-14" title="Figure&nbsp;14: Pollock age sample mean locales for two cohorts representing the 2008 and 2018 year-classes (from data through 2023)."><img src="doc/figs/fsh_cohort_locales.png" class="img-fluid figure-img"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-fsh_cohort_locales-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;14: Pollock age sample mean locales for two cohorts representing the 2008 and 2018 year-classes (from data through 2023).
@@ -1392,7 +1392,7 @@ Figure&nbsp;15: Bottom-trawl survey biomass estimates with error bars representi
 <div id="fig-bts_temp" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-bts_temp-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="doc/figs/bts_temp.pdf" class="lightbox" data-gallery="quarto-lightbox-gallery-16" title="Figure&nbsp;16: Bottom and surface temperatures for the Bering Sea from the NMFS summer bottom-trawl surveys (1982–2019, 2021-2024). Dashed lines represent mean values."><embed src="doc/figs/bts_temp.pdf" class="img-fluid"></a>
+<a href="doc/figs/bts_temp.png" class="lightbox" data-gallery="quarto-lightbox-gallery-16" title="Figure&nbsp;16: Bottom and surface temperatures for the Bering Sea from the NMFS summer bottom-trawl surveys (1982–2019, 2021-2024). Dashed lines represent mean values."><img src="doc/figs/bts_temp.png" class="img-fluid figure-img"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-bts_temp-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;16: Bottom and surface temperatures for the Bering Sea from the NMFS summer bottom-trawl surveys (1982–2019, 2021-2024). Dashed lines represent mean values.
@@ -1472,7 +1472,7 @@ Figure&nbsp;23: Time series of EBS pollock data from the acoustic vessels of opp
 <div id="fig-data_avomap" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-data_avomap-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="doc/figs/avo_map_yr.pdf" class="lightbox" data-gallery="quarto-lightbox-gallery-24" title="Figure&nbsp;24: Maps of acoustic vessel-of-opportunity (AVO) index data 2006-2024. Grid cell size and shading is proportional to pollock backscatter."><embed src="doc/figs/avo_map_yr.pdf" class="img-fluid"></a>
+<a href="doc/figs/avo_map_yr.png" class="lightbox" data-gallery="quarto-lightbox-gallery-24" title="Figure&nbsp;24: Maps of acoustic vessel-of-opportunity (AVO) index data 2006-2024. Grid cell size and shading is proportional to pollock backscatter."><img src="doc/figs/avo_map_yr.png" class="img-fluid figure-img"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-data_avomap-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;24: Maps of acoustic vessel-of-opportunity (AVO) index data 2006-2024. Grid cell size and shading is proportional to pollock backscatter.
@@ -1492,7 +1492,7 @@ Figure&nbsp;25: EBS pollock fishery body mass (given length) anomaly (standardiz
 <div id="fig-fsh_lw_anom_str_yr_box" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-fsh_lw_anom_str_yr_box-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="doc/figs/fsh_lw_anom_str_yr_box.pdf" class="lightbox" data-gallery="quarto-lightbox-gallery-26" title="Figure&nbsp;26: EBS pollock fishery body mass (given length) anomaly (standardized by overall mean body mass at each length) by year and season/area strata, 1991–2024. Strata are defined as A-season (top), and B-season west of 170W (middle) and east of 170W (bottom)"><embed src="doc/figs/fsh_lw_anom_str_yr_box.pdf" class="img-fluid"></a>
+<a href="doc/figs/fsh_lw_anom_str_yr_box.png" class="lightbox" data-gallery="quarto-lightbox-gallery-26" title="Figure&nbsp;26: EBS pollock fishery body mass (given length) anomaly (standardized by overall mean body mass at each length) by year and season/area strata, 1991–2024. Strata are defined as A-season (top), and B-season west of 170W (middle) and east of 170W (bottom)"><img src="doc/figs/fsh_lw_anom_str_yr_box.png" class="img-fluid figure-img"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-fsh_lw_anom_str_yr_box-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;26: EBS pollock fishery body mass (given length) anomaly (standardized by overall mean body mass at each length) by year and season/area strata, 1991–2024. Strata are defined as A-season (top), and B-season west of 170W (middle) and east of 170W (bottom)
@@ -1502,7 +1502,7 @@ Figure&nbsp;26: EBS pollock fishery body mass (given length) anomaly (standardiz
 <div id="fig-fsh_lw_anom_yr_box" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-fsh_lw_anom_yr_box-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="doc/figs/fsh_lw_anom_yr_box.pdf" class="lightbox" data-gallery="quarto-lightbox-gallery-27" title="Figure&nbsp;27: EBS pollock body mass (given length) anomaly (standardized by overall mean body mass at each length) by year, 1991–2024."><embed src="doc/figs/fsh_lw_anom_yr_box.pdf" class="img-fluid"></a>
+<a href="doc/figs/fsh_lw_anom_yr_box.png" class="lightbox" data-gallery="quarto-lightbox-gallery-27" title="Figure&nbsp;27: EBS pollock body mass (given length) anomaly (standardized by overall mean body mass at each length) by year, 1991–2024."><img src="doc/figs/fsh_lw_anom_yr_box.png" class="img-fluid figure-img"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-fsh_lw_anom_yr_box-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;27: EBS pollock body mass (given length) anomaly (standardized by overall mean body mass at each length) by year, 1991–2024.
@@ -1512,7 +1512,7 @@ Figure&nbsp;27: EBS pollock body mass (given length) anomaly (standardized by ov
 <div id="fig-fsh_wtage_comb" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-fsh_wtage_comb-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="doc/figs/fsh_wtage_comb.pdf" class="lightbox" data-gallery="quarto-lightbox-gallery-28" title="Figure&nbsp;28: Recent fishery average weight-at-age anomaly (relative to the mean) by strata for ages 3–10, 2019–2023. Vertical shape reflects uncertainty in the data (wider shapes being more precise), colors are consistent with cohorts."><embed src="doc/figs/fsh_wtage_comb.pdf" class="img-fluid"></a>
+<a href="doc/figs/fsh_wtage_comb.png" class="lightbox" data-gallery="quarto-lightbox-gallery-28" title="Figure&nbsp;28: Recent fishery average weight-at-age anomaly (relative to the mean) by strata for ages 3–10, 2019–2023. Vertical shape reflects uncertainty in the data (wider shapes being more precise), colors are consistent with cohorts."><img src="doc/figs/fsh_wtage_comb.png" class="img-fluid figure-img"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-fsh_wtage_comb-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;28: Recent fishery average weight-at-age anomaly (relative to the mean) by strata for ages 3–10, 2019–2023. Vertical shape reflects uncertainty in the data (wider shapes being more precise), colors are consistent with cohorts.
@@ -1522,7 +1522,7 @@ Figure&nbsp;28: Recent fishery average weight-at-age anomaly (relative to the me
 <div id="fig-fish_wtage_data_pred" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-fish_wtage_data_pred-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="doc/figs/fsh_wtage_data_pred.pdf" class="lightbox" data-gallery="quarto-lightbox-gallery-29" title="Figure&nbsp;29: Data input and model predictions for the weight-at-age random-effects model fit separately to obtain variance estimates for cohort and year effect contributions to changes in incremental growth from one age to the next. Shadings reflect the anomaly from the mean while the numbers are the weight-at-age in kg."><embed src="doc/figs/fsh_wtage_data_pred.pdf" class="img-fluid"></a>
+<a href="doc/figs/fsh_wtage_data_pred.png" class="lightbox" data-gallery="quarto-lightbox-gallery-29" title="Figure&nbsp;29: Data input and model predictions for the weight-at-age random-effects model fit separately to obtain variance estimates for cohort and year effect contributions to changes in incremental growth from one age to the next. Shadings reflect the anomaly from the mean while the numbers are the weight-at-age in kg."><img src="doc/figs/fsh_wtage_data_pred.png" class="img-fluid figure-img"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-fish_wtage_data_pred-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;29: Data input and model predictions for the weight-at-age random-effects model fit separately to obtain variance estimates for cohort and year effect contributions to changes in incremental growth from one age to the next. Shadings reflect the anomaly from the mean while the numbers are the weight-at-age in kg.
@@ -1532,7 +1532,7 @@ Figure&nbsp;29: Data input and model predictions for the weight-at-age random-ef
 <div id="fig-fsh_wtage_strata" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-fsh_wtage_strata-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="doc/figs/fsh_wtage_strata.pdf" class="lightbox" data-gallery="quarto-lightbox-gallery-30" title="Figure&nbsp;30: Fishery average weight-at-age anomaly (relative to the mean) across strata and combined for all ages (3–10), and available years (1991–2023). Vertical shape reflects uncertainty in the data (wider shapes being more precise), colors are consistent with cohorts."><embed src="doc/figs/fsh_wtage_strata.pdf" class="img-fluid"></a>
+<a href="doc/figs/fsh_wtage_strata.png" class="lightbox" data-gallery="quarto-lightbox-gallery-30" title="Figure&nbsp;30: Fishery average weight-at-age anomaly (relative to the mean) across strata and combined for all ages (3–10), and available years (1991–2023). Vertical shape reflects uncertainty in the data (wider shapes being more precise), colors are consistent with cohorts."><img src="doc/figs/fsh_wtage_strata.png" class="img-fluid figure-img"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-fsh_wtage_strata-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;30: Fishery average weight-at-age anomaly (relative to the mean) across strata and combined for all ages (3–10), and available years (1991–2023). Vertical shape reflects uncertainty in the data (wider shapes being more precise), colors are consistent with cohorts.
@@ -1542,7 +1542,7 @@ Figure&nbsp;30: Fishery average weight-at-age anomaly (relative to the mean) acr
 <div id="fig-fsh_wtage_strata_yr" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-fsh_wtage_strata_yr-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="doc/figs/fsh_wtage_strata_yr.pdf" class="lightbox" data-gallery="quarto-lightbox-gallery-31" title="Figure&nbsp;31: Recent fishery average weight-at-age anomaly (relative to the mean) by strata for ages 3–10, 2019–2023. Vertical shape reflects uncertainty in the data (wider shapes being more precise), colors are consistent with cohorts."><embed src="doc/figs/fsh_wtage_strata_yr.pdf" class="img-fluid"></a>
+<a href="doc/figs/fsh_wtage_strata_yr.png" class="lightbox" data-gallery="quarto-lightbox-gallery-31" title="Figure&nbsp;31: Recent fishery average weight-at-age anomaly (relative to the mean) by strata for ages 3–10, 2019–2023. Vertical shape reflects uncertainty in the data (wider shapes being more precise), colors are consistent with cohorts."><img src="doc/figs/fsh_wtage_strata_yr.png" class="img-fluid figure-img"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-fsh_wtage_strata_yr-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;31: Recent fishery average weight-at-age anomaly (relative to the mean) by strata for ages 3–10, 2019–2023. Vertical shape reflects uncertainty in the data (wider shapes being more precise), colors are consistent with cohorts.
@@ -1552,7 +1552,7 @@ Figure&nbsp;31: Recent fishery average weight-at-age anomaly (relative to the me
 <div id="fig-mod_data" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-mod_data-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="doc/figs/mod_data.pdf" class="lightbox" data-gallery="quarto-lightbox-gallery-32" title="Figure&nbsp;32: Model runs comparing last year’s assessment with all the data updated in 2024 (top). Subsequent panels (from 2nd to bottom) illustrate the cumulative impact of removing new 2024 data. The second panel shows the impact of removing the 2024 bottom trawl survey (BTS) data, then the acoustic-trawl (ATS) and finally the AVO data."><embed src="doc/figs/mod_data.pdf" class="img-fluid"></a>
+<a href="doc/figs/mod_data.png" class="lightbox" data-gallery="quarto-lightbox-gallery-32" title="Figure&nbsp;32: Model runs comparing last year’s assessment with all the data updated in 2024 (top). Subsequent panels (from 2nd to bottom) illustrate the cumulative impact of removing new 2024 data. The second panel shows the impact of removing the 2024 bottom trawl survey (BTS) data, then the acoustic-trawl (ATS) and finally the AVO data."><img src="doc/figs/mod_data.png" class="img-fluid figure-img"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-mod_data-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;32: Model runs comparing last year’s assessment with all the data updated in 2024 (top). Subsequent panels (from 2nd to bottom) illustrate the cumulative impact of removing new 2024 data. The second panel shows the impact of removing the 2024 bottom trawl survey (BTS) data, then the acoustic-trawl (ATS) and finally the AVO data.
@@ -1562,7 +1562,7 @@ Figure&nbsp;32: Model runs comparing last year’s assessment with all the data 
 <div id="fig-mod_cpue_fit" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-mod_cpue_fit-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="doc/figs/mod_cpue_fit.pdf" class="lightbox" data-gallery="quarto-lightbox-gallery-33" title="Figure&nbsp;33: EBS pollock model fits to the Japanese fishery CPUE."><embed src="doc/figs/mod_cpue_fit.pdf" class="img-fluid"></a>
+<a href="doc/figs/mod_cpue_fit.png" class="lightbox" data-gallery="quarto-lightbox-gallery-33" title="Figure&nbsp;33: EBS pollock model fits to the Japanese fishery CPUE."><img src="doc/figs/mod_cpue_fit.png" class="img-fluid figure-img"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-mod_cpue_fit-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;33: EBS pollock model fits to the Japanese fishery CPUE.
@@ -1572,7 +1572,7 @@ Figure&nbsp;33: EBS pollock model fits to the Japanese fishery CPUE.
 <div id="fig-mod_avo_fit" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-mod_avo_fit-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="doc/figs/mod_avo_fit.pdf" class="lightbox" data-gallery="quarto-lightbox-gallery-34" title="Figure&nbsp;34: Model results of predicted and observed AVO index. Error bars represent assumed 95% confidence bounds of the input series."><embed src="doc/figs/mod_avo_fit.pdf" class="img-fluid"></a>
+<a href="doc/figs/mod_avo_fit.png" class="lightbox" data-gallery="quarto-lightbox-gallery-34" title="Figure&nbsp;34: Model results of predicted and observed AVO index. Error bars represent assumed 95% confidence bounds of the input series."><img src="doc/figs/mod_avo_fit.png" class="img-fluid figure-img"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-mod_avo_fit-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;34: Model results of predicted and observed AVO index. Error bars represent assumed 95% confidence bounds of the input series.
@@ -1582,7 +1582,7 @@ Figure&nbsp;34: Model results of predicted and observed AVO index. Error bars re
 <div id="fig-mod_bts_biom" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-mod_bts_biom-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="doc/figs/mod_bts_biom.pdf" class="lightbox" data-gallery="quarto-lightbox-gallery-35" title="Figure&nbsp;35: EBS pollock model fit to the BTS survey data (VAST estimates based on density dependence-corrected CPUE by station), 1982–2019, 2021-2024. Units are relative biomass."><embed src="doc/figs/mod_bts_biom.pdf" class="img-fluid"></a>
+<a href="doc/figs/mod_bts_biom.png" class="lightbox" data-gallery="quarto-lightbox-gallery-35" title="Figure&nbsp;35: EBS pollock model fit to the BTS survey data (VAST estimates based on density dependence-corrected CPUE by station), 1982–2019, 2021-2024. Units are relative biomass."><img src="doc/figs/mod_bts_biom.png" class="img-fluid figure-img"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-mod_bts_biom-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;35: EBS pollock model fit to the BTS survey data (VAST estimates based on density dependence-corrected CPUE by station), 1982–2019, 2021-2024. Units are relative biomass.
@@ -1592,7 +1592,7 @@ Figure&nbsp;35: EBS pollock model fit to the BTS survey data (VAST estimates bas
 <div id="fig-mod_ats_biom" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-mod_ats_biom-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="doc/figs/mod_ats_biom.pdf" class="lightbox" data-gallery="quarto-lightbox-gallery-36" title="Figure&nbsp;36: EBS pollock model fit to the ATS biomass index, 1994–2024."><embed src="doc/figs/mod_ats_biom.pdf" class="img-fluid"></a>
+<a href="doc/figs/mod_ats_biom.png" class="lightbox" data-gallery="quarto-lightbox-gallery-36" title="Figure&nbsp;36: EBS pollock model fit to the ATS biomass index, 1994–2024."><img src="doc/figs/mod_ats_biom.png" class="img-fluid figure-img"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-mod_ats_biom-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;36: EBS pollock model fit to the ATS biomass index, 1994–2024.
@@ -1602,7 +1602,7 @@ Figure&nbsp;36: EBS pollock model fit to the ATS biomass index, 1994–2024.
 <div id="fig-mod_mean_age" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-mod_mean_age-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="doc/figs/mod_mean_age.pdf" class="lightbox" data-gallery="quarto-lightbox-gallery-37" title="Figure&nbsp;37: EBS pollock model fits to observed mean age for the Acoustic trawl survey (top), the bottom trawl survey (middle) and fishery (bottom)"><embed src="doc/figs/mod_mean_age.pdf" class="img-fluid"></a>
+<a href="doc/figs/mod_mean_age.png" class="lightbox" data-gallery="quarto-lightbox-gallery-37" title="Figure&nbsp;37: EBS pollock model fits to observed mean age for the Acoustic trawl survey (top), the bottom trawl survey (middle) and fishery (bottom)"><img src="doc/figs/mod_mean_age.png" class="img-fluid figure-img"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-mod_mean_age-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;37: EBS pollock model fits to observed mean age for the Acoustic trawl survey (top), the bottom trawl survey (middle) and fishery (bottom)
@@ -1612,7 +1612,7 @@ Figure&nbsp;37: EBS pollock model fits to observed mean age for the Acoustic tra
 <div id="fig-mod_fsh_sel" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-mod_fsh_sel-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="doc/figs/mod_fsh_sel.pdf" class="lightbox" data-gallery="quarto-lightbox-gallery-38" title="Figure&nbsp;38: Selectivity at age estimates for the EBS pollock fishery; note that the values for the terminal year is used for ABC and OFL projections."><embed src="doc/figs/mod_fsh_sel.pdf" class="img-fluid"></a>
+<a href="doc/figs/mod_fsh_sel.png" class="lightbox" data-gallery="quarto-lightbox-gallery-38" title="Figure&nbsp;38: Selectivity at age estimates for the EBS pollock fishery; note that the values for the terminal year is used for ABC and OFL projections."><img src="doc/figs/mod_fsh_sel.png" class="img-fluid figure-img"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-mod_fsh_sel-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;38: Selectivity at age estimates for the EBS pollock fishery; note that the values for the terminal year is used for ABC and OFL projections.
@@ -1622,7 +1622,7 @@ Figure&nbsp;38: Selectivity at age estimates for the EBS pollock fishery; note t
 <div id="fig-mod_fsh_age" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-mod_fsh_age-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="doc/figs/mod_fsh_age.pdf" class="lightbox" data-gallery="quarto-lightbox-gallery-39" title="Figure&nbsp;39: Model fit (dots) to the EBS pollock fishery proportion-at-age data (columns; 1992–2023). The 2023 data are new to this year’s assessment. Colors coincide with cohorts progressing through time."><embed src="doc/figs/mod_fsh_age.pdf" class="img-fluid"></a>
+<a href="doc/figs/mod_fsh_age.png" class="lightbox" data-gallery="quarto-lightbox-gallery-39" title="Figure&nbsp;39: Model fit (dots) to the EBS pollock fishery proportion-at-age data (columns; 1992–2023). The 2023 data are new to this year’s assessment. Colors coincide with cohorts progressing through time."><img src="doc/figs/mod_fsh_age.png" class="img-fluid figure-img"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-mod_fsh_age-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;39: Model fit (dots) to the EBS pollock fishery proportion-at-age data (columns; 1992–2023). The 2023 data are new to this year’s assessment. Colors coincide with cohorts progressing through time.
@@ -1632,7 +1632,7 @@ Figure&nbsp;39: Model fit (dots) to the EBS pollock fishery proportion-at-age da
 <div id="fig-mod_bts_sel" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-mod_bts_sel-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="doc/figs/mod_bts_sel.pdf" class="lightbox" data-gallery="quarto-lightbox-gallery-40" title="Figure&nbsp;40: Model estimates of bottom-trawl survey selectivity, 1982–2024."><embed src="doc/figs/mod_bts_sel.pdf" class="img-fluid"></a>
+<a href="doc/figs/mod_bts_sel.png" class="lightbox" data-gallery="quarto-lightbox-gallery-40" title="Figure&nbsp;40: Model estimates of bottom-trawl survey selectivity, 1982–2024."><img src="doc/figs/mod_bts_sel.png" class="img-fluid figure-img"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-mod_bts_sel-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;40: Model estimates of bottom-trawl survey selectivity, 1982–2024.
@@ -1642,7 +1642,7 @@ Figure&nbsp;40: Model estimates of bottom-trawl survey selectivity, 1982–2024.
 <div id="fig-mod_bts_age" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-mod_bts_age-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="doc/figs/mod_bts_age.pdf" class="lightbox" data-gallery="quarto-lightbox-gallery-41" title="Figure&nbsp;41: Model fit (dots) to the bottom trawl survey proportion-at-age composition data (columns) for EBS pollock. Colors correspond to cohorts over time."><embed src="doc/figs/mod_bts_age.pdf" class="img-fluid"></a>
+<a href="doc/figs/mod_bts_age.png" class="lightbox" data-gallery="quarto-lightbox-gallery-41" title="Figure&nbsp;41: Model fit (dots) to the bottom trawl survey proportion-at-age composition data (columns) for EBS pollock. Colors correspond to cohorts over time."><img src="doc/figs/mod_bts_age.png" class="img-fluid figure-img"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-mod_bts_age-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;41: Model fit (dots) to the bottom trawl survey proportion-at-age composition data (columns) for EBS pollock. Colors correspond to cohorts over time.
@@ -1652,7 +1652,7 @@ Figure&nbsp;41: Model fit (dots) to the bottom trawl survey proportion-at-age co
 <div id="fig-mod_ats_sel" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-mod_ats_sel-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="doc/figs/mod_ats_sel.pdf" class="lightbox" data-gallery="quarto-lightbox-gallery-42" title="Figure&nbsp;42: Estimates of AT survey numbers selectivity-at-age (with mean value equal to 1.0) over time for EBS pollock age 2 and older."><embed src="doc/figs/mod_ats_sel.pdf" class="img-fluid"></a>
+<a href="doc/figs/mod_ats_sel.png" class="lightbox" data-gallery="quarto-lightbox-gallery-42" title="Figure&nbsp;42: Estimates of AT survey numbers selectivity-at-age (with mean value equal to 1.0) over time for EBS pollock age 2 and older."><img src="doc/figs/mod_ats_sel.png" class="img-fluid figure-img"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-mod_ats_sel-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;42: Estimates of AT survey numbers selectivity-at-age (with mean value equal to 1.0) over time for EBS pollock age 2 and older.
@@ -1662,7 +1662,7 @@ Figure&nbsp;42: Estimates of AT survey numbers selectivity-at-age (with mean val
 <div id="fig-mod_ats_age" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-mod_ats_age-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="doc/figs/mod_ats_age.pdf" class="lightbox" data-gallery="quarto-lightbox-gallery-43" title="Figure&nbsp;43: Model fit (dots) to the acoustic-trawl survey proportion-at-age composition data (columns) for EBS pollock. Colors correspond to cohorts over time (for years with consecutive surveys)."><embed src="doc/figs/mod_ats_age.pdf" class="img-fluid"></a>
+<a href="doc/figs/mod_ats_age.png" class="lightbox" data-gallery="quarto-lightbox-gallery-43" title="Figure&nbsp;43: Model fit (dots) to the acoustic-trawl survey proportion-at-age composition data (columns) for EBS pollock. Colors correspond to cohorts over time (for years with consecutive surveys)."><img src="doc/figs/mod_ats_age.png" class="img-fluid figure-img"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-mod_ats_age-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;43: Model fit (dots) to the acoustic-trawl survey proportion-at-age composition data (columns) for EBS pollock. Colors correspond to cohorts over time (for years with consecutive surveys).
@@ -1692,7 +1692,7 @@ Figure&nbsp;45: One-step-ahead residual plots (top row) and Q-Q plots of residua
 <div id="fig-like_profile" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-like_profile-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="doc/figs/like_profile.pdf" class="lightbox" data-gallery="quarto-lightbox-gallery-46" title="Figure&nbsp;46: Profile-likelihood depicting the sources of uncertainty in the 2018 year-class. Likelihood component abbreviations: age, ats, avo, bts, rec, and tot represent respectively all the age composition data from the survey and fishery, the three indices, the stock-recruitment relationship, and total negative log-likelihoods, respectively."><embed src="doc/figs/like_profile.pdf" class="img-fluid"></a>
+<a href="doc/figs/like_profile.png" class="lightbox" data-gallery="quarto-lightbox-gallery-46" title="Figure&nbsp;46: Profile-likelihood depicting the sources of uncertainty in the 2018 year-class. Likelihood component abbreviations: age, ats, avo, bts, rec, and tot represent respectively all the age composition data from the survey and fishery, the three indices, the stock-recruitment relationship, and total negative log-likelihoods, respectively."><img src="doc/figs/like_profile.png" class="img-fluid figure-img"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-like_profile-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;46: Profile-likelihood depicting the sources of uncertainty in the 2018 year-class. Likelihood component abbreviations: age, ats, avo, bts, rec, and tot represent respectively all the age composition data from the survey and fishery, the three indices, the stock-recruitment relationship, and total negative log-likelihoods, respectively.
@@ -1722,7 +1722,7 @@ Figure&nbsp;48: Pairwise plot of selected EBS pollock parameters and output from
 <div id="fig-mcmc_marg" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-mcmc_marg-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="doc/figs/mcmc_marg.pdf" class="lightbox" data-gallery="quarto-lightbox-gallery-49" title="Figure&nbsp;49: Integrated marginal posterior density (based on MCMC results) for the 2024 EBS pollock female spawning biomass compared to the point estimate (grey line)."><embed src="doc/figs/mcmc_marg.pdf" class="img-fluid"></a>
+<a href="doc/figs/mcmc_marg.png" class="lightbox" data-gallery="quarto-lightbox-gallery-49" title="Figure&nbsp;49: Integrated marginal posterior density (based on MCMC results) for the 2024 EBS pollock female spawning biomass compared to the point estimate (grey line)."><img src="doc/figs/mcmc_marg.png" class="img-fluid figure-img"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-mcmc_marg-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;49: Integrated marginal posterior density (based on MCMC results) for the 2024 EBS pollock female spawning biomass compared to the point estimate (grey line).
@@ -1732,7 +1732,7 @@ Figure&nbsp;49: Integrated marginal posterior density (based on MCMC results) fo
 <div id="fig-mcmc_marg_fmsy" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-mcmc_marg_fmsy-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="doc/figs/mcmc_marg_fmsy.pdf" class="lightbox" data-gallery="quarto-lightbox-gallery-50" title="Figure&nbsp;50: Integrated marginal posterior density (based on MCMC results) for the F_{MSY} for EBS pollock and different central tendency values."><embed src="doc/figs/mcmc_marg_fmsy.pdf" class="img-fluid"></a>
+<a href="doc/figs/mcmc_marg_fmsy.png" class="lightbox" data-gallery="quarto-lightbox-gallery-50" title="Figure&nbsp;50: Integrated marginal posterior density (based on MCMC results) for the F_{MSY} for EBS pollock and different central tendency values."><img src="doc/figs/mcmc_marg_fmsy.png" class="img-fluid figure-img"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-mcmc_marg_fmsy-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;50: Integrated marginal posterior density (based on MCMC results) for the <span class="math inline">\(F_{MSY}\)</span> for EBS pollock and different central tendency values.
@@ -1752,7 +1752,7 @@ Figure&nbsp;51: Plot of the observed index values (solid line) for the AVO (top)
 <div id="fig-ssb_v_2018" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-ssb_v_2018-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="doc/figs/ssb_v_2018.pdf" class="lightbox" data-gallery="quarto-lightbox-gallery-52" title="Figure&nbsp;52: Plot of a representation of the posterior marginal distributions of spawning biomass in 2025 (vertical scale and right-side distribution) versus the size of the 2018 year-class (horizontal scale and the top distribution)."><embed src="doc/figs/ssb_v_2018.pdf" class="img-fluid"></a>
+<a href="doc/figs/ssb_v_2018.png" class="lightbox" data-gallery="quarto-lightbox-gallery-52" title="Figure&nbsp;52: Plot of a representation of the posterior marginal distributions of spawning biomass in 2025 (vertical scale and right-side distribution) versus the size of the 2018 year-class (horizontal scale and the top distribution)."><img src="doc/figs/ssb_v_2018.png" class="img-fluid figure-img"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ssb_v_2018-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;52: Plot of a representation of the posterior marginal distributions of spawning biomass in 2025 (vertical scale and right-side distribution) versus the size of the 2018 year-class (horizontal scale and the top distribution).
@@ -1762,7 +1762,7 @@ Figure&nbsp;52: Plot of a representation of the posterior marginal distributions
 <div id="fig-mod_retro" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-mod_retro-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="doc/figs/mod_retro.pdf" class="lightbox" data-gallery="quarto-lightbox-gallery-53" title="Figure&nbsp;53: Retrospective patterns for EBS pollock spawning biomass showing the point estimates relative to the terminal year (top panel) and approximate confidence bounds on absolute scale (+2 standard deviations)."><embed src="doc/figs/mod_retro.pdf" class="img-fluid"></a>
+<a href="doc/figs/mod_retro.png" class="lightbox" data-gallery="quarto-lightbox-gallery-53" title="Figure&nbsp;53: Retrospective patterns for EBS pollock spawning biomass showing the point estimates relative to the terminal year (top panel) and approximate confidence bounds on absolute scale (+2 standard deviations)."><img src="doc/figs/mod_retro.png" class="img-fluid figure-img"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-mod_retro-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;53: Retrospective patterns for EBS pollock spawning biomass showing the point estimates relative to the terminal year (top panel) and approximate confidence bounds on absolute scale (+2 standard deviations).
@@ -1772,7 +1772,7 @@ Figure&nbsp;53: Retrospective patterns for EBS pollock spawning biomass showing 
 <div id="fig-mod_retroR" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-mod_retroR-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="doc/figs/mod_retroR.pdf" class="lightbox" data-gallery="quarto-lightbox-gallery-54" title="Figure&nbsp;54: Retrospective patterns for EBS pollock recruitment showing the point estimates relative to the terminal year (top panel) and approximate confidence bounds on absolute scale (+2 standard deviations)."><embed src="doc/figs/mod_retroR.pdf" class="img-fluid"></a>
+<a href="doc/figs/mod_retroR.png" class="lightbox" data-gallery="quarto-lightbox-gallery-54" title="Figure&nbsp;54: Retrospective patterns for EBS pollock recruitment showing the point estimates relative to the terminal year (top panel) and approximate confidence bounds on absolute scale (+2 standard deviations)."><img src="doc/figs/mod_retroR.png" class="img-fluid figure-img"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-mod_retroR-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;54: Retrospective patterns for EBS pollock recruitment showing the point estimates relative to the terminal year (top panel) and approximate confidence bounds on absolute scale (+2 standard deviations).
@@ -1782,7 +1782,7 @@ Figure&nbsp;54: Retrospective patterns for EBS pollock recruitment showing the p
 <div id="fig-retrocohtyr" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-retrocohtyr-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="doc/figs/retro_cohort_termyr.pdf" class="lightbox" data-gallery="quarto-lightbox-gallery-55" title="Figure&nbsp;55: Retrospective evolution of EBS pollock selected year-class estimates as a function of the terminal year of data used in the model (based on retrospectives of Model 23.0)."><embed src="doc/figs/retro_cohort_termyr.pdf" class="img-fluid"></a>
+<a href="doc/figs/retro_cohort_termyr.png" class="lightbox" data-gallery="quarto-lightbox-gallery-55" title="Figure&nbsp;55: Retrospective evolution of EBS pollock selected year-class estimates as a function of the terminal year of data used in the model (based on retrospectives of Model 23.0)."><img src="doc/figs/retro_cohort_termyr.png" class="img-fluid figure-img"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-retrocohtyr-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;55: Retrospective evolution of EBS pollock selected year-class estimates as a function of the terminal year of data used in the model (based on retrospectives of Model 23.0).
@@ -1792,7 +1792,7 @@ Figure&nbsp;55: Retrospective evolution of EBS pollock selected year-class estim
 <div id="fig-retrocoh" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-retrocoh-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="doc/figs/retro_cohort.pdf" class="lightbox" data-gallery="quarto-lightbox-gallery-56" title="Figure&nbsp;56: Retrospective evolution of EBS pollock selected year-class estimates as a function of the the number of years the year-class has been in the model (based on retrospectives of Model 23.0)."><embed src="doc/figs/retro_cohort.pdf" class="img-fluid"></a>
+<a href="doc/figs/retro_cohort.png" class="lightbox" data-gallery="quarto-lightbox-gallery-56" title="Figure&nbsp;56: Retrospective evolution of EBS pollock selected year-class estimates as a function of the the number of years the year-class has been in the model (based on retrospectives of Model 23.0)."><img src="doc/figs/retro_cohort.png" class="img-fluid figure-img"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-retrocoh-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;56: Retrospective evolution of EBS pollock selected year-class estimates as a function of the the number of years the year-class has been in the model (based on retrospectives of Model 23.0).
@@ -1802,7 +1802,7 @@ Figure&nbsp;56: Retrospective evolution of EBS pollock selected year-class estim
 <div id="fig-retro_sel" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-retro_sel-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="doc/figs/retro_sel.pdf" class="lightbox" data-gallery="quarto-lightbox-gallery-57" title="Figure&nbsp;57: Retrospective pattern for estimated EBS pollock fishery selectivity (dots) compared to the projected selectivity from the year prior (solid line)."><embed src="doc/figs/retro_sel.pdf" class="img-fluid"></a>
+<a href="doc/figs/retro_sel.png" class="lightbox" data-gallery="quarto-lightbox-gallery-57" title="Figure&nbsp;57: Retrospective pattern for estimated EBS pollock fishery selectivity (dots) compared to the projected selectivity from the year prior (solid line)."><img src="doc/figs/retro_sel.png" class="img-fluid figure-img"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-retro_sel-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;57: Retrospective pattern for estimated EBS pollock fishery selectivity (dots) compared to the projected selectivity from the year prior (solid line).
@@ -1812,7 +1812,7 @@ Figure&nbsp;57: Retrospective pattern for estimated EBS pollock fishery selectiv
 <div id="fig-retro_sel_mnage" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-retro_sel_mnage-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="doc/figs/retro_sel_mnage.pdf" class="lightbox" data-gallery="quarto-lightbox-gallery-58" title="Figure&nbsp;58: Retrospective pattern for the mean selected age (ages 1-8) based on estimated EBS pollock fishery selectivity compared to the projected selectivity from the year prior."><embed src="doc/figs/retro_sel_mnage.pdf" class="img-fluid"></a>
+<a href="doc/figs/retro_sel_mnage.png" class="lightbox" data-gallery="quarto-lightbox-gallery-58" title="Figure&nbsp;58: Retrospective pattern for the mean selected age (ages 1-8) based on estimated EBS pollock fishery selectivity compared to the projected selectivity from the year prior."><img src="doc/figs/retro_sel_mnage.png" class="img-fluid figure-img"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-retro_sel_mnage-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;58: Retrospective pattern for the mean selected age (ages 1-8) based on estimated EBS pollock fishery selectivity compared to the projected selectivity from the year prior.
@@ -1832,7 +1832,7 @@ Figure&nbsp;59: Comparison of <span class="math inline">\(F_{MSY}\)</span> and m
 <div id="fig-mod_ser" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-mod_ser-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="doc/figs/mod_ser.pdf" class="lightbox" data-gallery="quarto-lightbox-gallery-60" title="Figure&nbsp;60: Estimated spawning exploitation rate (defined as the percent removal of egg production in a given spawning year)."><embed src="doc/figs/mod_ser.pdf" class="img-fluid"></a>
+<a href="doc/figs/mod_ser.png" class="lightbox" data-gallery="quarto-lightbox-gallery-60" title="Figure&nbsp;60: Estimated spawning exploitation rate (defined as the percent removal of egg production in a given spawning year)."><img src="doc/figs/mod_ser.png" class="img-fluid figure-img"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-mod_ser-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;60: Estimated spawning exploitation rate (defined as the percent removal of egg production in a given spawning year).
@@ -1842,7 +1842,7 @@ Figure&nbsp;60: Estimated spawning exploitation rate (defined as the percent rem
 <div id="fig-mod_F" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-mod_F-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="doc/figs/mod_F.pdf" class="lightbox" data-gallery="quarto-lightbox-gallery-61" title="Figure&nbsp;61: Estimated instantaneous age-specific fishing mortality rates for EBS pollock."><embed src="doc/figs/mod_F.pdf" class="img-fluid"></a>
+<a href="doc/figs/mod_F.png" class="lightbox" data-gallery="quarto-lightbox-gallery-61" title="Figure&nbsp;61: Estimated instantaneous age-specific fishing mortality rates for EBS pollock."><img src="doc/figs/mod_F.png" class="img-fluid figure-img"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-mod_F-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;61: Estimated instantaneous age-specific fishing mortality rates for EBS pollock.
@@ -1852,7 +1852,7 @@ Figure&nbsp;61: Estimated instantaneous age-specific fishing mortality rates for
 <div id="fig-mod_hist" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-mod_hist-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="doc/figs/mod_hist.pdf" class="lightbox" data-gallery="quarto-lightbox-gallery-62" title="Figure&nbsp;62: Comparison of the current assessment results with past assessments of begin-year EBS age-3+ pollock biomass."><embed src="doc/figs/mod_hist.pdf" class="img-fluid"></a>
+<a href="doc/figs/mod_hist.png" class="lightbox" data-gallery="quarto-lightbox-gallery-62" title="Figure&nbsp;62: Comparison of the current assessment results with past assessments of begin-year EBS age-3+ pollock biomass."><img src="doc/figs/mod_hist.png" class="img-fluid figure-img"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-mod_hist-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;62: Comparison of the current assessment results with past assessments of begin-year EBS age-3+ pollock biomass.
@@ -1862,7 +1862,7 @@ Figure&nbsp;62: Comparison of the current assessment results with past assessmen
 <div id="fig-mod_phase" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-mod_phase-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="doc/figs/mod_phase.pdf" class="lightbox" data-gallery="quarto-lightbox-gallery-63" title="Figure&nbsp;63: Estimated spawning biomass relative to annually estimated F_{MSY} values and fishing mortality rates for EBS pollock. Two projection years are shaded in yellow."><embed src="doc/figs/mod_phase.pdf" class="img-fluid"></a>
+<a href="doc/figs/mod_phase.png" class="lightbox" data-gallery="quarto-lightbox-gallery-63" title="Figure&nbsp;63: Estimated spawning biomass relative to annually estimated F_{MSY} values and fishing mortality rates for EBS pollock. Two projection years are shaded in yellow."><img src="doc/figs/mod_phase.png" class="img-fluid figure-img"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-mod_phase-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;63: Estimated spawning biomass relative to annually estimated <span class="math inline">\(F_{MSY}\)</span> values and fishing mortality rates for EBS pollock. Two projection years are shaded in yellow.
@@ -1872,7 +1872,7 @@ Figure&nbsp;63: Estimated spawning biomass relative to annually estimated <span 
 <div id="fig-proj_ssb" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-proj_ssb-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="doc/figs/proj_ssb.pdf" class="lightbox" data-gallery="quarto-lightbox-gallery-64" title="Figure&nbsp;64: The estimated EBS pollock spawning stock biomass for model 23 last year and this with projections equal to the estimated fishing mortality from 2024."><embed src="doc/figs/proj_ssb.pdf" class="img-fluid"></a>
+<a href="doc/figs/proj_ssb.png" class="lightbox" data-gallery="quarto-lightbox-gallery-64" title="Figure&nbsp;64: The estimated EBS pollock spawning stock biomass for model 23 last year and this with projections equal to the estimated fishing mortality from 2024."><img src="doc/figs/proj_ssb.png" class="img-fluid figure-img"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-proj_ssb-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;64: The estimated EBS pollock spawning stock biomass for model 23 last year and this with projections equal to the estimated fishing mortality from 2024.
@@ -1882,7 +1882,7 @@ Figure&nbsp;64: The estimated EBS pollock spawning stock biomass for model 23 la
 <div id="fig-mod_rec" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-mod_rec-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="doc/figs/mod_rec.pdf" class="lightbox" data-gallery="quarto-lightbox-gallery-65" title="Figure&nbsp;65: Recruitment estimates (age-1 recruits) for EBS pollock for all years since 1964 (1963–2023 year classes) for Model 23. Error bars reflect 90% credible intervals based on model estimates of uncertainty."><embed src="doc/figs/mod_rec.pdf" class="img-fluid"></a>
+<a href="doc/figs/mod_rec.png" class="lightbox" data-gallery="quarto-lightbox-gallery-65" title="Figure&nbsp;65: Recruitment estimates (age-1 recruits) for EBS pollock for all years since 1964 (1963–2023 year classes) for Model 23. Error bars reflect 90% credible intervals based on model estimates of uncertainty."><img src="doc/figs/mod_rec.png" class="img-fluid figure-img"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-mod_rec-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;65: Recruitment estimates (age-1 recruits) for EBS pollock for all years since 1964 (1963–2023 year classes) for Model 23. Error bars reflect 90% credible intervals based on model estimates of uncertainty.
@@ -1892,7 +1892,7 @@ Figure&nbsp;65: Recruitment estimates (age-1 recruits) for EBS pollock for all y
 <div id="fig-mod_srr" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-mod_srr-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="doc/figs/mod_srr.pdf" class="lightbox" data-gallery="quarto-lightbox-gallery-66" title="Figure&nbsp;66: Stock-recruitment estimates (shaded represents structural uncertainty) and age-1 EBS pollock estimates labeled by year-classes."><embed src="doc/figs/mod_srr.pdf" class="img-fluid"></a>
+<a href="doc/figs/mod_srr.png" class="lightbox" data-gallery="quarto-lightbox-gallery-66" title="Figure&nbsp;66: Stock-recruitment estimates (shaded represents structural uncertainty) and age-1 EBS pollock estimates labeled by year-classes."><img src="doc/figs/mod_srr.png" class="img-fluid figure-img"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-mod_srr-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;66: Stock-recruitment estimates (shaded represents structural uncertainty) and age-1 EBS pollock estimates labeled by year-classes.
@@ -1902,7 +1902,7 @@ Figure&nbsp;66: Stock-recruitment estimates (shaded represents structural uncert
 <div id="fig-mod_rs" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-mod_rs-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="doc/figs/mod_rs.pdf" class="lightbox" data-gallery="quarto-lightbox-gallery-67" title="Figure&nbsp;67: EBS pollock productivity as measured by logged recruits per spawning biomass, log(R/S), as a function of spawning biomass with a linear fit (bottom) and over time, 1964–2024 (top)."><embed src="doc/figs/mod_rs.pdf" class="img-fluid"></a>
+<a href="doc/figs/mod_rs.png" class="lightbox" data-gallery="quarto-lightbox-gallery-67" title="Figure&nbsp;67: EBS pollock productivity as measured by logged recruits per spawning biomass, log(R/S), as a function of spawning biomass with a linear fit (bottom) and over time, 1964–2024 (top)."><img src="doc/figs/mod_rs.png" class="img-fluid figure-img"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-mod_rs-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;67: EBS pollock productivity as measured by logged recruits per spawning biomass, log(R/S), as a function of spawning biomass with a linear fit (bottom) and over time, 1964–2024 (top).
@@ -1912,7 +1912,7 @@ Figure&nbsp;67: EBS pollock productivity as measured by logged recruits per spaw
 <div id="fig-mod_regimes" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-mod_regimes-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="doc/figs/mod_regimes.pdf" class="lightbox" data-gallery="quarto-lightbox-gallery-68" title="Figure&nbsp;68: Mean recruitment estimates (age-1) for EBS pollock for different periods with error bars representing 95% credible intervals."><embed src="doc/figs/mod_regimes.pdf" class="img-fluid"></a>
+<a href="doc/figs/mod_regimes.png" class="lightbox" data-gallery="quarto-lightbox-gallery-68" title="Figure&nbsp;68: Mean recruitment estimates (age-1) for EBS pollock for different periods with error bars representing 95% credible intervals."><img src="doc/figs/mod_regimes.png" class="img-fluid figure-img"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-mod_regimes-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;68: Mean recruitment estimates (age-1) for EBS pollock for different periods with error bars representing 95% credible intervals.
@@ -1922,7 +1922,7 @@ Figure&nbsp;68: Mean recruitment estimates (age-1) for EBS pollock for different
 <div id="fig-tier3_proj" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-tier3_proj-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="doc/figs/tier3_proj.pdf" class="lightbox" data-gallery="quarto-lightbox-gallery-69" title="Figure&nbsp;69: Projected EBS Tier 3 pollock yield (top) and female spawning biomass (bottom) relative to the long-term expected values under F_{35\%} and F_{40\%} (horizontal lines). B_{40\%} is computed from average recruitment from 1978–2020. Future harvest rates follow the guidelines specified under Tier 3 Scenario 1."><embed src="doc/figs/tier3_proj.pdf" class="img-fluid"></a>
+<a href="doc/figs/tier3_proj.png" class="lightbox" data-gallery="quarto-lightbox-gallery-69" title="Figure&nbsp;69: Projected EBS Tier 3 pollock yield (top) and female spawning biomass (bottom) relative to the long-term expected values under F_{35\%} and F_{40\%} (horizontal lines). B_{40\%} is computed from average recruitment from 1978–2020. Future harvest rates follow the guidelines specified under Tier 3 Scenario 1."><img src="doc/figs/tier3_proj.png" class="img-fluid figure-img"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-tier3_proj-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;69: Projected EBS Tier 3 pollock yield (top) and female spawning biomass (bottom) relative to the long-term expected values under <span class="math inline">\(F_{35\%}\)</span> and <span class="math inline">\(F_{40\%}\)</span> (horizontal lines). <span class="math inline">\(B_{40\%}\)</span> is computed from average recruitment from 1978–2020. Future harvest rates follow the guidelines specified under Tier 3 Scenario 1.
@@ -1932,7 +1932,7 @@ Figure&nbsp;69: Projected EBS Tier 3 pollock yield (top) and female spawning bio
 <div id="fig-tier3_proj_alt3" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-tier3_proj_alt3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="doc/figs/tier3_proj_alt3.pdf" class="lightbox" data-gallery="quarto-lightbox-gallery-70" title="Figure&nbsp;70: Projected pollock yield (top) and female spawning biomass (bottom) under Alternative 3—fishing under the recent 5-year average fishing mortality. The long-term expected values under F_{35\%} and F_{40\%} (horizontal lines) B_{40\%} are computed from average recruitment from 1978–2020."><embed src="doc/figs/tier3_proj_alt3.pdf" class="img-fluid"></a>
+<a href="doc/figs/tier3_proj_alt3.png" class="lightbox" data-gallery="quarto-lightbox-gallery-70" title="Figure&nbsp;70: Projected pollock yield (top) and female spawning biomass (bottom) under Alternative 3—fishing under the recent 5-year average fishing mortality. The long-term expected values under F_{35\%} and F_{40\%} (horizontal lines) B_{40\%} are computed from average recruitment from 1978–2020."><img src="doc/figs/tier3_proj_alt3.png" class="img-fluid figure-img"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-tier3_proj_alt3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;70: Projected pollock yield (top) and female spawning biomass (bottom) under Alternative 3—<em><em>fishing under the recent 5-year average fishing mortality</em></em>. The long-term expected values under <span class="math inline">\(F_{35\%}\)</span> and <span class="math inline">\(F_{40\%}\)</span> (horizontal lines) <span class="math inline">\(B_{40\%}\)</span> are computed from average recruitment from 1978–2020.
@@ -1942,7 +1942,7 @@ Figure&nbsp;70: Projected pollock yield (top) and female spawning biomass (botto
 <div id="fig-age_diversity" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-age_diversity-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="doc/figs/age_diversity.pdf" class="lightbox" data-gallery="quarto-lightbox-gallery-71" title="Figure&nbsp;71: For the mature component of the EBS pollock stock, time series of estimated average age and diversity of ages (using the Shannon-Wiener H statistic), 1980–2024."><embed src="doc/figs/age_diversity.pdf" class="img-fluid"></a>
+<a href="doc/figs/age_diversity.png" class="lightbox" data-gallery="quarto-lightbox-gallery-71" title="Figure&nbsp;71: For the mature component of the EBS pollock stock, time series of estimated average age and diversity of ages (using the Shannon-Wiener H statistic), 1980–2024."><img src="doc/figs/age_diversity.png" class="img-fluid figure-img"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-age_diversity-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;71: For the mature component of the EBS pollock stock, time series of estimated average age and diversity of ages (using the Shannon-Wiener H statistic), 1980–2024.
@@ -2258,7 +2258,7 @@ for the positive catch rate component (Figures \ref{fig:pearson1} and \ref{fig:p
 <div id="fig-vast_idx" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-vast_idx-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="doc/figs/vast_idx.pdf" class="lightbox" data-gallery="quarto-lightbox-gallery-73" title="Figure&nbsp;72: Pollock index values for the standard survey region, the NBS, and combined based on the VAST application to density-dependent corrected CPUE values from the BTS data, 1982–2019, 2021-2024."><embed src="doc/figs/vast_idx.pdf" class="img-fluid"></a>
+<a href="doc/figs/vast_idx.png" class="lightbox" data-gallery="quarto-lightbox-gallery-73" title="Figure&nbsp;72: Pollock index values for the standard survey region, the NBS, and combined based on the VAST application to density-dependent corrected CPUE values from the BTS data, 1982–2019, 2021-2024."><img src="doc/figs/vast_idx.png" class="img-fluid figure-img"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-vast_idx-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;72: Pollock index values for the standard survey region, the NBS, and combined based on the VAST application to density-dependent corrected CPUE values from the BTS data, 1982–2019, 2021-2024.
@@ -2731,7 +2731,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </div>
   </div>
 </footer>
-<script>var lightboxQuarto = GLightbox({"descPosition":"bottom","selector":".lightbox","loop":false,"closeEffect":"zoom","openEffect":"zoom"});
+<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","loop":false,"selector":".lightbox","descPosition":"bottom","openEffect":"zoom"});
 (function() {
   let previousOnload = window.onload;
   window.onload = () => {

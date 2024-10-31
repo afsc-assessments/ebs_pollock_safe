@@ -13,6 +13,7 @@ nextyr <<- thisyr + 1
 thismod <<- 2
 
 source("R/print_Tier3_tables.R")
+#source("tools/get-tier3-res.R")
 # The model specs
 
 #--Main models to presesnt in Sept   -----------
@@ -73,10 +74,10 @@ M <<- modlst[[thismod]]
 #---Covariance diagonal extraction--------
 #---Mohno rho read-----
 rhodf <- read.csv("doc/data/mohnrho.csv", header = T)
-rhodf
-rhoMohn10 <- rhodf[11, 3]
-rhoMohn20 <- rhodf[21, 3]
-rhoMohn10
+#rhodf
+rhoMohn10 <- rhodf[11, 2]# |> pull(rho)
+#rhoMohn20 <- rhodf[21, 2]
+#rhoMohn20
 
 # Figure captions
 fc <- (read_csv("doc/data/fig_captions.csv"))

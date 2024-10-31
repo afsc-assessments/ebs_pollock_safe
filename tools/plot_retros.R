@@ -62,6 +62,9 @@ library(patchwork)
   glimpse(seldfm)
   assdf <- seldfm %>% filter(Year>Assessment) %>% mutate(age=as.factor(age),Year=as.factor(Year))
   yrdf  <- seldfm %>% filter(Year<=Assessment,Year>thisyr-10) %>%mutate(age=as.factor(age),Year=as.factor(Year))
+  glimpse(assdf)
+  glimpse(yrdf)
+  #----------------------
   p1<- seldfm %>% filter(age<9,Year>thisyr-10)%>% group_by(Year,Assessment,case) %>%
     summarise(mnage=sum(Selectivity*age)/sum(Selectivity)) %>%
     ggplot(aes(x=Year,y=mnage,shape=case,color=case)) + geom_point(size=2) +
@@ -72,11 +75,12 @@ library(patchwork)
     geom_point(size=.5) + geom_line() + theme_few() +
     facet_grid(Year~.) + geom_point(data=yrdf,size=.5) + facet_grid(Year~.)
   p1
+  #----------------------
   ggsave("doc/figs/retro_sel.pdf",plot=p1,width=5.2,height=9.0,units="in")
   #plot_recruitment(retouts,xlim=c(1990,2017),rel=T,legend=FALSE,alpha=.2)
   
   
-  # Plot of regimes on base model
+  #---Plot of regimes on base model-------------------------
   regime=c("1964-77", "1978-present", "1978-99", "1978-89", "1990-present", "1990-99", "2000-present", "1964-present")
   hlr <- M$regime[2]
   p3 <- tibble(regime=regime,Mean=M$regime,ub=Mean+2*M$regime.sd,lb=Mean-2*M$regime.sd) %>%
@@ -84,15 +88,11 @@ library(patchwork)
     ylab("Mean recruitment (age 1)") + geom_point(size=4,color="red") + geom_hline(yintercept=hlr,linetype=2)
   ggsave("doc/figs/mod_regimes.pdf",plot=p3,width=9.2,height=5.0,units="in")
   
-  #---Fits to ats age mod_ats_age.pdf-------------------------------------------------------------
-  pdf("doc/figs/mod_ats_age.pdf",width=6,height=8)
-  plot_agefit(M,case_label=paste(thisyr,"Assessment"),gear="ats")
-  dev.off()
-  
   #----Read in retro results-----------------
   .MODELDIR #<- c("2024","runs","retro")
   i=2
   mod=2
+  setwd(here::here())
   getret <- function(ret_dir="retro", nyrs=10, mod=1){
     retouts<- list()
     for (i in 0:nyrs) {
@@ -106,11 +106,11 @@ library(patchwork)
   library(patchwork)
   ret1<-getret(ret_dir="retro1", mod=2,nyrs=10)
   retlyr<-getret(mod=1,nyrs=20)
-  ret2<-getret(mod=2,nyrs=20)
+  ret2<-getret(ret_dir="retro2",mod=2,nyrs=20)
   ret3<-getret(ret_dir="retro3", mod=2,nyrs=10)
   ret4<-getret(ret_dir="retro4", mod=2,nyrs=10)
   ret5<-getret(ret_dir="retro5", mod=2,nyrs=10)
-  names(ret1)
+  names(ret2)
   p1 <- plot_ssb(retlyr,xlim=c(2000,thisyr),legend=F,breaks=seq(2000,2025,2),ylim=c(0,6900)) + xlab("") +ggtitle(" Last year") + coord_cartesian(ylim=c(0,NA));p1
   p2 <- plot_ssb(ret2,xlim=c(2000,thisyr),legend=F,breaks=seq(2000,2025,2),ylim=c(0,6900))+ggtitle("Updated model 23") + coord_cartesian(ylim=c(0,NA));p2
   #p3 <- plot_ssb(ret3,xlim=c(2000,thisyr),legend=F,breaks=seq(2000,2022,2),ylim=c(0,6900))+ggtitle("w/o BTS") + coord_cartesian(ylim=c(0,NA));p3
@@ -133,7 +133,7 @@ library(patchwork)
   
   i=12
   run="shit" 
-  names(ret1)
+  names(ret2[[1]])
   ret=ret1
   mean(ret1[["r_0"]]$R[,2])
   get_coh <- function(ret=ret1,modyr=2024, run="Base",nyrs=20){
@@ -193,7 +193,6 @@ library(patchwork)
   #plot_coh(logscale=TRUE)
   
   # Plot by endyr
-  ret_df <- rbind(plot_coh(ret1),plot_coh(ret1,run="WS")) |> mutate(term_yr=ifelse(run=="Base",term_yr-.1,term_yr+.1))
   ggplot(ret_df |>
            #         filter(cohort %in% c(2008:2022)),
            filter(cohort %in% c(2008,2012:2013,2016,2018)),
@@ -212,30 +211,29 @@ library(patchwork)
   ggsave("doc/figs/mod_retroR20.pdf",plot=p3,width=7.2,height=9.0,units="in")
   p3
   ###
-  # Get sel_fut from retrospectives and compare
-  i=2
-  setwd(paste0(.MODELDIR[2],"/retro2"))
-  setwd("retro")
-  getwd()
-  ret2[2]
-  seldf<-NULL
-  for (i in 1:11) {
-    mn=paste0("ret2$r_",i)
-    M <- ret2[[i]]
-    names(M)
-    #seldf<-rbind(seldf,
-   # sel <-get(mn)$sel_fsh
-    sel <- M$sel_fsh
-    yrs <- (thisyr-i-10):(thisyr-i)
-    #yrs
-    lrow<-dim(sel)[1]
-    #lrow
-    #seldf<-rbind(seldf, data.frame(yrs,rep(thisyr-i,11),sel[(lrow-10):lrow,])) %>% rbind(c("proj",thisyr-i,get(mn)$sel_fut))
-    seldf<-rbind(seldf, data.frame(yrs,rep(thisyr-i+1,11),sel[(lrow-10):lrow,])) %>% rbind(c("proj",thisyr-i+1,M$sel_fut))
-    #assign(mn,read_rep(rn))
-    #retouts[[mn]] <- (get(mn))
-    #seldf <- rbind()
+  
+  
+  #---Get selectivity from models----------------jjjjj
+  ret2[[3]]$sel_fsh
+  i=3
+  
+  ret=ret2
+  get_sel_retro <- function(ret=ret2, thisyr=2024, case="2-yr mean", nyrs=10) {
+    seldf<-NULL
+    for (i in 1:(nyrs+1) ) {
+     # sel <-get(mn)$sel_fsh
+      M <- ret[[i]]
+      sel <- M$sel_fsh
+      yrs <- (thisyr-i-nyrs):(thisyr-i)
+      #yrs
+      lrow<-dim(sel)[1]
+      #lrow
+      #seldf<-rbind(seldf, data.frame(yrs,rep(thisyr-i,11),sel[(lrow-10):lrow,])) %>% rbind(c("proj",thisyr-i,get(mn)$sel_fut))
+      seldf<-rbind(seldf, data.frame(yrs,rep(thisyr-i+1,11),sel[(lrow-10):lrow,])) %>% rbind(c("proj",thisyr-i+1,M$sel_fut))
+    }
+    return(seldf)
   }
+ get_sel_retro() 
   names(seldf) <- c("Year","Assessment",1:15)
   glimpse(seldf)
   seldfm <- seldf %>%  pivot_longer(cols=3:17,names_to="age",values_to="Selectivity") %>%
@@ -289,21 +287,26 @@ library(patchwork)
   i=2
   getMohn <- function(retouts=ret2,nyrs=20){
     rc = retouts[[1]]$SSB[,2]
+    rc = retouts[[1]]$sel_fsh[,6]
     ntmp=0
     rho=0
     df <- data.frame(peel=1:20,rho=1:20)
     for (i in 1:20) {
-      rn <- names(retouts[i])
-      dtmp = (get(paste0(rn))$SSB )
+      X <- retouts[[i]]
+      rn <- names(X)
+      #dtmp = X$SSB 
+      dtmp = X$sel_fsh[,6] 
       lr   = length(dtmp[,1])
       rho  = rho +(dtmp[lr,2] -rc[lr])/rc[lr]
       df$peel[i] <- i-1
       df$rho[i] <- rho/i
       print(paste(i,rho/i))
     }
+    return(df)
   }
   
-  df <- getMohn(retouts)
+  df <- getMohn(ret2)
+  df
   write_csv(df,here::here("doc/data/mohnrho.csv"))
   here::here("doc/data/mohnrho.csv")
   library(flextable)
@@ -902,9 +905,9 @@ library(patchwork)
       scale_x_continuous(breaks=seq(2010,2022,by=2))
     p1
     ggsave("doc/figs/retro_sel_mnage.pdf",plot=p1,width=5.2,height=4.0,units="in")
+    
     assdf %>% print(n=Inf)
-    yrdf %>% filter(Assessment==2021) %>%inner_join(assdf,join_by Year)
-    %>% print(n=Inf)
+    yrdf %>% filter(Assessment==2021) %>%inner_join(assdf,join_by Year) %>% print(n=Inf)
     
     p1 <-    ggplot(assdf,aes(x=age,y=Selectivity,color=case,group=Year)) +
       geom_point(size=.8) + geom_line() + theme_few() +
@@ -946,406 +949,3 @@ library(patchwork)
       }
     }
     write.csv(df,"data/mohnrho.csv")
-    df
-    library(flextable)
-    # A try at a catch table not quite there...
-    cd <- read_csv("../data/fishery/sampler/imported/akfin_cat.csv")
-    names(cd) <- c("Year","Area","Subarea","NMFS_area","Trip_code","Trip_name","Species","ret_disc","Gear_code","catch","WED")
-    cd_tab<- cd %>% filter(Area=="BSAI") %>% mutate(Subarea=ifelse(NMFS_area==518,"Bogoslof",
-                                                                   ifelse(NMFS_area<520,"SE",
-                                                                          ifelse(NMFS_area<540,"NW","Aleutians")))) %>%
-      group_by(Year,Subarea,ret_disc) %>% summarise(catch=sum(catch)) %>%
-      pivot_wider(names_from=c(Subarea,ret_disc),values_from=catch) %>% flextable() %>%  print(n=Inf)
-    print(cd_tab)
-    #--------new catch/biomass figure-------------
-    #M$SSB
-    #df <- data.table(Year=M$SSB[,1],SSB=2*M$SSB[,2],Catch=M$obs_catch,U=M$obs_catch/(2*M$SSB[,2]))
-    #ggplot(df,aes(x=Year,y=U)) + geom_line(size=2,color="red") + .THEME + xlim(c(1990,2020)) + ylab("Catch / spawning biomass")
-    #--------phase plane figure-------------------
-    source("../R/do-phase.R")
-    
-    
-    #Look at SER
-    
-    idx
-    idx=grep("SER_Fmsy",M$fit$name)
-    est = M$fit$est[idx]
-    std = M$fit$std[idx]
-    std/est
-    
-    #---Catch grid and future effort consequences---------------------------------------------------
-    dc <-data.frame(Catch=M$future_catch,scen=c(seq(.5,1.5,.05),2),"catch");
-    dc[1:5] <- dc[1:5]/1350
-    dc <-data.frame(Year=thisyr:(thisyr+5),Catch=c(1350,M$future_catch[22,]), F=M$Future_F[22,], SSB=M$future_SSB[22,])
-    dc <-data.frame(Year=thisyr:(thisyr+5),F=M$Future_F[22,], SSB=M$future_SSB[22,])
-    M$Future_F
-    dc$F <- dc$F/dc$F[1]
-    dc$SSB <- dc$SSB/dc$SSB[1]
-    df.g <- gather(dc,key=Measure,val,-Year)
-    df.g
-    p1 <-   df.g %>% ggplot(aes(x=Year,y=val,col=Measure)) + .THEME + geom_line(size=2) + ylim(0.25,2.00) + ggtitle(paste0("Projected trend relative to ",thisyr," given future catch=1,350 kt")) + ylab("Relative value")
-    p1
-    ggsave("doc/figs/future_F.pdf",plot=p1,width=7.4,height=5,units="in")
-    
-    # ,scen=c(seq(.5,1.5,.05),2),"catch");
-    names(dc) <- c(2020:2024,"scen","var")
-    db <-data.frame(SSB=M$future_SSB,scen=seq(.5,1.5,.05),"SSB");
-    db<- cbind(db[,2:6]/db[,1],db[,7:8])
-    db$scen <- dc[,1]
-    names(db) <- c(2018:2022,"scen","var")
-    df.g <- rbind( gather(dc,year,val,1:5) , gather(db,year,val,1:5) )
-    df.g$year <- as.numeric(df.g$year)
-    head(df.g)
-    # df.g %>% filter(var=="catch") %>% ggplot(aes(x=year,y=scen,z=val)) + .THEME + geom_contour() + ()
-    df.g %>% filter(Measure=="catch") %>% select(year,scen,val) %>% ggplot(aes(x=year,y=scen)) + .THEME + geom_density_2d()
-    
-    ## VAST figure
-    idxOut <- read.csv("doc/data/vast.csv",header=TRUE)
-    glimpse(idxOut)
-    df  <- idxOut |> filter(Year!=2020) |> mutate(CV = sd/Biomass, sd=sd/1e6, Biomass=Biomass / 1e6, ll=Biomass-2*sd,ul=2*sd+Biomass) %>%
-      select(Model, Area, Year,Biomass, CV,ul,ll)
-    p1 <- ggplot(df |> filter(Year!=2020) ,aes(x=Year,y=Biomass)) + geom_point() + geom_smooth(span=.1,se=F) +
-      geom_errorbar(aes(ymin=ll,ymax=ul),width=.5,position=position_dodge(width=0.5)) + ggthemes::theme_few(base_size=19) +
-      scale_x_continuous(breaks=seq(1982,2022,by=4))  +
-      geom_hline(yintercept=0) + facet_grid(Area~.,scales="free") + ylab("Biomass (millions of t)"); p1
-    
-    ggsave("doc/figs/vast_idx.pdf",plot=p1,width=9.4,height=5,units="in")
-    
-    glimpse(df)
-    p1 <-df |> filter(Area=="Both") |> mutate(ll=ll/1000,ul=ul/1000,Biomass=Biomass/1000) |>
-      ggplot(aes(x=Year,y=Biomass)) + geom_point(size=3,color="red") +
-      geom_errorbar(aes(ymin=ll,ymax=ul),width=.5,position=position_dodge(width=0.5)) + theme_few(base_size=19) +
-      scale_x_continuous(breaks=seq(1982,2024,by=4))  + ylim(c(0,15)) +
-      ylab("Biomass (millions of t)") + geom_hline(yintercept =  6.864028,color="grey30");
-    p1
-    mean(p1$data$Biomass)
-    
-    ggsave("doc/figs/bts_biom.png",plot=p1,width=9.4,height=7,units="in")
-    ggsave("doc/figs/bts_biom.pdf",plot=p1,width=9.4,height=7,units="in")
-    
-    # Look at some of the retros and mcmc runs
-    # mcmc first
-    srdf <-read.table(paste0(.MODELDIR[thismod],"/mcmc/mcSRR.rep"))
-    srdf <-read_table("mcmc/mcSRR.rep")
-    srdf
-    srsm <- sample(1:5000,2000)
-    names(srdf) <- c("draw","stock","recruits")
-    srdf<-srdf %>% filter(draw %in% srsm) %>% mutate(stock=as.numeric(stock),recruits=as.numeric(recruits),draw=as.factor(draw)) #%>%
-    srdf %>% ggplot(aes(x=stock,y=recruits,group=draw)) + geom_line(size=.1,alpha=.4,color="coral") + theme_few() +
-      xlim(c(0,6000)) + ylim(c(0,50000))
-    srsm
-    
-    # retros maybe
-    fmdf<-NULL
-    i=2
-    for (i in 0:10) {
-      mn=paste0("r_Fmort_",i)
-      #seldf<-rbind(seldf,
-      read_table(mn)
-      yrs <- (thisyr-i-10):(thisyr-i)
-      lrow<-dim(sel)[1]
-      seldf<-rbind(seldf, data.frame(yrs,rep(thisyr-i,11),sel[(lrow-10):lrow,])) %>% rbind(c("proj",thisyr-i,get(mn)$sel_fut))
-      #assign(mn,read_rep(rn))
-      #retouts[[mn]] <- (get(mn))
-      #seldf <- rbind()
-    }
-    names(seldf) <- c("Year","Assessment",1:15)
-    seldfm <- seldf %>%  pivot_longer(cols=3:17,names_to="age",values_to="Selectivity") %>%
-      mutate(
-        age=as.numeric(age),
-        Selectivity=as.numeric(Selectivity),
-        Assessment=as.numeric(Assessment),
-        case = ifelse(Year=="proj","Proj.","Est."),
-        Year=as.numeric(ifelse(Year=="proj",Assessment+1,Year))
-      )
-    glimpse(seldf)
-    glimpse(seldfm)
-    
-    
-    #dd <- df.g %>% filter(var=="SSB")
-    #dc <- df.g %>% filter(var=="catch")
-    #df.g%>% filter(var=="catch") %>% ggplot(aes(x=year,y=scen,fill=val,col=var)) + .THEME + geom_contour(aes(z=val),size=2) +
-    #            scale_x_continuous(breaks=seq(2018,2022,1))  +
-    #             geom_text(data=dc,aes(x=year-.15,y=scen,label=format(100*(val-1),digits=0)) )#+
-    #df.g%>% filter(var=="catch") %>% ggplot(aes(x=year,y=scen,fill=val,col=var)) + .THEME +
-    #            scale_x_continuous(breaks=seq(2018,2022,1))  + geom_contour(data=dd,aes(x=year,y=scen,z=val),size=2,col="darkgreen") +
-    #             geom_text(data=dd,aes(x=year+.15,y=scen,label=format(100*(val-1),digits=0)),col="darkgreen" )
-    #f1 <-  df.g%>% filter(var=="catch") %>% ggplot(aes(x=year,y=scen,fill=val,col=var)) + .THEME + geom_contour(aes(z=val),size=2) +
-    #            scale_x_continuous(breaks=seq(2018,2022,1))  + geom_contour(data=dd,aes(x=year,y=scen,z=val)) +
-    #             geom_text(data=dd,aes(x=year+.05,y=scen,label=format(100*(val-1),digits=0)) ) +
-    #             geom_text(data=dc,aes(x=year-.05,y=scen,label=format(100*(val-1),digits=0)) )#+
-    #f1
-    
-    # geom_text(data=dd,aes(x=year+.15,y=scen,label=format(100*(val-1),digits=0)) )
-    # p1 <-  df.g %>% ggplot(aes(x=year,y=scen,fill=val,col=var)) + .THEME + geom_contour(aes(z=val),size=2) +
-    #             scale_x_continuous(breaks=seq(2018,2022,1))  +
-    #              geom_contour(data=dd,aes(x=year,y=scen,z=val)) +
-    #              geom_text(data=dc,aes(x=year-.15,y=scen,label=format(100*(val-1),digits=0)) )+
-    #              geom_text(data=dd,aes(x=year+.15,y=scen,label=format(100*(val-1),digits=0)) )
-    #             #scale_fill_gradient(low = "white", high = "red") + geom_tile() +
-    # p1
-    
-    #   direct.label(p1)
-    #             annotate("text", label = "Age 6 F (x10)" , x = 2017, y = 1.2, size = 5, colour = "black") + scale_y_continuous(breaks=seq(0,10,1))
-    #   geom_tile()
-    #   color="black",size=.5,alpha=.4)
-    #    ylab("Age")+
-    #   geom_tile() + .THEME
-    #             scale_fill_gradient(low = "white", high = "red") + scale_x_continuous(breaks=seq(1965,2017,5)) +
-    #             annotate("text", label = "Age 6 F (x10)" , x = 2017, y = 1.2, size = 5, colour = "black") + scale_y_continuous(breaks=seq(0,10,1))
-    #   ggsave("doc/figs/mod_F",plot=p1,width=9.2,height=7.0,units="in")
-  }
-  ###Stuff to look at raw survey wt-age data-----------------------------------------------------
-  radf <- read_csv("data/raceage.csv",col_names=FALSE)
-  names(radf) <- c("haul","Region","x","date", "lat","lon","spp", "len","sex","wt","age","xx")
-  radf <- radf%>%select(date,lat,lon,len,sex,wt,age) %>% mutate(date=lubridate::dmy(date),year=year(date),len=len/10,sex=ifelse(sex==1,"Male",ifelse(sex==2,"Female","U")))
-  radf %>% filter(year>1999,wt>0,age>0,age<15) %>% group_by(year,age) %>% summarise(wt=mean(wt)) %>%
-    ggplot(aes(y=wt,x=age,col=as.factor(year))) + geom_point(alpha=.6) + theme_few()
-  radf %>% filter(year>1999,wt>0,age>0,age<15) %>% group_by(year,age) %>% summarise(len=mean(len)) %>%
-    ggplot(aes(y=len,x=age,col=as.factor(year))) + geom_point(alpha=.6) + theme_few()
-  
-  radf %>% filter(year>1999,wt>0,age>0,age<15) %>% group_by(year,age) %>% summarise(len=mean(len)) %>% filter(age==6) %>%
-    ggplot(aes(y=len,x=year,)) + geom_line(size=2) + theme_few()
-  
-  radf %>% filter(age>0,age<15) %>% group_by(year,age) %>% summarise(len=mean(len),wt=mean(wt)) %>% filter(age==6) %>%
-    ggplot(aes(y=len,x=year,)) + geom_line(size=2) + theme_few()
-  # LW for selected weird years
-  radf %>% filter(year %in% c(2000,2010),wt>0,len<70) %>%
-    ggplot(aes(y=wt,x=len,color=as.factor(year))) + geom_point(alpha=.2) + theme_few()
-  
-  radf %>% filter(year >=2000,wt>0,len<70) %>% group_by(year,len) %>% summarise(wt=mean(wt)) %>%
-    ggplot(aes(y=wt,x=len,color=as.factor(year))) + geom_line(size=.2) + theme_few()
-  radf %>% filter(year %in% c(2000,2010,2021),wt>0,len<70) %>% group_by(year,len) %>% summarise(wt=mean(wt)) %>%
-    ggplot(aes(y=wt,x=len,color=as.factor(year))) + geom_line(size=2) + theme_few()
-  radf %>% filter(year %in% c(2000,2010),wt>0,len<70) %>% group_by(year,len) %>% summarise(wt=mean(wt)) %>%
-    ggplot(aes(y=wt,x=len,color=as.factor(year))) + geom_line(size=2) + theme_few()
-  
-  
-  # See if same thing happening w fishery data
-  fadf <- read_csv("../data/fishery/sampler/imported/akfin_age.csv")
-  adf <- fadf %>% filter(NMFS_AREA<540) %>%
-    transmute(
-      #haul   = ifelse((HAUL_JOIN==""),PORT_JOIN,HAUL_JOIN),
-      haul   = HAUL_OFFLOAD,
-      month  = month(HAUL_OFFLOAD_DATE),
-      seas   = ifelse(month>5, 2, 1),
-      strata = ifelse(seas==1, 1, ifelse(NMFS_AREA>519, 2, 3)),
-      lat    = (LATDD_START+LATDD_END)/2,
-      lon    = (LONDD_START+LONDD_END)/2,
-      sex    = ifelse(SEX=="F",1,2) ,
-      len    = LNGTH , age = ifelse(AGE==0,-9,AGE),
-      wt = ifelse(is.na(WEIGHT) | WEIGHT==0,-9,WEIGHT) ,
-      age=ifelse(is.na(age),-9,age ) ,
-      year=YEAR
-    ) %>% mutate( haul = as.integer(as.factor(haul)) )
-  adf
-  
-  
-  adf %>% mutate(date=lubridate::ymd(paste(year,month,01,sep="-"))) #%>% select(date,lat,lon,sex,len,wt,age,year) %>%mutate(source="Fishery") %>% rbind(radf %>% select(date,lat,lon,sex,len,wt,age,year)%>%mutate(source="Survey") )
-  cadf <- adf %>% mutate(date=lubridate::ymd(paste(year,month,01,sep="-")),wt=wt*1000) %>% select(date,lat,lon,sex,len,wt,age,year) %>%mutate(source="Fishery") %>% rbind(radf %>% select(date,lat,lon,sex,len,wt,age,year)%>%mutate(source="Survey") )
-  cadf %>% filter(year>1999,wt>0,age>0,age<15,month(date)>5) %>% group_by(source,year,age) %>% summarise(wt=mean(wt),len=mean(len)) %>% filter(age==6) %>%
-    ggplot(aes(y=len,x=year,color=source)) + geom_line(size=2) + theme_few()
-  cadf %>% filter(year>1990,wt>0,age>0,age<15,month(date)>5) %>% group_by(source,year,age) %>% summarise(wt=mean(wt),len=mean(len)) %>% filter(age==6) %>%
-    ggplot(aes(y=wt,x=year,color=source)) + geom_line(size=1) + geom_point(size=2) + theme_few()
-  cadf %>% filter(year>1990,wt>0,age>0,age<15,month(date)>5) %>% group_by(source,year,age) %>% summarise(n=n(),wt=mean(wt),len=mean(len)) %>% filter(age==6) %>%
-    ggplot(aes(y=n,x=year,color=source)) + geom_line(size=1) + geom_point(size=2) + theme_few()
-  
-  library(ggplot2)
-  library(maps)
-  library(scatterpie)
-  
-  # generate dataset
-  set.seed(123)
-  long <- rnorm(50, sd=100)
-  lat <- rnorm(50, sd=50)
-  d <- data.frame(long=long, lat=lat)
-  d <- with(d, d[abs(long) < 150 & abs(lat) < 70,])
-  n <- nrow(d)
-  d$region <- factor(1:n)
-  d$A <- abs(rnorm(n, sd=1))
-  d$B <- abs(rnorm(n, sd=2))
-  d$C <- abs(rnorm(n, sd=3))
-  d$D <- abs(rnorm(n, sd=4))
-  d[1, 4:7] <- d[1, 4:7] * 3
-  head(d)
-  
-  # plot
-  world <- map_data('world')
-  p <- ggplot(world, aes(long, lat)) +
-    geom_map(map=world, aes(map_id=region), fill=NA, color="black") +
-    coord_quickmap()
-  p + geom_scatterpie(aes(x=long, y=lat, group=region, r=radius),
-                      data=d, cols=LETTERS[1:4], color=NA, alpha=.8) +
-    geom_scatterpie_legend(d$radius, x=-160, y=-55)
-  
-  if(do_data_plots){
-    #--Fishery--------------------
-    
-    #---Fishery stuff----------------------
-    wed <- read.csv("~/_mymods/ebswp/data/fishery/sampler/imported/akfin_cat.csv",as.is=TRUE)
-    tac <- read.csv("~/_mymods/ebswp/doc/data/tac_abc.csv",as.is=TRUE)
-    wed  %>% filter(FMP.Area=="BSAI") %>% group_by(Year) %>% summarize(sum(Weight.Posted..Sum.)) %>% tail()
-    df   <- wed %>% filter(FMP.Area=="BSAI",Species.Group.Name=="Pollock") %>% transmute(Year,ret=Retained.Discarded,wed=WED..mmdd.,
-                                                                                         target = Trip.Target.Name, season=ifelse(wed>610,"B","A"), area=Reporting.Area.Code,
-                                                                                         mgt    =ifelse(area == 518,"Bogoslof",ifelse(area>539,"Aleutians",ifelse(area>519,"NW","SE"))),
-                                                                                         strata =ifelse(season == "A","1",ifelse(area>519,2,ifelse(area<520,3,NA))), Catch=Weight.Posted..Sum.)
-    tsum <- (df) %>% group_by(ret,mgt,Year) %>% summarize(Catch=sum(Catch)) %>% pivot_wider(names_from=c(mgt,ret),values_from=Catch)
-    p1 <- df %>% filter(!is.na(strata)) %>% mutate(strata=ifelse(strata==1,"A-season",ifelse(strata==2,"NW B-season","SE B-season"))) %>% group_by(Year,strata) %>% summarize(Catch=sum(Catch)) %>%
-      ggplot(aes(x=Year,y=Catch,fill=strata)) + geom_area(color="white") + theme_few(base_size=18)
-    p1
-    ggsave("doc/figs/catch.pdf",plot=p1,width=7.5,height=4.5,units="in")
-    # flextable(tsum)
-    #---Roe data------------------
-    # Table comes from AKFIN: https://akfinbi.psmfc.org/analytics/saw.dll?Dashboard&PortalPath=%2Fshared%2FStock%20Assessment%2F_portal%2FStock%20Assessment&Page=Ianelli%20-%20Monthly%20EBS%20pollock%20production&Action=Navigate
-    rd <- read_csv("doc/data/roe.csv")
-    glimpse(rd)
-    summary(rd)
-    names(rd) <- c("Year","Month","TYPE","SECTOR","SPECIES_GROUP_CODE","FMP_SUBAREA","Prod","PERMITS","t","CONFIDENTIAL_FLAG")
-    rd <- rd %>% mutate(Season=ifelse(Month<6,"A","B"))
-    
-    rd <- select(rd,Year, Season, Prod,t) %>% group_by(Year,Season,Prod) %>% summarize(t=sum(t))
-    p1 <- rd %>% filter(Prod=="ROE") %>% ggplot(aes(x=Year,y=t,shape=Season,col=Season)) +
-      geom_point(size=3) + geom_line(size=1.0) +
-      ggthemes::theme_few(base_size=14) + ylab("Tons of roe produced") + expand_limits(y=0) +
-      scale_x_continuous(breaks=seq(2000,2024,2)); #p1
-    #  + geom_hline(yintercept=mst,linetype="dashed") + geom_hline(yintercept=mbt,linetype="dashed")
-    p1
-    ggsave("doc/figs/roe.pdf",plot=p1,width=7.5,height=4.5,units="in")
-    
-    
-    #--- Catch-age estimates for sex catch age --------------------------
-    # Updated
-    edt <- NULL
-    for (i in 2022:1991){
-      edt <- rbind(edt,read_table(paste0("~/_mymods/ebs_main/data/fishery/sampler/results/Est_",i,".dat")))
-    }
-    tot <- edt %>% filter(type=="N",sex<3,stratum<5) %>% mutate(season=ifelse(stratum==1,"A","B"),sex=ifelse(sex==1,"Male",ifelse(sex==2,"Female","Total"))) %>%
-      group_by(year,sex) %>% summarize(Catch=sum(value))
-    tot$season <-"all"
-    p1 <- edt %>% filter(type=="N",sex<3,stratum<5) %>% mutate(season=ifelse(stratum==1,"A","B"),sex=ifelse(sex==1,"Male",ifelse(sex==2,"Female","Total"))) %>%
-      group_by(year,sex,season) %>% summarize(Catch=sum(value)) %>% rbind(tot) %>%
-      ggplot(aes(x=year,y=Catch,color=season,shape=sex,linetype=season)) + theme_few(base_size=11) +
-      geom_point(size=3.5) + geom_line(size=1.2) + expand_limits(y=0) +
-      scale_y_continuous(label=comma)  + scale_x_continuous(breaks=seq(1990,2022,2)) +
-      ylab("Catch (thousands)") + xlab("Year"); p1
-    ggsave("doc/figs/catch_sex.pdf",plot=p1,width=7.5,height=4.5,units="in")
-    # Look at catch in Number vs catch in weight
-    edt_df <- edt |> mutate(Year=year) |> group_by(Year) |> summarise(Number=sum(value))
-    cdf_df <- df |> group_by(Year) |> summarise(Biomass=sum(Catch))
-    left_join(edt_df, cdf_df) |> ggplot(aes(x=Number,y=Biomass,label=Year)) + theme_few() + geom_text(size=3) +
-      geom_smooth(method=lm)
-    #left_join(edt_df, cdf_df) |> mutate(Number=Number/mean(Number),Biomass=Biomass/mean(Biomass) ) |> pivot_longer(!Year,names_to="Type",values_to="Catch") |> ggplot(aes(x=Year,y=Catch,color=Type)) +
-    left_join(edt_df, cdf_df) |> pivot_longer(!Year,names_to="Type",values_to="Catch") |> ggplot(aes(x=Year,y=Catch,color=Type)) +
-      scale_y_continuous(label=comma) +
-      geom_line(size=2) + theme_few(base_size = 18) + facet_grid(Type~.,scales="free") +  theme(legend.position="none")
-    ?pivot_longer
-    #df <- tibble(read.csv("doc/data/product.csv",header=T))
-    #df[,2] <- df[,2]/1e6
-    #df
-    #ggcorr(df[,c(2:3,5:8)] ,label=TRUE)+ theme_few()
-    #ggpairs(df,columns=c(2:4,6:8)) + theme_few()
-    #ggpairs(df[,c(2:3,5:8)] ,label=TRUE,
-    #     upper = list(continuous = wrap(ggally_cor, displayGrid = FALSE)),
-    #     diag = list(continuous = "blank"),
-    #     lower = list(continuous = "smooth") ) + theme_few()
-    #upper = list(continuous = "density", combo = "box_no_facet"),
-    #lower = list(continuous = "points", geom_smooth(),combo = "dot_no_facet")
-    # Compare ages
-    adf <- as.data.frame(M$pobs_bts) %>% mutate(Model="VAST ages")
-    adf <- rbind(adf,
-                 as.data.frame(modlst[[2]]$pobs_bts) %>% mutate(Model="Design-based") )
-    names(adf) <- c("Year",1:15,"Model")#%>% mutate
-    glimpse(adf)
-    lage=10
-    sdf       <- gather(adf,age,n,2:(lage+1),-Year) %>% mutate(age=as.numeric(age)) #+ arrange(age,yr)
-    glimpse(sdf)
-    p1 <- ggplot(sdf,aes(x=age,y=as.factor(Year),height = n,fill=Model,color=Model)) +
-      geom_density_ridges(stat = "identity",scale = 4, alpha = .1) + theme_few() +
-      xlim(c(1,lage))+ ylab("Year") + xlab("age")
-    ggsave("doc/figs/vastage_vs_db.pdf",plot=p1,width=7,height=9,units="in")
-    #---Catch data table-------------------------------
-    byc <- read.csv("data/byc_in_pollock.csv",header=T,as.is=TRUE)
-    glimpse( byc)
-    length(byc[1,])
-    for (i in 2:length(byc[1,]) )
-      byc[,i] <- formatC(byc[,i], format="d", big.mark=",")
-    
-    catch <- read_csv("../data/fishery/pollock_catch.csv")[,c(1,6,9,4,10,11)]
-    names(catch)<-c("Year","target","gear","NMFS_area","Catch","wed")
-    glimpse(catch)
-    catch <- catch %>%mutate(Area=
-                               #ifelse(NMFS_area %in% 540:543,"Aleutians",
-                               #ifelse(NMFS_area %in% 518,"Bogoslof",
-                               ifelse(NMFS_area %in% 520:529,"Northwest",
-                                      ifelse(NMFS_area %in% c(500:517,519),"Southeast","Other"
-                                      )),seas=ifelse(as.numeric(wed)<0600,"A","B")) %>%
-      group_by(Year,Area,seas) %>% summarise(Catch=round(sum(Catch),0) )
-    
-    catchw <-catch %>% filter(Area!="Other") %>%pivot_wider(names_from=c(Area,seas),values_from=Catch)
-    write_csv(catchw,"data/catch_tab.csv")
-    
-    catch <- read_csv("data/catch_tab.csv")
-    catch <- catch %>% mutate(
-      NW=Northwest_A+Northwest_B,
-      SE=Southeast_A+Southeast_B,
-      A=Northwest_A+Southeast_A,
-      B=Northwest_B+Southeast_B,
-      Total=A+B
-    )
-    catch <- catch %>%mutate(Year=as.integer(Year))
-    glimpse(catch)
-    catch[,]
-    print(catch,n=Inf) %>%
-      length(as.vector(catch[1,]))
-    for (i in 2:length(catch[1,]) )
-      catch[,i] <- formatC(catch[,i], format="d",digits=0, big.mark=",")
-    ncol=length(catch[1,])
-    ncol
-    cap <- tabcap[1]
-    lab <- tablab[1]
-    tab <- xtable(catch, caption = cap, label=paste0("tab:",tablab[1]),
-                  digits=0, auto=TRUE, big.mark=",",align=rep("r",(ncol+1)) )
-    print(tab, big.mark=",",caption.placement = "top",include.rownames = FALSE, sanitize.text.function = function(x){x},
-          scalebox=.85)
-    #library(xtable)
-    #xtable(catchw)
-    
-    
-    #---temperature------------------
-    td <- as.data.frame(read.csv("doc/data/BTS_Temps.csv",header=T))
-    mbt <- mean(td$Bottom)
-    mst <- mean(td$Surface)
-    td.g <- gather(td,Source,temp,-YEAR)
-    .THEME <- theme(panel.grid.major.x = element_blank(), panel.grid.minor.y = element_blank(), panel.grid.major.y = element_blank() )
-    .THEME <- .THEME + theme(text=element_text(size=12)) + theme(axis.title.x=element_text(size=14) ,axis.title.y=element_text(size=14))
-    .THEME <- .THEME + theme( panel.background = element_rect(fill="white"), panel.border = element_rect(colour="black", fill=NA, size=1))
-    p1 <- ggplot(td.g,aes(x=YEAR,y=temp,col=Source,shape=Source)) + geom_point(size=2) + geom_line(size=1.0) + .THEME + ylab("Degrees C") + expand_limits(y=0) +
-      scale_x_continuous(breaks=seq(1982,2022,3)) + geom_hline(yintercept=mst,linetype="dashed") + geom_hline(yintercept=mbt,linetype="dashed") ;p1
-    ggsave("doc/figs/bts_temp.pdf",plot=p1,width=7.5,height=4.5,units="in")
-    
-  }
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

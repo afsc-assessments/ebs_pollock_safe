@@ -117,7 +117,7 @@ except 2010, 2017--2019 and 2021--2023; (\cref{fig:density}). Index values and e
 ```{r indexplots, echo=FALSE, results="asis"}
 #| output: asis
 #| echo: false
-  printfig("vast_idx.pdf",57)
+  printfig("vast_idx.png",57)
 ```
 
 ## Additional references
