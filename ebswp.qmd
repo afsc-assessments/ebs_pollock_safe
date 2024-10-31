@@ -64,22 +64,22 @@ format:
       - \renewcommand{\chapter}{%
       - \secdef\@chapter\@schapter}
       - \makeatother
-  docx:
-    toc: true
-    toc_float: true
-    toc_depth: 3
-    fig_width: 6
-    fig_height: 5
-    number_sections: true
-    theme: readable
-    highlight: tango
-    css: doc/style.css
-    #includes:
-      #after_body: "doc/after_body.html"
-    keep_md: true
-    keep_html: true
-    self_contained: true
-    mathjax: default
+   # docx:
+   #  toc: true
+   #  toc_float: true
+   #  toc_depth: 3
+   #  fig_width: 6
+   #  fig_height: 5
+   #  number_sections: true
+   #  theme: readable
+   #  highlight: tango
+   #  css: doc/style.css
+   #  #includes:
+   #    #after_body: "doc/after_body.html"
+   #  keep_md: true
+   #  keep_html: true
+   #  self_contained: true
+   #  mathjax: default
     #pandoc_args: "--lua-filter=doc/figs.lua"
 editor_options: 
   chunk_output_type: inline
