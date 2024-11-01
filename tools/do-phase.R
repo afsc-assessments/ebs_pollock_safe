@@ -22,11 +22,11 @@ df <- read_table(paste0(.MODELDIR[thismod],"F40_t.rep")) #,header=TRUE)
                      SSB=M$future_SSB[5,2:3],
                      B.Bmsy= M$future_SSB[5,2:3]/bmsy)
                      #%>%
-               mutate(Yr=substr(as.character(Year),3,4),
-                     Fmsy=c(fmsy,fmsy)) #,
-                     Fmsy=rep(fmsy,2),
-                     F.Fmsy=F/Fmsy,
-                     Bmsy=rep(bmsy,2),
+               #mutate(Yr=substr(as.character(Year),3,4),
+                     #Fmsy=c(fmsy,fmsy)) #,
+                     #Fmsy=rep(fmsy,2),
+                     #F.Fmsy=F/Fmsy,
+                     #Bmsy=rep(bmsy,2),
   df2
   pt
   pt2
@@ -41,11 +41,12 @@ df <- read_table(paste0(.MODELDIR[thismod],"F40_t.rep")) #,header=TRUE)
          geom_hline(size=.5,yintercept=1) + geom_vline(size=0.5,linetype="dashed",xintercept=.2) + geom_vline(size=.5,xintercept=1) + geom_path(size=.4) +
           guides(size=FALSE,fill=FALSE,alpha=FALSE,col=FALSE) ;p1
   ggsave("doc/figs/mod_phase.pdf",plot=p1,width=7.2,height=5.7,units="in")
+  ggsave("doc/figs/mod_phase.png",plot=p1,width=7.2,height=5.7,units="in")
 
-sdf <- tibble(data.frame(year=1964:2024,rbind(M$sel_fsh,M$sel_fut)))
+sdf <- tibble(data.frame(year=1964:2025,rbind(M$sel_fsh,M$sel_fut)))
 tail(sdf)
 names(sdf) <- c("Year",1:15)
-wtdf <- tibble(data.frame(year=1964:2023,rbind(M$wt_fsh,M$wt_fut)))
+wtdf <- tibble(data.frame(year=1964:2025,rbind(M$wt_fsh,M$wt_fut)))
 names(wtdf) <- c("Year",1:15)
 #sdf[,2:16] <- wtdf[,2:16]*sdf[,2:16]
   sdfm <- sdf %>%  pivot_longer(cols=2:16,names_to="age",values_to="Selectivity") %>%
@@ -66,12 +67,13 @@ wtdf
   # plot of selected age vs Fmsy
   p1 <- df %>% select(Year,Fmsy,AM_fmsyr,F35) %>% left_join(sdfm) %>%
   filter(age<11,Year>2000)%>% mutate( Year=substr(as.character(Year),3,4)) %>% group_by(Year) %>%
- summarise(Fmsy=mean(Fmsy),mnage=sum(Selectivity*age)/sum(Selectivity)) %>%
+ summarise(F35=mean(F35), Fmsy=mean(Fmsy),mnage=sum(Selectivity*age)/sum(Selectivity)) %>%
+ #ggplot(aes(y=F35,x=mnage,label=Year)) + geom_text() +
  ggplot(aes(y=Fmsy,x=mnage,label=Year)) + geom_text() +
  theme_few() + geom_path(size=.2,color="grey") + xlab( "Mean age selected") #+ geom_smooth();p1
  p1
   ggsave("doc/figs/fmsy_sel.pdf",plot=p1,width=5.2,height=4.0,units="in")
-ndf <- tibble(data.frame(year=1964:2023,rbind(M$N)))
+ndf <- tibble(data.frame(year=1964:2024,rbind(M$N)))
 names(ndf) <- c("Year",1:15)
   ndfm <- ndf %>%  pivot_longer(cols=2:16,names_to="age",values_to="Numbers") %>%
                   mutate( age=as.numeric(age),
@@ -85,7 +87,8 @@ sdfm
   mnagesel=sum(Selectivity*age)/sum(Selectivity),
  mnage=sum(Numbers*age)/sum(Numbers)) %>%
  ggplot(aes(y=mnagesel,x=mnage,label=Year)) + geom_text() + ylab("Mean age selected") +
- theme_few() + geom_path(size=.2,color="grey") + xlab( "Mean age in stock") + geom_smooth(method='lm');p1
+ theme_few() + geom_path(size=.2,color="grey") + xlab( "Mean age in stock") + 
+    geom_smooth(method='lm');p1
 
   ggsave("figs/xxxfmsy_sel.pdf",plot=p1,width=7.2,height=5.7,units="in")
 
