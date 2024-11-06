@@ -1,6 +1,8 @@
 ---
-title: "1. Stock assessment for eastern Bering Sea walleye pollock"
 subtitle: "Draft for November 2024 Plan Team review" 
+
+
+title: "1. Stock assessment for eastern Bering Sea walleye pollock"
 author: 
  -  name: James Ianelli 
     corresponding: true
@@ -96,14 +98,11 @@ editor:
   markdown: 
     wrap: 72
 ---
-
-
 ------------------------------------------------------------------------
 This report may be cited as:  Ianelli, J. et al. 2024. Assessment of the 
 eastern Bering Sea walleye pollock.  North Pacific Fishery Management Council, 
 Anchorage, AK. Available [here](https://www.npfmc.org/library/safe-reports/).
 ------------------------------------------------------------------------
-
 
 ```{r setup}
 #| echo: false
