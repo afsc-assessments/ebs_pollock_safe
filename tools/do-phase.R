@@ -82,7 +82,7 @@ names(ndf) <- c("Year",1:15)
 sdfm
 
   p1 <- sdfm %>% left_join(ndfm) %>%
-  filter(age<16,Year<1999)%>% mutate( Year=substr(as.character(Year),3,4)) %>% group_by(Year) %>%
+  filter(age<11,Year<2099)%>% mutate( Year=substr(as.character(Year),3,4)) %>% group_by(Year) %>%
  summarise(
   mnagesel=sum(Selectivity*age)/sum(Selectivity),
  mnage=sum(Numbers*age)/sum(Numbers)) %>%
@@ -90,11 +90,12 @@ sdfm
  theme_few() + geom_path(size=.2,color="grey") + xlab( "Mean age in stock") + 
     geom_smooth(method='lm');p1
 
-  ggsave("figs/xxxfmsy_sel.pdf",plot=p1,width=7.2,height=5.7,units="in")
+  ggsave("doc/figs/mn_age_stock_vs_sel.pdf",plot=p1,width=7.2,height=5.7,units="in")
 
-  nrows=dim(M$sel_fsh)[1]
-  yr=2001:2023;sel<-M$sel_fsh[(nrows-22):nrows,1:12]
+nrows=dim(M$sel_fsh)[1]
+  yr=2001:2024;sel<-M$sel_fsh[(nrows-23):nrows,1:13]
   p1 <- plot_sel(Year=yr,sel=sel,scale=3);
   p1 + geom_vline(xintercept=3.5,color="grey")
+  library(ggridges)
       #scale_x_continuous(breaks=seq(2010,2022,by=2))
 p1

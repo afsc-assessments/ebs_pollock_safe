@@ -18,10 +18,14 @@ if (doplots) {
   # p1 <- plot_bts(modlst[c(1,2,3)],xlim=c(2008.5,2019.5));p1
   # p1 <- plot_Nage_3(modlst[c(1,2)],xlim=c(2000.5,2023.5));p1
   p1 <- plot_recruitment(modlst[c(1,2)], xlim = c(2000.5, 2022.5)) + ylab("")
+  
   p2 <- plot_recruitment(modlst[c(2, 3)], xlim = c(2000.5, 2022.5)) + ylab("")
   p3 <- plot_recruitment(modlst[c(2, 4)], xlim = c(2000.5, 2022.5)) + ylab("")
-  p4 <- plot_recruitment(modlst[c(2, 5)], xlim = c(2000.5, 2022.5)) + ylab("")
-  #library(patchwork)
+  p4 <- plot_recruitment(modlst[c(2, 6)], xlim = c(2000.5, 2022.5)) + ylab("")
+  library(patchwork)
+  #p1/p4/sr
+  p4
+  
   (p1 + p2) /
     (p3 + p4) 
   # p2 <- plot_ssb(modlst[c(1:7)],xlim=c(2008.5,2021.5),breaks=seq(2008,2021,by=2),alpha=.2); p2
@@ -33,13 +37,17 @@ if (doplots) {
   p1 <- plot_ssb(modlst[c(2, 3)], xlim = c(2018.5, 2024.5), breaks = seq(2008, 2025, by = 2), alpha = .3)
   p2 <- plot_ssb(modlst[c(2, 4)], xlim = c(2018.5, 2024.5), breaks = seq(2008, 2025, by = 2), alpha = .3)
   p3 <- plot_ssb(modlst[c(2, 5)], xlim = c(2018.5, 2024.5), breaks = seq(2008, 2025, by = 2), alpha = .3)
+  p3 <- plot_ssb(modlst[c(6, 2)], xlim = c(1963.5, 2024.5), breaks = seq(2008, 2025, by = 2), alpha = .3)
+  p3 + coord_cartesian(ylim = c(0, 7000))
   p3 <- p0/p1 / p2/p3 + plot_layout(axis_titles = "collect");p3
   ggsave("doc/figs/mod_bridge.pdf", plot = p3, width = 6, height = 8.0, units = "in")
 
   #---BTS Fit---------------------
   # Comparing base with 2 vast configurations
   # p1 <- plot_recruitment(modlst[c(2,4,5)],xlim=c(2010.8,2019.5));p1
+  #p1 <- plot_bts(modlst[c( 2,6)], xlim = c(1981.5, 2024.5), ylim = c(0, 15500))
   p1 <- plot_bts(modlst[c( 2)], xlim = c(1981.5, 2024.5), ylim = c(0, 15500))
+  p1
   ggsave("doc/figs/mod_bts_fit.pdf", plot = p1, width = 8, height = 4.0, units = "in")
   # p1 <- plot_ssb(modlst[c(3,4)],xlim=c(2000.5,2020.5),alpha=.2); p1
   # plot_recruitment(modlst,xlim=c(2004.5,2018.5))
@@ -125,7 +133,7 @@ if (doplots) {
   #  p1 <- plot_srr(modlst[c(1,8)],alpha=.2,xlim=c(0,5200),ylim=c(0,80000),sizeout=2,sizein=4,yrsin=c(1977,1979:2020));p1
 
   LY <- modlst[[2]]
-  p1 <- plot_srr(modlst[c(2)], alpha = .2, xlim = c(0,4200), ylim = c(0, 85000), sizeout = 2, sizein = 4, yrsin = c(1977, 1979:2021)); p1
+  p1 <- plot_srr(modlst[c(2,6)], alpha = .2, xlim = c(0,4200), ylim = c(0, 85000), sizeout = 2, sizein = 4, yrsin = c(1977, 1979:2021)); p1
   ggsave("doc/figs/mod_srr.pdf", plot = p1, width = 9, height = 5, units = "in")
   # p1 <- plot_srr(modlst[c(3,5)],alpha=.2,xlim=c(0,5200),ylim=c(0,80000));p1
   # p1 <- plot_srr(modlst[c(3,6)],alpha=.2,xlim=c(0,5200),ylim=c(0,80000));p1
@@ -139,6 +147,7 @@ if (doplots) {
   # p1 <- plot_srr(modlst[c(2,4)],alpha=.2,xlim=c(0,5200),ylim=c(0,75000))
   # ggsave("doc/figs/bholt_ricker.pdf",plot=p1,width=7.4,height=3.9,units="in")
   af_title <- paste(thisyr, "Assessment")
+   #plot_agefit(modlst[[6]],case_label=af_title,gear="bts",type="survey")
    plot_agefit(modlst[[thismod]],case_label=af_title,gear="bts",type="survey")
   pdf("doc/figs/mod_bts_age.pdf", width = 6, height = 8)
   plot_agefit(modlst[[thismod]], case_label = af_title, gear = "bts", type = "survey", styr = 1982, ageplus = 10)

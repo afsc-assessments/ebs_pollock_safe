@@ -938,19 +938,22 @@ library(patchwork)
     
     retouts<-ret1
     i=2
-    getMohn <- function(retouts=ret1,nyrs=20){
-      rc = retouts[[1]]$SSB[,2]
-      ntmp=0
-      rho=0
-      df <- data.frame(peel=1:20,rho=1:20)
-      for (i in 1:20) {
-        rn <- names(retouts[i])
-        dtmp = (get(paste0(rn))$SSB )
-        lr   = length(dtmp[,1])
-        rho  = rho +(dtmp[lr,2] -rc[lr])/rc[lr]
-        df$peel[i] <- i-1
-        df$rho[i] <- rho/i
-        print(paste(i,rho/i))
+    getMohn <- function(retouts=ret1,nyrs=20, var="SSB"){
+      if (var=="SSB"){
+        rc = retouts[[1]]$SSB[,2]
+        ntmp=0
+        rho=0
+        df <- data.frame(peel=1:20,rho=1:20)
+        for (i in 1:20) {
+          rn <- names(retouts[i])
+          dtmp = (get(paste0(rn))$SSB )
+          lr   = length(dtmp[,1])
+          rho  = rho +(dtmp[lr,2] -rc[lr])/rc[lr]
+          df$peel[i] <- i-1
+          df$rho[i] <- rho/i
+          print(paste(i,rho/i))
+        }
       }
-    }
+      
+      }
     write.csv(df,"data/mohnrho.csv")

@@ -5,14 +5,17 @@ rm(list = ls())
 # install.packages("ggridges")
 # source("R/prelims.R")
 # source("prelims.R")
+setwd(here::here())
 library(ebswp)
 library(tidyverse)
 thisyr <<- 2024
 lastyr <<- thisyr - 1
 nextyr <<- thisyr + 1
 thismod <<- 2
+dec_tab_ord <<- 1:8
 
-source("R/print_Tier3_tables.R")
+# Made a tbl one for the library
+#source("R/print_Tier3_tables.R")
 #source("tools/get-tier3-res.R")
 # The model specs
 
@@ -31,7 +34,7 @@ source("R/print_Tier3_tables.R")
 #)
 mod_names <- c(
   "Last year", # 1
-  "Model 23","Drop new BTS", "and ATS", "and AVO" )
+  "Model 23","Drop new BTS", "and ATS", "and AVO" , "Fix BTS Sel.")
 # BTS age compositions included through 2023
 # "Sept version",
 # "2023 AVO point",
@@ -43,7 +46,7 @@ mod_names <- c(
 # but with Hulsons BTS input sample sizes
 
 mod_dir <- c("lastyr",
-  "m23","m1", "m2", "m3")
+  "m23","m1", "m2", "m3", "fixsel_bts")
 # mod_names <- c("MSY=1.2","Fmsy=F35%", "Base est.")
 # mod_dir <- c("condmn", "condF35", "m8")
 # WARNING,  commented out line will re-run all the models in the mod_dir directories within "runs"
@@ -55,6 +58,7 @@ mod_dir <- c("lastyr",
 modlst <- get_results(rundir = "2024/runs")
 # names(modlst)
 M <<- modlst[[thismod]]
+Fix <<- modlst[[6]]
 #M <<- modlst[[3]];saveRDS(M, "~/m8.rds")
 
 #.MODELDIR <<- paste0("2023_runs/", mod_dir, "/")
@@ -76,8 +80,8 @@ M <<- modlst[[thismod]]
 rhodf <- read.csv("doc/data/mohnrho.csv", header = T)
 #rhodf
 rhoMohn10 <- rhodf[11, 2]# |> pull(rho)
-#rhoMohn20 <- rhodf[21, 2]
-#rhoMohn20
+rhoMohn20 <- rhodf[20, 2]
+rhoMohn20
 
 # Figure captions
 fc <- (read_csv("doc/data/fig_captions.csv"))

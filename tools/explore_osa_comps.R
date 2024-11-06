@@ -12,21 +12,27 @@ library(dplyr)
 library(tidyr)
 theme_set(theme_bw())
 library(here)
-source(here::here("tools", "plot_osa_comps.R"))
+#source(here::here("tools", "plot_osa_comps.R"))
+get_osa_out <- function(M=M,label="BTS") {
+  o    <- M$pobs_bts[,2:16]
+  p    <- M$phat_bts[,2:16]
+  M$EffN_bts
+  Neff <- M$sam_bts
+  #Neff <- M$EffN_bts[,2]
+  yrs  <- M$yr_bts
+  age  <- 1:15
+  pearson <- Neff*(o-p)/sqrt(p*Neff)
+  years <- M$pobs_bts[,1]
+  out <- afscOSA::run_osa(fleet = label, index_label = 'Age',
+                           obs = o, exp = p, N = Neff, index = age, years = yrs)
+  return(out)
+}
 
-M$pobs_bts
-names(M)
-o    <- M$pobs_bts[,2:16]
-p    <- M$phat_bts[,2:16]
-M$EffN_bts
-Neff <- M$sam_bts
-#Neff <- M$EffN_bts[,2]
-yrs  <- M$yr_bts
-age  <- 1:15
-pearson <- Neff*(o-p)/sqrt(p*Neff)
-years <- M$pobs_bts[,1]
-out2 <- afscOSA::run_osa(fleet = 'BTS', index_label = 'Age',
-                         obs = o, exp = p, N = Neff, index = age, years = yrs)
+out1 <- get_osa_out(M=M,label="BTS")
+out2 <-get_osa_out(M=Fix,label="Fix")
+input <- list(out1, out2)
+osaplots <- plot_osa(input)
+
 
 o    <- M$pobs_ats[,3:16]
 p    <- M$phat_ats[,3:16]
