@@ -1,10 +1,8 @@
 ---
-subtitle: "Draft for November 2024 Plan Team review" 
-
-
 title: "1. Stock assessment for eastern Bering Sea walleye pollock"
+subtitle: "Draft for November 2024 Plan Team review" 
 author: 
- -  name: James Ianelli 
+  - name: James Ianelli 
     corresponding: true
     id: ji
     orcid: 0000-0002-7170-8677
@@ -14,14 +12,12 @@ author:
         city: Seattle
         state: WA
         url: https://www.fisheries.noaa.gov/alaska/population-assessments/north-pacific-groundfish-stock-assessments-and-fishery-evaluation
- - name: Taina Honkalehto
- - name: Sophia Wassermann
- - name: Abigail McCarthy
- - name: Sarah Steinessen
- - name: Carey McGilliard
- - name: Elizabeth Siddon
-keep-tex: true
-# csl: cjfas.csl
+  - name: Taina Honkalehto
+  - name: Sophia Wassermann
+  - name: Abigail McCarthy
+  - name: Sarah Steinessen
+  - name: Carey McGilliard
+  - name: Elizabeth Siddon
 date: 11/05/2024
 date-format: "MMMM YYYY"
 bibliography: doc/references.bib
@@ -32,23 +28,17 @@ header-includes:
 fig-pos: H
 tbl-pos: H
 citation: 
- #\begin{centering}
   type: article-journal
   container-title: "North Pacific Fishery Management Council, Anchorage, AK."
   url: https://www.npfmc.org/library/safe-reports/ 
   issued:
     year: 2024
-# date-format: "MMMM YYYY"
 filters:
- - highlight-text
-#filters:
-  #- parse-latex
+  - highlight-text
 format: 
   pdf:
-      #- \if@openright\cleardoublepage\else\clearpage\fi
-      #- \thispagestyle{plain}%
-      #- \global\@topnum\z@
-      #- \@afterindenttrue
+    #documentclass: article # or `report`, `book`, etc.
+    classoption: notitlepage # Ensures title is on the same page as content
     number-pages: TRUE
     number-sections: TRUE
     number-offset: 1
@@ -59,7 +49,6 @@ format:
     keep-tex: true
     extra_dependencies: rotating
     header-includes: 
-      # - \counterwithout{figure}{chapter}
       - \usepackage{fancyhdr}
       - \pagestyle{fancy}
       - \fancyhf{}
@@ -67,42 +56,39 @@ format:
       - \rhead{\textit{EBS pollock }}
       - \chead{\textit{--Draft--}}
       - \cfoot{\textit{\thepage}}
-      - \rfoot{\textit{}}
-      - \lfoot{\textit{}}
+      - \rfoot{}
+      - \lfoot{}
       - \setlength{\footskip}{4cm} % Lower the footer
-      - \makeatletter
-      - \renewcommand{\chapter}{%
-      - \secdef\@chapter\@schapter}
-      - \makeatother
-   # docx:
-   #  toc: true
-   #  toc_float: true
-   #  toc_depth: 3
-   #  fig_width: 6
-   #  fig_height: 5
-   #  number_sections: true
-   #  theme: readable
-   #  highlight: tango
-   #  css: doc/style.css
-   #  #includes:
-   #    #after_body: "doc/after_body.html"
-   #  keep_md: true
-   #  keep_html: true
-   #  self_contained: true
-   #  mathjax: default
-    #pandoc_args: "--lua-filter=doc/figs.lua"
 editor_options: 
   chunk_output_type: console
-css: mystyle.css
+#css: mystyle.css
 editor: 
   markdown: 
     wrap: 72
 ---
-------------------------------------------------------------------------
-This report may be cited as:  Ianelli, J. et al. 2024. Assessment of the 
-eastern Bering Sea walleye pollock.  North Pacific Fishery Management Council, 
-Anchorage, AK. Available [here](https://www.npfmc.org/library/safe-reports/).
-------------------------------------------------------------------------
+
+
+<div style="margin-bottom: 1.5in;"></div>
+\vspace{0.5in}
+
+> **This report may be cited as:**  
+> Ianelli, J. et al. 2024. Assessment of the eastern Bering Sea walleye pollock. North Pacific Fishery Management Council, Anchorage, AK. Available [here](https://www.npfmc.org/library/safe-reports/).
+
+<!-- This report may be cited as: Ianelli, J. et al. 2024. Assessment of the eastern -->
+<!-- Bering Sea walleye pollock. North Pacific Fishery Management Council, Anchorage, -->
+<!-- AK. Available [here](https://www.npfmc.org/library/safe-reports/). -->
+<!-- ---------------------- -->
+
+\vspace{2.5in}
+<!-- \medskip % or \bigskip for larger spacing -->
+
+<div style="margin-bottom: 4.5in;"></div>
+
+ *This information is distributed solely for the purpose of pre-dissemination
+ peer review under applicable information quality guidelines. It has not been
+ formally disseminated by the National Marine Fisheries Service and should not
+ be construed to represent any agency determination or policy.*
+
 
 ```{r setup}
 #| echo: false
@@ -240,6 +226,8 @@ less prior influence) assumptions about the stock-recruitment relationship were 
 \end{tabular}
 }
 
+
+
 #### Tier 3 version
 
 <!-- \begin{table}[H] -->
@@ -277,6 +265,9 @@ less prior influence) assumptions about the stock-recruitment relationship were 
 
 ## Response to SSC and Plan Team comments
 
+Please see the [Sept. 2024 document](https://afsc-assessments.github.io/ebs_pollock_safe/doc/sept.html#responses-to-ssc-and-plan-team-comments)
+for a more comprhensive response to the SSC and Plan Team comments.
+
 -   The SSC recommends that Tier 1, 2 and 3 harvest recommendations be presented in
      December, The SSC welcomes other recommendations for consideration that could
      result in a more stable approach. Since the author and BSAI GPT did not
@@ -284,7 +275,7 @@ less prior influence) assumptions about the stock-recruitment relationship were 
      final assessment to be focused on justifications for tier designation.
      
     -  *As with past assessments, we include the Tier 1, 2 and 3 harvest 
-      recommendations in this assessment, and also include a hybrid between 1 and 2 (labeled 1.5).*
+      recommendations in this assessment.*
 
 -   the SSC requests that the author document the method used for determining
     the selectivity in the forward projections, and that an objective method be 
