@@ -97,6 +97,7 @@ if (doplots) {
   p1 <- plot_ats(modlst[c(2)]) + ggthemes::theme_few(base_size = 13)
   ggsave("doc/figs/mod_ats_biom.pdf", plot = p1, width = 9.2, height = 3.7, units = "in")
   p1 <- plot_avo(modlst[c(thismod)], ylim = c(0, 5)) + xlim(c(2005, 2025))
+  p1 + theme_few(base_size = 19)
   #  p1 <- plot_avo(modlst[c(2)]) ;p1
   ggsave("doc/figs/mod_avo_fit.pdf", plot = p1, width = 9.2, height = 4.7, units = "in")
   # p1 <- plot_cope(modlst[[2]]) ;p1
