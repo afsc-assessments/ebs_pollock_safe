@@ -41,6 +41,23 @@ if (doplots) {
   p3 + coord_cartesian(ylim = c(0, 7000))
   p3 <- p0/p1 / p2/p3 + plot_layout(axis_titles = "collect");p3
   ggsave("doc/figs/mod_bridge.pdf", plot = p3, width = 6, height = 8.0, units = "in")
+  
+ A <- M
+ df <- data.frame(year = A$yr_ats)
+ df$obs  <- A$ob_ats
+ df$pre  <- A$eb_ats
+ df$lb   <- A$ob_ats/exp(2.*sqrt(log(1+(A$sd_ob_ats)^2/(A$ob_ats)^2)))
+ df$ub   <- A$ob_ats*exp(2.*sqrt(log(1+(A$sd_ob_ats)^2/(A$ob_ats)^2)))
+ library(scales);library(ggthemes)
+    p <- ggplot(df) + labs(y = "Acoustic trawl index", x = "Year")
+      p <- p + expand_limits(y = 0)
+      p <- p + geom_point(aes(x=year, y=obs),size=3,color="darkred") +
+        geom_errorbar(aes(x = year, ymax = ub, ymin = lb),width=.5) + 
+    scale_y_continuous(label = comma, limits = c(0, 8600)) + 
+    scale_x_continuous(breaks= seq(1990,2025,by=5)) +  theme_few(base_size = 14)
+      p
+  ggsave("~/_mymods/afsc-assessments/ebs_pollock_safe/doc/figs/ats_data.pdf", 
+         plot = p, width = 8, height = 5.0, units = "in")
 
   #---BTS Fit---------------------
   # Comparing base with 2 vast configurations
@@ -90,11 +107,13 @@ if (doplots) {
 
   p1 <- plot_ats(modlst[c(1,2)]) + ggthemes::theme_few() +
     scale_x_continuous(limits = c(1990, 2025))
+  p1
   ggsave("doc/figs/mod_ats_bridging.pdf", plot = p1, width = 5.2, height = 3.7, units = "in")
 
   #  p1 <- p1+ geom_vline(xintercept=2006.5,color="grey",size=1)
   # p1 <- p1+scale_y_log10()
   p1 <- plot_ats(modlst[c(2)]) + ggthemes::theme_few(base_size = 13)
+  p1
   ggsave("doc/figs/mod_ats_biom.pdf", plot = p1, width = 9.2, height = 3.7, units = "in")
   p1 <- plot_avo(modlst[c(thismod)], ylim = c(0, 5)) + xlim(c(2005, 2025))
   p1 + theme_few(base_size = 19)

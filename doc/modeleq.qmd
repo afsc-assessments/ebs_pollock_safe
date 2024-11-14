@@ -19,8 +19,7 @@ total catch biomass $(Y_t)$ can be described as:s
     N_{t+1,A}   &= N_{t,A-1} e^{-Z_{t,A-1}} + N_{t,A} e^{-Z_{t,A}} ,              &1 \le t \le T                \\
     Z_{t,a}     &= F_{t,a} + M_{t,a}                                                                            \\
     C_{t,.}     &= \sum_{a=1}^A{C_{t,a}}                                                                        \\
-    p_{t,a}     &= \frac{C_{t,a} } {C_{t,.} }                                                                   \\
-    Y_{t}       &= \sum_{a=1}^A{w_{t,a}C_{t,a}}                                                                 \\
+    p_{t,a}     &= \frac{C_{t,a} } {C_{t,.} }                                                                   
 \end{align}
 ```
 where
@@ -77,7 +76,6 @@ process as in Dorn et al. (2000):
 ```{=tex}
 \begin{align}
     \delta_t^\mu  -  \delta_{t+1}^\mu     &\sim \mathcal{N}(0,\,\sigma_{\delta^\mu}^{2}) \\
-    \\
     \alpha_t^\mu  -  \alpha_{t+1}^\mu     &\sim \mathcal{N}(0,\,\sigma_{\alpha^\mu}^{2}) \\
     \beta_t^\mu  -  \beta_{t+1}^\mu     &\sim \mathcal{N}(0,\,\sigma_{\beta^\mu}^{2}) 
 \end{align}
@@ -93,9 +91,13 @@ above, but the lognormal penalty was applied to the resulting
 selectivities-at-age directly. The extent of this variability was
 evaluated in the context of the impact on age-specific survey
 catchability/availability and contrasted with an independent estimate of
-pollock availability to the bottom trawl survey. \begin{align}
-    {ln(s_{t,a})}  -  {ln(s_{t+1,a})}  &\sim \mathcal{N}(0,\,\sigma_{sel}^{2}) \\
-\end{align} In 2008 the AT survey selectivity approach was modified. As
+pollock availability to the bottom trawl survey.
+
+\begin{align}
+    {ln(s_{t,a})}  -  {ln(s_{t+1,a})}  &\sim \mathcal{N}(0,\,\sigma_{sel}^{2}) 
+\end{align}
+
+In 2008 the AT survey selectivity approach was modified. As
 an option, the age one pollock observed in this trawl can be treated as
 an index and are not considered part of the age composition (which then
 ranges from age 2-15). This was done to improve some interaction with
@@ -243,7 +245,12 @@ adjusted from the original estimates by the ratio of the expected
 recruitment given spawning biomass (with and without fishing) and the
 estimated stock-recruitment curve. I.e., the recruitment under no
 fishing is modified as:
-$$R_t' = \hat{R}_t\frac{f(B_{t-1}')}{f(B_{t-1})}$$ where $R_t$ is the
+
+\begin{align}
+R_t' = \hat{R}_t\frac{f(B_{t-1}')}{f(B_{t-1})} 
+\end{align}
+
+where $R_t$ is the
 original recruitment estimate in year $t$ with $B_{t-1}'$ and $B_{t-1}$
 representing the stock-recruitment function given spawning biomass under
 no fishing and under the estimated fishing intensity, respectively.
@@ -262,7 +269,9 @@ provides an estimate of the effective number of ages. This is computed for each
 year as a measure of different age groups contributing to the spawning population
 as:
 
- $$ H_i = \exp(-\sum p_a \cdot \log(p_a)) $$
+\begin{align}
+H_i = \exp(-\sum p_a \cdot \log(p_a)) 
+\end{align}
  
 where $p_a$ is the proportion of mature fish biomass-at-age $a$ in year $i$. 
 
@@ -327,9 +336,12 @@ nll(i) = -0.5\sum_{a=1}^A\sum_{t=1}^T{
 \right\}}
 \end{align}
 ```
-where \begin{align}
-\eta_{ta} &=  p_{ta}(1-p_{ta})\\ 
-\text{and} \\
+where 
+\begin{align}
+\eta_{ta} &=  p_{ta}(1-p_{ta}) 
+\end{align}
+and
+\begin{align}
 \tau_t^2 &=  1/n_t 
 \end{align} which gives the variance for $p_{ta}$ \begin{align}
 (\eta_{ta}+0.1/A)\tau_t^2
@@ -377,11 +389,11 @@ nll(i) &= \sum_t{\frac{\ln(u_t^s/\hat N_t^s)^2}{2\sigma_{s,t}^2}}
 optionally biomass) estimate with variance $\sigma_{s,t}$ from survey
 $s$ in year $t$ or optionally, the normal distribution can be selected:
 \begin{align}
-nll(i) &= \sum_t{\frac{(u_t^s - \hat N_t^s)^2}{2\sigma_{s,t}^2}}. \\
+nll(i) &= \sum_t{\frac{(u_t^s - \hat N_t^s)^2}{2\sigma_{s,t}^2}}. 
 \end{align}
 
 The AT survey and AVO index is modeled using a lognormal distribution
-whereas for the BTS survey, a normal distribution was applied.
+whereas for the BTS survey, a multivariate log-normal distribution was applied.
 
 For model configurations in which the BTS data are corrected for
 estimated efficiency, a multivariate lognormal distribution was used.
@@ -433,7 +445,10 @@ each age $i$, $i$= (1, 2,...,15), given actual observed mean and
 variances in weight-at-age over the period 1991-`r thisyr-1`. The values
 of based on available data and (if this option is selected) estimates
 the parameters subject to the natural constraint:
-$$w_{ta}^{future} \sim \mathcal{N}(\bar{w_{a}},\,\sigma_{w_a}^{2})$$
+
+\begin{align}
+w_{ta}^{future} \sim \mathcal{N}(\bar{w_{a}},\,\sigma_{w_a}^{2})
+\end{align}
 
 Note that this converges to the mean values over the time series of data
 (no other likelihood component within the model is affected by future
@@ -448,8 +463,9 @@ data and both cohort and year effects. The model for this is:
 \hat{w}_{ta} &= \bar w_a e^{\upsilon_t} & a=1, \, t \ge 1964 \\
 \hat{w}_{ta} &= \hat{w}_{t-1,a-1} + \Delta_a e^{\psi_t} & a > 1, \, t > 1964 \\
 \Delta_a     &= \bar w_{a+1} - \bar w_a & a<A  \\
-\bar w_a     &= \alpha \left\{L_1+ \left(L_2-L_1\right)\left(\frac{1-K^{a-1}}{1-K^{A-1}}\right)\right\}^3  \\
-\end{align} where the fixed effects parameters are $L_1, L_2, K,$ and
+\bar w_a     &= \alpha \left\{L_1+ \left(L_2-L_1\right)\left(\frac{1-K^{a-1}}{1-K^{A-1}}\right)\right\}^3  
+\end{align} 
+where the fixed effects parameters are $L_1, L_2, K,$ and
 $\alpha$ while the random effects parameters are $\upsilon_t$ and
 $\psi_t$.
 
@@ -478,3 +494,9 @@ presented for the evaluation of $B_{20\%}$) with feedback (via future
 catch specifications) using the control rule and assessment model would
 be required.
 
+## Tier 3 projections
+
+Tier 3 projections were calculated using the projection model where the
+average weight-at-age and selectivity was specified the same way as in
+the Tier 1 calculations but omits estimates of uncertainty in the mean
+recruitment and the selectivity- and weight-at-age values used. 

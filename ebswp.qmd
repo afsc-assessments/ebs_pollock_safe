@@ -1,5 +1,5 @@
 ---
-title: "1. Stock assessment for eastern Bering Sea walleye pollock"
+title: "1. Assessment of walleye pollock in the eastern Bering Sea"
 subtitle: "Draft for November 2024 Plan Team review" 
 author: 
   - name: James Ianelli 
@@ -18,7 +18,7 @@ author:
   - name: Sarah Steinessen
   - name: Carey McGilliard
   - name: Elizabeth Siddon
-date: 11/05/2024
+date: 11/11/2024
 date-format: "MMMM YYYY"
 bibliography: doc/references.bib
 header-includes:
@@ -37,7 +37,6 @@ filters:
   - highlight-text
 format: 
   pdf:
-    #documentclass: article # or `report`, `book`, etc.
     classoption: notitlepage # Ensures title is on the same page as content
     number-pages: TRUE
     number-sections: TRUE
@@ -50,7 +49,7 @@ format:
     extra_dependencies: rotating
     header-includes: 
       - \usepackage{fancyhdr}
-      - \pagestyle{fancy}
+      # - \pagestyle{fancy}
       - \fancyhf{}
       - \lhead{\textit{November 2024 Plan Team}}
       - \rhead{\textit{EBS pollock }}
@@ -58,10 +57,9 @@ format:
       - \cfoot{\textit{\thepage}}
       - \rfoot{}
       - \lfoot{}
-      - \setlength{\footskip}{4cm} % Lower the footer
+      - \setlength{\footskip}{4cm} # Lower the footer
 editor_options: 
   chunk_output_type: console
-#css: mystyle.css
 editor: 
   markdown: 
     wrap: 72
@@ -71,19 +69,20 @@ editor:
 <div style="margin-bottom: 1.5in;"></div>
 \vspace{0.5in}
 
-> **This report may be cited as:**  
-> Ianelli, J. et al. 2024. Assessment of the eastern Bering Sea walleye pollock. North Pacific Fishery Management Council, Anchorage, AK. Available [here](https://www.npfmc.org/library/safe-reports/).
 
-<!-- This report may be cited as: Ianelli, J. et al. 2024. Assessment of the eastern -->
-<!-- Bering Sea walleye pollock. North Pacific Fishery Management Council, Anchorage, -->
-<!-- AK. Available [here](https://www.npfmc.org/library/safe-reports/). -->
-<!-- ---------------------- -->
+**This report may be cited as:**  
+Ianelli, J., T. Honkalehto, S. Wassermann,  A. McCarthy, S. Steinessen,
+C. McGilliard, and E. Siddon. 2024. Assessment of walleye pollock in the
+eastern Bering Sea. North Pacific Fishery Management Council,
+Anchorage, AK. Available [here](https://www.npfmc.org/library/safe-reports/).
 
-\vspace{2.5in}
+date: 11/15/2024
+
+
+\vspace{2.0in}
 <!-- \medskip % or \bigskip for larger spacing -->
 
 <div style="margin-bottom: 4.5in;"></div>
-
  *This information is distributed solely for the purpose of pre-dissemination
  peer review under applicable information quality guidelines. It has not been
  formally disseminated by the National Marine Fisheries Service and should not
@@ -900,10 +899,11 @@ add transects on the northwestern shelf where historically most
 juveniles have been observed. This resulted in transects at 20 nmi
 spacing between 172° W and the US-Russia maritime boundary. The area
 east of 170°W was surveyed from 11-22 June and west of 170°W was
-surveyed from the 23rd of June through July 17.
+surveyed from the 23rd of June through July 17. The survey estimated densities
+by area are shown in @fig-ATS_maps. 
 
 The survey estimate of pollock for 2024 was 11.4
-billion fish with a biomass of 2.87 million t. This represents a 25%
+billion fish with a biomass of 2.87 million t (@fig-ats_data). This represents a 25%
 decrease in biomass from the 2022 estimate of 3.8 million t (with the 
 abundance estimate at 9.67 billion fish). The 2024 biomass estimate is
 10% below the survey mean of 3.2 million tons for all surveys from 1994-2022.
@@ -4059,14 +4059,15 @@ print(tab,
 byc <- read.csv("doc/data/pollock_catch.csv")[, c(1, 6, 9, 4, 10, 11)]
 
 names(byc) <- c("Year", "target", "gear", "NMFS_area", "Catch", "wed")
-byc <- byc %>% filter(NMFS_area < 540)
+byc <- byc %>% filter(NMFS_area < 540, NMFS_area!=518, NMFS_area>499, target!="")
 ntmp <- unique(byc$target)
+ntmp
 poll <- ntmp[c(1, 5)]
 pcod <- ntmp[c(2)]
 rsole <- ntmp[c(6)]
-yfsole <- ntmp[c(13)]
-oflat <- ntmp[c(3, 7, 9, 15, 16, 17, 18)]
-ospp <- ntmp[c(4, 8, 11, 12, 14)]
+yfsole <- ntmp[c(12)]
+oflat <- ntmp[c(3, 7, 8, 14:17)]
+ospp <- ntmp[c(4, 9, 10, 11, 13)]
 
 byc <- byc %>%
   filter(!target %in% poll) %>%
@@ -4086,6 +4087,7 @@ byc <- byc %>%
   summarise(Catch = sum(Catch), .groups = "drop")
 byc <- byc %>% pivot_wider(names_from = target, values_from = Catch)
 byc <- data.frame(byc)
+byc$Total=rowSums(byc[,2:6],na.rm=TRUE)
 
 # byc <- read.csv("data/byc_of_pollock.csv",header=T)
 for (i in 2:length(byc[1, ])) {
@@ -4275,12 +4277,15 @@ i <- i + 1
 printfig("bts_lenfreq.png", 83)
 #printfig("vastage_vs_db.png", 27)
 # printfig("wtage_bts.png",94);
+printfig("ATS_maps.png", 18)
+printfig("ats_data.pdf", 19)
 printfig("at_age.png", 74)
 printfig("AVO_Series_change.png", 99)
 printfig("cog_AVO_ATS.png", 103)
 printfig("avo_map_yr.png", 16)
 printfig("fsh_lw_month.png", 23)
 printfig("fsh_lw_anom_str_yr_box.png", 24)
+#fsh_lw_anom_yr_box
 printfig("fsh_lw_anom_yr_box.pdf", 25)
 printfig("fsh_wtage_comb.pdf", 20)
 printfig("fsh_wtage_data_pred.png", 88)
@@ -4344,13 +4349,13 @@ printfig("tier3_proj_alt3.png", 54)
 
 \clearpage
 
-<!-- ```{r, results='asis'} -->
-<!-- #| echo: false -->
-<!-- a <- knitr::knit_child("doc/modeleq.qmd", quiet = T) -->
-<!-- cat(a, sep = "\n") -->
-<!-- ``` -->
+```{r, results='asis'} 
+#| echo: false 
+a <- knitr::knit_child("doc/modeleq.qmd", quiet = T) 
+cat(a, sep = "\n") 
+``` 
 
-<!-- \clearpage -->
+\clearpage
 
 ```{r, results='asis'}
 #| echo: false
@@ -4373,7 +4378,7 @@ a <- knitr::knit_child("doc/params.qmd", quiet = T)
 cat(a, sep = "\n")
 ```
 
-<!-- \clearpage -->
+\clearpage
 
 # List of contents, tables and figures {#sec-contents}
 
