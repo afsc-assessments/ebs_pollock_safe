@@ -18,16 +18,18 @@ explanation of settings.
 
 The software versions of dependent programs used to generate VAST estimates were:   
 
-* R (4.3.0)
-* MKL libraries via Microsoft R Open (4.0.2)
-* INLA (21.11.22)
-* Matrix (1.4-0)
-* TMB (1.9.6)
-* TMBhelper (1.4.0) 
-* VAST (3.10.1)
-* FishStatsUtils (2.12.1) 
+  *  R (4.3.0)
+  *  MKL libraries via Microsoft R Open (4.0.2)
+  *  INLA (23.09.09)
+  *  Matrix (1.6-1.1)
+  *  TMB (1.9.6)
+  *  TMBhelper (1.4.0)
+  *  VAST (3.10.1)
+  *  FishStatsUtils (2.12.1)
 
-For these model-based index time series, we used the same VAST model run settings.
+
+For EBS pollock we used data on biomass per unit area from all grid cells (and corner stations for 1982-2023) in the 83-112 bottom trawl survey of the EBS, 1982-2024, including exploratory northern extension samples in 2001, 2005, and 2006, as well as 83-112 samples available in the NBS in 1982, 1985, 1988, 1991, 2010, and 2017-2023 (except 2020). NBS samples collected prior to 2010 and in 2018 did not follow the 20 nautical mile sampling grid used in the 2010, 2017, 2019, and 2021-2023 surveys. Assimilating these data therefore required extrapolating into unsampled areas. As before, we included a a spatially varying covariate of the cold-pool extent (Thorson 2019, O’Leary et al. 2020). All environmental data used as covariates were computed within the R package coldpool (Rohan et al., 2022).
+
 
 ## Spatio-temporal treatment of survey data on pollock density
 

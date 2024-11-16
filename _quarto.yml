@@ -80,14 +80,14 @@ format:
     #number-sections: false
     header-includes:
       - \counterwithout{figure}{chapter}
-      - \usepackage{fancyhdr}
-      - \pagestyle{fancy}
-      - \fancyhf{}
-      - \lhead{September}
-      - \rhead{2024}
-      - \chead{--Draft--}
-      - \rfoot{\thepage}
-      - \lfoot{EBS pollock assessment discussion paper }
+      # - \usepackage{fancyhdr}
+      # - \pagestyle{fancy}
+      # - \fancyhf{}
+      # - \lhead{September}
+      # - \rhead{2024}
+      # - \chead{--Draft--}
+      # - \rfoot{\thepage}
+      # - \lfoot{EBS pollock assessment discussion paper }
 
   epub:
     metadata:
