@@ -901,7 +901,7 @@ juveniles have been observed. This resulted in transects at 20 nmi
 spacing between 172° W and the US-Russia maritime boundary. The area
 east of 170°W was surveyed from 11-22 June and west of 170°W was
 surveyed from the 23rd of June through July 17. The survey estimated densities
-by area are shown in @fig-ATS_maps. 
+by area are shown in @fig-ats_maps. 
 
 The survey estimate of pollock for 2024 was 11.4
 billion fish with a biomass of 2.87 million t (@fig-ats_data). This represents a 25%
