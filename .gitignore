@@ -1,5 +1,7 @@
 # Prerequisites
 *.d
+unbounded.csv
+*.RDS
 
 # Compiled Object files
 *.slo
