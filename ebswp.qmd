@@ -4058,37 +4058,41 @@ print(tab,
 #| output: asis
 #| echo: false
 # byc <- read_csv("../data/fishery/pollock_catch.csv")[,c(1,16,19,22,27,28)]
-byc <- read.csv("doc/data/pollock_catch.csv")[, c(1, 6, 9, 4, 10, 11)]
+if (do_plot) {
+  byc <- read.csv("doc/data/pollock_catch.csv")[, c(1, 6, 9, 4, 10, 11)]
 
-names(byc) <- c("Year", "target", "gear", "NMFS_area", "Catch", "wed")
-byc <- byc %>% filter(NMFS_area < 540, NMFS_area!=518, NMFS_area>499, target!="")
-ntmp <- unique(byc$target)
-ntmp
-poll <- ntmp[c(1, 5)]
-pcod <- ntmp[c(2)]
-rsole <- ntmp[c(6)]
-yfsole <- ntmp[c(12)]
-oflat <- ntmp[c(3, 7, 8, 14:17)]
-ospp <- ntmp[c(4, 9, 10, 11, 13)]
+  names(byc) <- c("Year", "target", "gear", "NMFS_area", "Catch", "wed")
+  byc <- byc %>% filter(NMFS_area < 540, NMFS_area != 518, NMFS_area > 499, target != "")
+  ntmp <- unique(byc$target)
+  ntmp
+  poll <- ntmp[c(1, 5)]
+  pcod <- ntmp[c(2)]
+  rsole <- ntmp[c(6)]
+  yfsole <- ntmp[c(12)]
+  oflat <- ntmp[c(3, 7, 8, 14:17)]
+  ospp <- ntmp[c(4, 9, 10, 11, 13)]
 
-byc <- byc %>%
-  filter(!target %in% poll) %>%
-  mutate(
-    target =
-      ifelse(target %in% pcod, "P.cod",
-        ifelse(target %in% rsole, "NRock sole",
-          ifelse(target %in% yfsole, "Yellowfin sole",
-            ifelse(target %in% ospp, "Other spp",
-              ifelse(target %in% oflat, "Other flats", target)
+  byc <- byc %>%
+    filter(!target %in% poll) %>%
+    mutate(
+      target =
+        ifelse(target %in% pcod, "P.cod",
+          ifelse(target %in% rsole, "NRock sole",
+            ifelse(target %in% yfsole, "Yellowfin sole",
+              ifelse(target %in% ospp, "Other spp",
+                ifelse(target %in% oflat, "Other flats", target)
+              )
             )
           )
         )
-      )
-  ) %>%
-  group_by(Year, target) %>%
-  summarise(Catch = sum(Catch), .groups = "drop")
-byc <- byc %>% pivot_wider(names_from = target, values_from = Catch)
-byc <- data.frame(byc)
+    ) %>%
+    group_by(Year, target) %>%
+    summarise(Catch = sum(Catch), .groups = "drop")
+  byc <- byc %>% pivot_wider(names_from = target, values_from = Catch)
+  byc <- data.frame(byc)
+  write_csv(byc, "doc/data/bycatch.csv")
+}
+byc <- read_csv("doc/data/bycatch.csv")
 byc$Total=rowSums(byc[,2:6],na.rm=TRUE)
 
 # byc <- read.csv("data/byc_of_pollock.csv",header=T)
