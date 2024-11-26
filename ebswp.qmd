@@ -4058,7 +4058,8 @@ print(tab,
 #| output: asis
 #| echo: false
 # byc <- read_csv("../data/fishery/pollock_catch.csv")[,c(1,16,19,22,27,28)]
-if (do_plot) {
+# do_bycatch_data <- FALSE
+if (FALSE) {
   byc <- read.csv("doc/data/pollock_catch.csv")[, c(1, 6, 9, 4, 10, 11)]
 
   names(byc) <- c("Year", "target", "gear", "NMFS_area", "Catch", "wed")
@@ -4089,11 +4090,11 @@ if (do_plot) {
     group_by(Year, target) %>%
     summarise(Catch = sum(Catch), .groups = "drop")
   byc <- byc %>% pivot_wider(names_from = target, values_from = Catch)
+  byc$Total=rowSums(byc[,2:6],na.rm=TRUE)
   byc <- data.frame(byc)
   write_csv(byc, "doc/data/bycatch.csv")
 }
 byc <- read_csv("doc/data/bycatch.csv")
-byc$Total=rowSums(byc[,2:6],na.rm=TRUE)
 
 # byc <- read.csv("data/byc_of_pollock.csv",header=T)
 for (i in 2:length(byc[1, ])) {
@@ -4101,11 +4102,11 @@ for (i in 2:length(byc[1, ])) {
 }
 cap <- tabcap[38]
 lab <- tablab[38]
-tab <- xtable::xtable(byc, caption = cap, label = paste0("tbl:", tablab[38]), digits = 0, auto = TRUE, align = rep("r", (length(byc[1, ]) + 1)))
+tab <- xtable::xtable(byc, caption = cap, label = paste0("tbl:", tablab[38]), digits = 0, 
+       auto = TRUE, align = rep("r", (length(byc[1, ]) + 1)))
 print(tab,
-  caption.placement = "top", include.rownames = FALSE, rotate.colnames = FALSE, sanitize.text.function = function(x) {
-    x
-  },
+  caption.placement = "top", include.rownames = FALSE, rotate.colnames = FALSE, 
+  sanitize.text.function = function(x) { x },
   scalebox = .90, format.args = list(decimal.mark = "."), comment = FALSE
 )
 ```

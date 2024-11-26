@@ -34,7 +34,7 @@ dec_tab_ord <<- 1:8
 #)
 mod_names <- c(
   "Last year", # 1
-  "Model 23","Drop new BTS", "and ATS", "and AVO" , "Fix BTS Sel.")
+  "Model 23","Drop new BTS", "and ATS", "and AVO" )#, "Fix BTS Sel.")
 # BTS age compositions included through 2023
 # "Sept version",
 # "2023 AVO point",
@@ -46,7 +46,7 @@ mod_names <- c(
 # but with Hulsons BTS input sample sizes
 
 mod_dir <- c("lastyr",
-  "m23","m1", "m2", "m3", "fixsel_bts")
+  "m23","m1", "m2", "m3")#, "fixsel_bts")
 # mod_names <- c("MSY=1.2","Fmsy=F35%", "Base est.")
 # mod_dir <- c("condmn", "condF35", "m8")
 # WARNING,  commented out line will re-run all the models in the mod_dir directories within "runs"
@@ -58,7 +58,7 @@ mod_dir <- c("lastyr",
 modlst <- get_results(rundir = "2024/runs")
 # names(modlst)
 M <<- modlst[[thismod]]
-Fix <<- modlst[[6]]
+#Fix <<- modlst[[6]]
 #M <<- modlst[[3]];saveRDS(M, "~/m8.rds")
 
 #.MODELDIR <<- paste0("2023_runs/", mod_dir, "/")
