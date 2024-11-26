@@ -1,0 +1,147 @@
+---
+format: 
+  pdf:
+    number-sections: false
+    includes:
+geometry: margin=1in
+editor_options: 
+  chunk_output_type: console
+---
+# Parameter estimates for the EBS pollock reference model 
+
+The names and dimensions of parameters used in model 23 are shown in @tbl-pardim. The parameter estimates and standard deviations are shown in @tbl-params.
+
+```{r parsetup, include=FALSE}
+#| warning: false
+#| output: false
+#| echo: false
+#| message: false
+#source(here::here("R","pm24.R"))
+
+#M <- read_admb(here("2024/runs/m23/pm"))
+#names(M$fit) 
+#length(M$fit$maxgrad) 
+#(M$fit$npar) 
+#(M$fit$nopar)
+#M <- pm
+
+pm <- data.frame("est"=M$fit$est, "sd"=M$fit$std, "Name"=M$fit$names)[1:M$fit$nopar,]
+
+#glimpse(pm)
+#unique(pm$Name)
+#tb<-table(pm$Name)
+#gt::gt(tb)
+# Load necessary packages
+#library(dplyr)
+
+# Sample data frame
+df <- data.frame(Name=pm$Name)
+
+#glimpse(df)ktes of unique elements in 'column1'
+counts <- df %>%
+  count(Name) %>%
+  rename(Element = Name, Count = n)
+
+# Create a nicely formatted table using gt
+library(gt)
+gt_table <- counts %>%
+  gt() %>%
+  tab_header(
+    title = "Number of parameters",
+    subtitle = "and dimensions"
+  ) %>%
+  cols_label(
+    Element = "Parameter name",
+    Count = "N"
+  ) %>%
+  fmt_number(
+    columns = c(Count),
+    decimals = 0
+  ) %>%
+  tab_style(
+    style = cell_text(weight = "bold"),
+    locations = cells_column_labels()
+  ) %>%
+  opt_table_outline() %>%
+  opt_row_striping() %>%
+  grand_summary_rows(
+    columns = c(Count),
+    fns = list(Total = "sum"),
+    formatter = fmt_number,
+    decimals = 0
+  )
+```
+
+```{r pardim}
+#| label: tbl-pardim
+#| echo: false
+#| message: false
+#| warning: false
+#| tbl-cap:  "Parameter labels and dimensions used in the EBS pollock model 23."
+# Print the gt table
+gt_table
+
+```
+
+\clearpage
+
+```{r params}
+#| warning: false
+#| echo: false
+#| message: false
+#| label: tbl-params
+#| tbl-cap:   "Parameter estimates and standard dfor the EBS pollock Model 23."
+source(here::here("R","pm24.R"))
+
+#M <- read_admb(here("2024/runs/m23/pm"))
+#names(M$fit) 
+#length(M$fit$maxgrad) 
+#(M$fit$npar) 
+#(M$fit$nopar)
+#M <- pm
+
+pm <- data.frame("est"=M$fit$est, "sd"=M$fit$std, "Name"=M$fit$names)[1:M$fit$nopar,]
+df <- data.frame(Name=pm$Name, Est=pm$est, SD=pm$sd)
+npars <- length(df$Name) 
+
+#glimpse(df)
+data_split <- bind_cols(df[1:(npars/2), ], df[(npars/2+1):npars, ])
+names(data_split) <- c("Element1", "Est1", "SD1", "Element2", "Est2", "SD2")
+# Create a nicely formatted table using gt
+gt_table <- data_split %>%
+  gt() %>%
+  tab_header(
+    title = "List of parameters",
+  ) %>%
+  cols_label(
+    Element1 = "Parameter",
+    Est1 = "Est.", 
+    SD1  = "Stdev.", 
+    Element2 = "Parameter",
+    Est2 = "Est.",
+    SD2  = "Stdev."
+  ) %>%
+  tab_style(
+    style = cell_text(weight = "bold"),
+    locations = cells_column_labels()
+  ) %>% 
+  fmt_number(
+    columns = c(Est1, SD1, Est2, SD2),
+    decimals = 3
+  )  |> 
+  tab_style(
+    style = cell_borders(
+      sides = "right",
+      color = "grey",
+      weight = px(1)
+    ),
+    locations = cells_body(
+      columns = SD1
+    )
+    )
+gt_table 
+   #%>% #  opt_table_outline() %>% #  opt_row_striping()  # Print the gt table
+#pmtmp <- M$fit |> mutate(data.frame(Param=names))
+```
+
+
