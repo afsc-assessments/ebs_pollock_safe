@@ -1,0 +1,263 @@
+---
+title: "environmental/ecosystem"
+format: pdf
+---
+
+# Appendix Risk table information for environmental/ecosystem considerations {#sec-ecorisk}
+
+Provided by: Elizabeth Siddon, NOAA/AFSC
+
+
+## Environmental processes
+
+The eastern Bering Sea (EBS) experienced a prolonged period of above-average
+thermal conditions from 2014 through 2021. Since 2021, and continuing from
+August 2023–August 2024, thermal conditions in the EBS have been close to
+historical baselines of many metrics. There have been no sustained marine
+heatwaves over the southeastern or northern Bering Sea shelves since January
+2021 (Callahan and Lemagie, 2024), and observed (Rohan and Barnett, 2024) and
+modeled (Kearney, 2024) bottom temperatures were mostly near-normal over the
+past year. Sea surface temperatures (SSTs) and bottom temperatures were near the
+long-term means in all regions by summer 2024. Notable deviations include (i)
+warm SSTs in the outer domain from fall 2023 through spring 2024 and (ii)
+unusually warm bottom temperatures in the northern outer domain since spring
+2024 that may indicate an intrusion of shelf water (Callahan et al., 2024).
+
+Age-0 fish experiencing warm temperatures during late summer followed by
+relatively cooler temperatures in spring of age-1 are thought to have below
+average survival. Based on this Temperature Change index, the 2023 year class of
+pollock experienced average late summer temperatures in 2023 during the age-0
+stage and cooler spring temperatures in 2024 during the age-1 stage indicating
+average conditions for the overwintering survival from age-0 to age-1
+(Yasumiishi, 2024).
+
+Atmospheric conditions are one of the primary drivers that impact the
+oceanographic setting in the EBS. Both the North Pacific Index (NPI) and
+Aleutian Low Index (ALI) provide complementary views of the atmospheric pressure
+system in the North Pacific. During winter 2023-2024, the NPI was average
+(Siddon, 2024) and the strength and location of the Aleutian Low Pressure System
+were both near climatological averages (Overland and Wang, 2024). Thus, despite
+delayed formation of sea ice in fall 2023 (Thoman, 2024), cold winds from the
+Arctic helped advance sea ice to near-normal extent by mid-winter. Near-normal
+sea ice extent and thickness (Thoman, 2024b, 2024c) may have contributed to a
+cold pool (<2°C water) of average spatial extent (Siddon, 2024), though the
+footprint of the coldest waters (<0°C) in 2024 was 75% smaller than in 2023
+(Rohan and Barnett, 2024b). 
+
+December 2023 had significant along-shelf winds (to the southeast) that could
+have driven offshore Ekman transport. Weaker, but more sustained winds that also
+favored offshore transport occurred from March to May 2024 (Hennon, 2024).
+Beginning in May and continuing through summer 2024, persistent storms resulted
+in a deeper mixed layer, which entrained deeper, cooler water, such that SSTs
+remained cooler through at least August 2024 (Stabeno, 2024). During the fall
+BASIS survey, age-0 pollock were found shallower in the water column, more
+comparable to a warm year (Spear and Andrews, 2024).
+
+For projections into 2025, the National Multi-Model Ensemble (NMME) predicts
+that SSTs over the EBS are expected to be near normal (anomalies within <0.5°C
+of the 1982–2010 baseline) (Lemagie, 2024). With the expected transition to La
+Niña, cooler conditions in the EBS may follow. Relatively cool SSTs may
+contribute to earlier formation of sea ice than has been observed over the last
+several years (Thoman, 2024b). 
+
+
+
+## Prey
+Metrics of ocean acidification include Ωarag and pH. Ωarag is important for
+shell formation in pollock prey items like pteropods. Summer 2024 bottom water
+Ωarag conditions were similar to 2023; bottom waters remain near threshold
+levels of biological significance with the most corrosive bottom waters found in
+slope waters and over the northwest shelf (Pilcher et al., 2024).
+
+Small copepods form the prey base for larval to early juvenile pollock during
+spring. Late juvenile pollock feed on a variety of planktonic crustaceans,
+including large calanoid copepods and euphausiids. The Rapid Zooplankton
+Assessment in the southeastern Bering Sea (SEBS) in spring noted moderate
+abundance of small copepods, but low abundance of large copepods along the
+middle shelf (higher in the outer shelf) and near-zero abundance of euphausiids
+in the RZA, which is typical for the spring. In summer, small copepods remained
+abundant throughout the region. Large copepods remained in low abundance while
+euphausiids increased, especially towards the northern portion of the SEBS.
+Euphausiid density during the summer acoustic survey declined in 2024 to the
+second-lowest value in the time series (Levine and Ressler, 2024). In fall, both
+small and large copepods as well as euphausiids were in low abundance, but
+increased towards the north. In the northern Bering Sea (NBS) in fall, small
+copepods had moderate and consistent abundances throughout the sampling grid,
+large copepods were patchy with the highest values north and south of St.
+Lawrence Island, and euphausiids were very low (Kimmel et al., 2024). 
+
+Based on Food Habits Lab stomach content analysis, pollock consumption of
+copepods increased from 2023 to 2024, replacing euphausiids as the greatest
+percent by weight in the diets (K. Aydin, pers comm). This may be explained by
+the spatial distribution of the pollock stock in 2024, which was concentrated
+over the northwest outer domain (L. Barnett, pers comm), where large ‘oceanic’
+copepods occur (euphausiids mainly occur over the middle domain). Additionally,
+rates of cannibalism have been low between 2021-2024; the lowest year for
+cannibalism on record was 2018 (K. Aydin, pers comm).
+
+The estimated abundance of larval pollock sampled in spring increased from near
+the end of the last cold stanza (2012) through the warm stanza (2014, 2016,
+2018) to a time-series maximum in 2024 (Rogers et al., 2024). The condition of
+those larval pollock was highest over the southeastern shelf and lowest to the
+northwest of the Pribilof Islands (Porter et al., 2024). By late summer, age-0
+pollock CPUE estimates in the middle domain of the SEBS and NBS regions were
+lower than estimates from the recent warm period (2014–2021) but slightly higher
+than estimates from the cold period (2007–2013) (Andrews et al., 2024). In the
+inner domain, pollock were the most numerous non-salmonid species collected in
+the ADF&G nearshore survey (Garcia et al., 2024). In the NBS, CPUE estimates
+have remained low compared to the SEBS (Andrews et al., 2024). Since 2022, with
+cooler SSTs, pollock weights and energy density have been low while % lipid has
+been average (Page et al., 2024).
+
+In the SEBS, juvenile (100-250 mm) fish condition has shown a declining trend
+since 2021 while adult (>250 mm) fish condition increased from 2023 to 2024, but
+remains below the long-term mean. In the NBS (data through 2023), juvenile fish
+condition has also declined since 2021, but adult fish condition increased since
+2021 and was above average in 2023 (Prohaska et al., 2024). The availability of
+surface silicate, a proxy for phytoplankton growth, serves as an indicator of
+age-0 pollock condition. Low silicate availability and significant declines in
+pollock weight observed in 2022 may signal poorer recruitment to age-1 for the
+2022 year class (Gann and Eisner, 2024). 
+
+## Competitors
+Jellyfish feed primarily on zooplankton and small fish, and therefore may
+compete for prey resources for both juvenile and adult life stages of pollock.
+The biomass of jellyfish over the southeastern shelf in 2024 remained low
+(Yasumiishi et al., 2024) to average (Buser and Rohan, 2024) while biomass
+remained high in the NBS (Yasumiishi et al., 2024). The 2024 forecast for Togiak
+herring was the fifth highest on record, but was 32% lower than the 2023
+forecast (Dressel et al., 2024).
+
+Western Alaska chum salmon showed trends of increasing adult returns, juvenile
+abundance, and above-average to average juvenile condition in recent years,
+which indicates potential signs of recovery for these populations. In contrast,
+western Alaska Chinook salmon do not appear to show signs of recovery in
+response to the recent cooler conditions observed since 2021. The abundance of
+Bristol Bay sockeye salmon peaked in 2021-2022, but cooler conditions since then
+have resulted in run sizes closer to the long-term average in 2023-2024
+(DeFilippo, 2024). The condition (based on energy density anomalies) of juvenile
+pink, chum, coho, and Chinook salmon in the SEBS indicated lower energy stores
+and reduced capacity for overwinter survival. Juvenile salmon in the NBS had
+average to positive energy stores, which may contribute to higher overwinter
+survival (Fergusson et al., 2024).
+
+The biomass of pelagic foragers measured during the standard bottom trawl survey 
+(Jun-Aug; 1982–2024) increased 71% from 2023 to 2024 to just above their
+long-term mean. The trend is largely driven by pollock, which increased 78% from 2023. Pacific
+herring decreased 5% from 2023, but remain above their long-term mean (Siddon,
+2024). The impacts of recent large year classes of sablefish to the EBS
+ecosystem (as prey, predators, and competitors) remain largely unknown at this
+time, but may compete with pollock for prey resources as juveniles.
+
+## Predators
+
+Pollock are cannibalistic and rates of cannibalism might be expected to increase
+as the biomass of older, larger fish increases (i.e., the aging of the large
+2018 year class). However, rates of cannibalism have been low between 2021-2024
+(K. Aydin, pers comm). In 2024, with an average cold pool extent over the shelf,
+predation pressure from cannibalism may have been mitigated by this thermal
+barrier as adult pollock tend to avoid the cold bottom waters. 
+
+Other potential predators of juvenile pollock include arrowtooth flounder,
+jellyfish and chum salmon. In the SEBS, the biomass of apex predators, which
+includes arrowtooth flounder, in 2024 remained just below the long term mean of
+that guild. Within that guild, however, arrowtooth flounder increased 26% from
+2023 to 2024 (Siddon, 2024). Arrowtooth were distributed over the southern outer
+domain while pollock were distributed over the northern outer domain. As stated
+above, jellyfish biomass in the SEBS in 2024 remained low (Yasumiishi et al.,
+2024) to average (Buser and Rohan, 2024) while biomass was high in the NBS
+(Yasumiishi et al., 2024). Western Alaska chum salmon showed trends of
+increasing adult returns (DeFilippo, 2024).
+
+
+## Summary for Environmental/Ecosystem considerations: 
+
+  * **Environment:**  The EBS shelf experienced oceanographic conditions that
+  were largely average based on historical time series of multiple metrics over
+  the past year (August 2023 - August 2024). 
+
+  * **Prey:** Trends of prey for pollock were mostly low in 2024, with prey
+  conditions over the SEBS shelf being potentially more limiting while prey
+  conditions over the NBS shelf appear limiting for age-0 and juvenile pollock,
+  but sufficient for adult fish. The spatial distribution of adult pollock
+  appears to have overlapped with large ‘oceanic’ copepods, while rates of
+  cannibalism indicate reduced overlap with juvenile pollock. 
+  
+  *  **Competitors**: Trends in potential competitors were mixed over the shelf,
+  with pollock representing the greatest increase in biomass and potential
+  competitive
+  pressure.
+  
+  * **Predators**: Trends in potential predators increased over the shelf,
+  though spatial mismatch may mitigate realized predation pressure. Rates of
+  cannibalism remained low in 2024.
+
+Together, the most recent data available suggest an ecosystem risk Level 1 –
+Normal: *“No apparent ecosystem concerns related to biological status (e.g.,
+environment, prey, competition, predation), or minor concerns with uncertain
+impacts on the stock.”*
+
+
+
+## Additional references 
+
+Andrews, A., E. Yasumiishi, A. Spear, J. Murphy, and A. Dimond. 2024. Catch Estimates of Age-0 Walleye Pollock from Surface Trawl Surveys, 2003–2024. In: Siddon, E. 2024. Ecosystem Status Report 2024: Eastern Bering Sea, Stock Assessment and Fishery Evaluation Report, North Pacific Fishery Management Council, 1007 West 3rd Ave., Suite 400, Anchorage, Alaska 99501.
+
+Buser, T., and S. Rohan. 2024. Eastern Bering Sea – Jellyfishes. In: Siddon, E. 2024. Ecosystem Status Report 2024: Eastern Bering Sea, Stock Assessment and Fishery Evaluation Report, North Pacific Fishery Management Council, 1007 West 3rd Ave., Suite 400, Anchorage, Alaska 99501.
+
+Callahan, M., and E. Lemagie. 2024. Bering Sea SST anomalies. In: Physical Environment Synthesis. In: Siddon, E. 2024. Ecosystem Status Report 2024: Eastern Bering Sea, Stock Assessment and Fishery Evaluation Report, North Pacific Fishery Management Council, 1007 West 3rd Ave., Suite 400, Anchorage, Alaska 99501.
+
+Callahan, M., K. Kearney, and E. Lemagie. 2024. Bering Sea SST and Bottom Temperature Trends. In: Physical Environment Synthesis. In: Siddon, E. 2024. Ecosystem Status Report 2024: Eastern Bering Sea, Stock Assessment and Fishery Evaluation Report, North Pacific Fishery Management Council, 1007 West 3rd Ave., Suite 400, Anchorage, Alaska 99501.
+
+DeFilippo, L. 2024. 2024 Salmon Summary and Synthesis. In: Siddon, E. 2024. Ecosystem Status Report 2024: Eastern Bering Sea, Stock Assessment and Fishery Evaluation Report, North Pacific Fishery Management Council, 1007 West 3rd Ave., Suite 400, Anchorage, Alaska 99501.
+
+Dressel, S., S. Miller, C. Brown, and J. Erickson. 2024. Togiak Herring Population Trends. In: Siddon, E. 2024. Ecosystem Status Report 2024: Eastern Bering Sea, Stock Assessment and Fishery Evaluation Report, North Pacific Fishery Management Council, 1007 West 3rd Ave., Suite 400, Anchorage, Alaska 99501.
+
+Fergusson, E., R. Suryan, T. Miller, J. Murphy, and A. Andrews. 2024. Juvenile Salmon Condition Trends in the Eastern Bering Sea. In: Siddon, E. 2024. Ecosystem Status Report 2024: Eastern Bering Sea, Stock Assessment and Fishery Evaluation Report, North Pacific Fishery Management Council, 1007 West 3rd Ave., Suite 400, Anchorage, Alaska 99501.
+
+Gann, J., and L. Eisner. 2024. Implications for Pollock Recruitment to Age-1 Based on Late Summer Surface Silicic Acid and Age-0 Pollock Weights. In: Siddon, E. 2024. Ecosystem Status Report 2024: Eastern Bering Sea, Stock Assessment and Fishery Evaluation Report, North Pacific Fishery Management Council, 1007 West 3rd Ave., Suite 400, Anchorage, Alaska 99501.
+
+Garcia, S., K. Howard, and B. Gray. 2024. Alaska Department of Fish & Game Nearshore Survey. In: Siddon, E. 2024. Ecosystem Status Report 2024: Eastern Bering Sea, Stock Assessment and Fishery Evaluation Report, North Pacific Fishery Management Council, 1007 West 3rd Ave., Suite 400, Anchorage, Alaska 99501.
+
+Hennon, T. 2024. Winds at the Shelf Break. In: Physical Environment Synthesis. In: Siddon, E. 2024. Ecosystem Status Report 2024: Eastern Bering Sea, Stock Assessment and Fishery Evaluation Report, North Pacific Fishery Management Council, 1007 West 3rd Ave., Suite 400, Anchorage, Alaska 99501.
+
+Kearney, K. 2024. Cold Pool Extent - ROMS. In: Physical Environment Synthesis. In: Siddon, E. 2024. Ecosystem Status Report 2024: Eastern Bering Sea, Stock Assessment and Fishery Evaluation Report, North Pacific Fishery Management Council, 1007 West 3rd Ave., Suite 400, Anchorage, Alaska 99501.
+
+Kimmel, D., K. Axler, D. Crouser, H.W. Fennie, A. Godersky, J. Lamb, J. Murphy, S. Porter, and B. Snyder. 2024. Current and Historical Trends for Zooplankton in the Bering Sea. In: Siddon, E. 2024. Ecosystem Status Report 2024: Eastern Bering Sea, Stock Assessment and Fishery Evaluation Report, North Pacific Fishery Management Council, 1007 West 3rd Ave., Suite 400, Anchorage, Alaska 99501.
+
+Lemagie, E. 2024. Seasonal Projections from the National Multi-Model Ensemble (NMME). In: Physical Environment Synthesis. In: Siddon, E. 2024. Ecosystem Status Report 2024: Eastern Bering Sea, Stock Assessment and Fishery Evaluation Report, North Pacific Fishery Management Council, 1007 West 3rd Ave., Suite 400, Anchorage, Alaska 99501.
+
+Levine, M., and P. Ressler. 2024. Eastern Bering Sea Euphausiids (‘Krill’). In: Siddon, E. 2024. Ecosystem Status Report 2024: Eastern Bering Sea, Stock Assessment and Fishery Evaluation Report, North Pacific Fishery Management Council, 1007 West 3rd Ave., Suite 400, Anchorage, Alaska 99501.
+
+Overland, J. and M. Wang. 2024. Wintertime Aleutian Low Index. In: Physical Environment Synthesis. In: Siddon, E. 2024. Ecosystem Status Report 2024: Eastern Bering Sea, Stock Assessment and Fishery Evaluation Report, North Pacific Fishery Management Council, 1007 West 3rd Ave., Suite 400, Anchorage, Alaska 99501.
+
+Page, J., J. Maselko, R. Suryan, T. Miller, E. Siddon, E. Fergusson, C. Mattson, A. Masterman, and B. Cormack. 2024. Fall Condition of Young-Of-The-Year Walleye Pollock in the Southeastern and Northern Bering Sea, 2002–2024. In: Siddon, E. 2024. Ecosystem Status Report 2024: Eastern Bering Sea, Stock Assessment and Fishery Evaluation Report, North Pacific Fishery Management Council, 1007 West 3rd Ave., Suite 400, Anchorage, Alaska 99501.
+
+Pilcher, D., J. Cross, N. Monacci, E. Kennedy, E. Siddon, and W.C. Long. 2024. Ocean Acidification. In: Siddon, E. 2024. Ecosystem Status Report 2024: Eastern Bering Sea, Stock Assessment and Fishery Evaluation Report, North Pacific Fishery Management Council, 1007 West 3rd Ave., Suite 400, Anchorage, Alaska 99501.
+
+Porter, S., K. Axler, W. Fennie, D. Kimmel, L. Nave-Powers, N. Roberson, L. Rogers, and B. Snyder. 2024. Morphometric Condition of Walleye Pollock Larvae. In: Siddon, E. 2024. Ecosystem Status Report 2024: Eastern Bering Sea, Stock Assessment and Fishery Evaluation Report, North Pacific Fishery Management Council, 1007 West 3rd Ave., Suite 400, Anchorage, Alaska 99501.
+
+Prohaska, B., R. Howard, and S. Rohan. 2024. Eastern and Northern Bering Sea Groundfish Condition. In: Siddon, E. 2024. Ecosystem Status Report 2024: Eastern Bering Sea, Stock Assessment and Fishery Evaluation Report, North Pacific Fishery Management Council, 1007 West 3rd Ave., Suite 400, Anchorage, Alaska 99501.
+
+Rogers, L., K. Axler, W. Fennie, L. Nave-Powers, B. Snyder, and N. Roberson. 2024. Abundance and Distribution of Larval Fishes in the Southeastern Bering Sea 2012–2024. In: Siddon, E. 2024. Ecosystem Status Report 2024: Eastern Bering Sea, Stock Assessment and Fishery Evaluation Report, North Pacific Fishery Management Council, 1007 West 3rd Ave., Suite 400, Anchorage, Alaska 99501.
+
+Rohan, S., and L. Barnett. 2024. Summer Temperatures. In: Physical Environment Synthesis. In: Siddon, E. 2024. Ecosystem Status Report 2024: Eastern Bering Sea, Stock Assessment and Fishery Evaluation Report, North Pacific Fishery Management Council, 1007 West 3rd Ave., Suite 400, Anchorage, Alaska 99501.
+
+Rohan, S., and L. Barnett. 2024b. Cold Pool Extent - AFSC Bottom Trawl Survey. In: Physical Environment Synthesis. In: Siddon, E. 2024. Ecosystem Status Report 2024: Eastern Bering Sea, Stock Assessment and Fishery Evaluation Report, North Pacific Fishery Management Council, 1007 West 3rd Ave., Suite 400, Anchorage, Alaska 99501.
+
+Siddon, E. 2024. Southeastern Bering Sea Report Card. In: Siddon, E. 2024. Ecosystem Status Report 2024: Eastern Bering Sea, Stock Assessment and Fishery Evaluation Report, North Pacific Fishery Management Council, 1007 West 3rd Ave., Suite 400, Anchorage, Alaska 99501.
+
+Spear, A., and A. Andrews. 2024. Vertical Distribution of Age-0 Pollock in the Southeastern Bering Sea. In: Siddon, E. 2024. Ecosystem Status Report 2024: Eastern Bering Sea, Stock Assessment and Fishery Evaluation Report, North Pacific Fishery Management Council, 1007 West 3rd Ave., Suite 400, Anchorage, Alaska 99501.
+
+Stabeno, P. 2024. Mixed Layer Depth at Mooring M2. In: Physical Environment Synthesis. In: Siddon, E. 2024. Ecosystem Status Report 2024: Eastern Bering Sea, Stock Assessment and Fishery Evaluation Report, North Pacific Fishery Management Council, 1007 West 3rd Ave., Suite 400, Anchorage, Alaska 99501.
+
+Thoman, R.. 2024. Early Season Ice Extent. In: Physical Environment Synthesis. In: Siddon, E. 2024. Ecosystem Status Report 2024: Eastern Bering Sea, Stock Assessment and Fishery Evaluation Report, North Pacific Fishery Management Council, 1007 West 3rd Ave., Suite 400, Anchorage, Alaska 99501.
+
+Thoman, R. 2024b. Bering Sea Daily Ice Extent. In: Physical Environment Synthesis. In: Siddon, E. 2024. Ecosystem Status Report 2024: Eastern Bering Sea, Stock Assessment and Fishery Evaluation Report, North Pacific Fishery Management Council, 1007 West 3rd Ave., Suite 400, Anchorage, Alaska 99501.
+
+Thoman, R. 2024c. Sea Ice Thickness. In: Physical Environment Synthesis. In: Siddon, E. 2024. Ecosystem Status Report 2024: Eastern Bering Sea, Stock Assessment and Fishery Evaluation Report, North Pacific Fishery Management Council, 1007 West 3rd Ave., Suite 400, Anchorage, Alaska 99501.
+
+Yasumiishi, E. 2024. Pre- and Post-Winter Temperature Change Index and the Recruitment of Bering Sea Pollock. In: Siddon, E. 2024. Ecosystem Status Report 2024: Eastern Bering Sea, Stock Assessment and Fishery Evaluation Report, North Pacific Fishery Management Council, 1007 West 3rd Ave., Suite 400, Anchorage, Alaska 99501.
+ 
+Yasumiishi, E.,  A. Andrews, J. Murphy, and A. Dimond. 2024. Jellyfish from Surface Trawl Surveys, 2004–2024. In: Siddon, E. 2024. Ecosystem Status Report 2024: Eastern Bering Sea, Stock Assessment and Fishery Evaluation Report, North Pacific Fishery Management Council, 1007 West 3rd Ave., Suite 400, Anchorage, Alaska 99501.
+
