@@ -4095,6 +4095,7 @@ if (FALSE) {
   write_csv(byc, "doc/data/bycatch.csv")
 }
 byc <- read_csv("doc/data/bycatch.csv")
+byc <- as.data.frame(byc)
 
 # byc <- read.csv("data/byc_of_pollock.csv",header=T)
 for (i in 2:length(byc[1, ])) {
