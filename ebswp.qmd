@@ -21,6 +21,7 @@ author:
 date: 11/11/2024
 date-format: "MMMM YYYY"
 bibliography: doc/references.bib
+csl: cjfas.csl
 header-includes:
   - \usepackage{multirow}
   - \usepackage{hyperref}
@@ -265,7 +266,8 @@ less prior influence) assumptions about the stock-recruitment relationship were 
 
 ## Response to SSC and Plan Team comments
 
-Please see the [Sept. 2024 document](https://afsc-assessments.github.io/ebs_pollock_safe/doc/sept.html#responses-to-ssc-and-plan-team-comments)
+Please see the [Sept. 2024 document]( https://www.npfmc.org/library/safe-reports/2024/EBSpollock_sept.pdf#page=5)
+<!-- https://afsc-assessments.github.io/ebs_pollock_safe/doc/sept.html#responses-to-ssc-and-plan-team-comments -->
 for a more comprhensive response to the SSC and Plan Team comments.
 
 -   The SSC recommends that Tier 1, 2 and 3 harvest recommendations be presented in
@@ -1320,7 +1322,8 @@ the model can be categorized as:
 
 Work evaluating temperature and predation-dependent effects on the
 stock- recruitment estimates continues (@Spencer2016) and was presented
-in the  [Sept. 2024 document](https://afsc-assessments.github.io/ebs_pollock_safe/doc/sept.html).
+<!-- in the  [Sept. 2024 document](https://afsc-assessments.github.io/ebs_pollock_safe/doc/sept.html). -->
+in the [Sept. 2024 document]( https://www.npfmc.org/library/safe-reports/2024/EBSpollock_sept.pdf).
 This approach modified the estimation of the stock-recruitment relationship by
 including the effect of temperature and predation mortality. A
 relationship between recruitment residuals and temperature was noted
@@ -1396,8 +1399,8 @@ outlier residuals (@fig-mod_osa).
 
 ### Sensitivity to model specification
 
-In the [September 2024 assessment
-evaluation](https://afsc-assessments.github.io/ebs_pollock_safe/doc/sept.html)
+<!-- In the [September 2024 assessment evaluation](https://afsc-assessments.github.io/ebs_pollock_safe/doc/sept.html) -->
+In the [Sept. 2024 document]( https://www.npfmc.org/library/safe-reports/2024/EBSpollock_sept.pdf).
 a detailed set of sensitivities were presented regarding assumptions
 about the stock-recruitment relationship (SRR). Additionally, an alternative natural
 mortality-at-age and year matrix (from the CEATTLE model results) was tested along
@@ -3702,8 +3705,8 @@ gt_table <- gt(data = tmp_df) %>%
     decimals = 2
   ) %>%
   tab_options(
-    table.font.size = "small"
-  )
+    table.font.size = "small",
+    latex.use_longtable = TRUE )
 
 # Print the gt table
 gt_table
@@ -4094,7 +4097,7 @@ if (FALSE) {
   byc <- data.frame(byc)
   write_csv(byc, "doc/data/bycatch.csv")
 }
-byc <- read_csv("doc/data/bycatch.csv")
+byc <- read_csv("doc/data/bycatch.csv", show_col_types = FALSE )
 byc <- as.data.frame(byc)
 
 # byc <- read.csv("data/byc_of_pollock.csv",header=T)
@@ -4105,10 +4108,9 @@ cap <- tabcap[38]
 lab <- tablab[38]
 tab <- xtable::xtable(byc, caption = cap, label = paste0("tbl:", tablab[38]), digits = 0, 
        auto = TRUE, align = rep("r", (length(byc[1, ]) + 1)))
-print(tab,
-  caption.placement = "top", include.rownames = FALSE, rotate.colnames = FALSE, 
+print(tab, caption.placement = "top", include.rownames = FALSE, rotate.colnames = FALSE, 
   sanitize.text.function = function(x) { x },
-  scalebox = .90, format.args = list(decimal.mark = "."), comment = FALSE
+  scalebox = .80, format.args = list(decimal.mark = "."), comment = FALSE
 )
 ```
 

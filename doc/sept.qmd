@@ -3,7 +3,7 @@ output: html
 title: "Eastern Bering Sea walleye pollock stock assessment"
 subtitle: September 2024
 author: "Jim Ianelli and Carey McGilliard"
-date: "`r format(Sys.time(), '%B %d, %Y %H:%M')`"
+date: September 2024
 editor_options: 
   chunk_output_type: console
 editor: 
