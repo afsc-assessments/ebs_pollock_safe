@@ -816,7 +816,7 @@ M <- modlst[[1]]
 #| echo: false
 #| warnings: FALSE
 #| message: FALSE
-#| eval: 
+#| eval: TRUE
 #| label: fig-selsrrplot
 #| fig.cap: 'SRR curves as estimated using the historical estimates of annual selectivities.'
 # names(modlst)
@@ -1445,7 +1445,6 @@ loadup<-FALSE
 #loadup<-TRUE
 if (loadup){
   source(here::here("GetResults.R"))
-  
   r1 <- ss_run<-SS_obj()
   ra <- SS_obj(SS_output(dir = here("ss","noramp"),verbose=FALSE),src="noramp") 
   r2 <- SS_obj(SS_output(dir = here("ss","mod")),src="mod")  
